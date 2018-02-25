@@ -1,6 +1,7 @@
 Prerequisites:
 
   The Dead Man’s Switch service has private key “**DPriv**” & public key “**DPub**"
+  
   The Uploader has private key “**UPriv**” & public key “**UPub**”
   The Recipient has private key “**RPriv**” & public key “**RPub**”
 
