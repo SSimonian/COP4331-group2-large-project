@@ -4,8 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 var index = require('./api/routes/index');
+var signup = require('./api/routes/signup');
+var login = require('./api/routes/login');
+var profile = require('./api/routes/profile');
 var users = require('./api/routes/users');
 
 var app = express();
@@ -15,8 +19,14 @@ var app = express();
 // ============================================================================================= //
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
+
+// Discovers public and views directories.
+app.engine('.html', require('ejs').__express);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'html');
+app.use(express.static(path.join(__dirname, 'public')));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -43,7 +53,29 @@ app.use(function(req, res, next) {
 });
 // ============================================================================================= //
 
+// ============================================================================================= //
+// MongoDB Connection                                                                            //
+// ============================================================================================= //
+
+// A third party Promise object; Mongoose's Promise is deprecated.
+// For more information about Promises:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+mongoose.Promise = require('bluebird');
+
+// Connect to Database
+const dbUser = process.env.ATLAS_USER || 'cruder';
+const dbPassword = process.env.ATLAS_PW;
+mongoose.connect(
+    'mongodb://' + dbUser + ':' + dbPassword + '@cluster0-shard-00-00-8nsnm.mongodb.net:27017,' +
+    'cluster0-shard-00-01-8nsnm.mongodb.net:27017,cluster0-shard-00-02-8nsnm.mongodb.net:27017/' +
+    'test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin'
+);
+// ============================================================================================= //
+
 app.use('/', index);
+app.use('/signup', signup);
+app.use('/login', login);
+app.use('/profile', profile);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
