@@ -20,7 +20,7 @@ const Document = require('../models/document');
     }
 */
 router.post('/login', function(req, res, next) {
-    const user_name = req.body.username;
+    const user_name = req.body.user_name;
     const password = req.body.password;
     if (user_name && password) {
         User.findOne({user_name: user_name, password: password})
@@ -109,7 +109,7 @@ router.post('/finduser', function(req, res, next) {
     Example:
     {
         "user_name": "admin",
-        "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99"
     }
 */
 router.post('/submituser', function(req, res, next) {
