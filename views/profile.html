@@ -1,41 +1,40 @@
-<!--WillSwitch Profile Page
+<!--Last Word Profile Page
 	HTML Document
 	Author: Eugene Lucino-->
+
+<!-- This page is the home page for a user once they sign in. It contains the "I'm Alive" button,
+	which must be pressed by the user within a certain time frame to keep their information
+	from being released. It also contains buttons for users to edit their information,
+	who will recieve it, and the time frame, among other options. -->
 
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <title>WillSwitch- Your Profile</title>
-    <meta charset = "UTF-8">
-    <meta name="description" content="Dead Man's Switch">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="COP4600 Group 1">
-    <link rel="stylesheet" href="../stylesheets/profile.css">
+	<title>Last Word</title>
+	<meta charset "UTF-8">
+	<meta name="description" content="Dead Man's Switch">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="COP4600 Group 1">
+	<link rel="stylesheet" href="profile.css">
 </head>
 <body>
 
-<h1>Welcome to WillSwitch</h1>
+<h1>Welcome to Last W&Omega;rd</h1>
 
 <div class="imalive">
-    <p> <i>WARNING: Unless you press the "I'm Alive" button, the information you give here </i> </p>
-    <p> <i>will be distributed to your designated recipients after a determined amount of time.</i> </p>
-    <button type="button" id="alive"><b>I'm Alive</b></button>
+	<p> <i>WARNING: Unless you press the "I'm Alive" button, the information you give here </i> </p>
+	<p> <i>will be distributed to your designated recipients after a determined amount of time.</i> </p>
+	<button type="button" id="alive"><b>I'm Alive</b></button>
 </div>
 
 <br> </br>
 
 <div class="editing">
-    <p>Your information is protected. Select a button to add, remove, and edit the information</p>
-    <p>to give out once the switch hits and the people who will recieve it.</p>
-    <button type="button" id="information"><b>Edit Information</b></button>
-    <button type="button" id="receipients"><b>Edit Recipients</b></button>
-</div>
-
-<br> </br>
-
-<div class="options">
-    <p>Set other options, including the time until your information is released.</p>
-    <button type="button" id="Options"><b>Other Options</b></button>
+	<p>Your information is protected. Select a button to change your information,</p>
+	<p>recipients, and other options, including the time until your information is released.</p>
+	<button type="button" id="information"><b>Edit Information</b></button> <br>
+	<button type="button" id="recipients"><b>Edit Recipients</b></button> <br>
+	<button type="button" id="options"><b>Other Options</b></button>
 </div>
 
 </body>
