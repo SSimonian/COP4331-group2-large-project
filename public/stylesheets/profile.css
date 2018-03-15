@@ -1,33 +1,31 @@
-/*	GameOfLife Profile Page
+/*	Last Word Profile Page
 	CSS Document
-	Author: Mark Poulsen */
+	Author: Eugene Lucino */
 
 body {
-    font-family: Helvetica, Arial, sans-serif;
-    background-color: ghostwhite;
+	font-family: Helvetica, Arial, sans-serif;
+	background-color: ghostwhite;
 }
 
 h1 {
-    color: black;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 30px;
-    text-align: center;
-    padding: 50px;
-    padding-bottom: 10px;
+	color: firebrick;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 30px;
+	text-align: center;
+	padding: 10px;
+	padding-bottom: 10px;
 }
 
-br { padding: 100px; }
-
 button {
-    width: 30%;
-    background-color: green;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
+	width: 30%;
+	background-color: green;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	text-align: center;
 }
 
 /* "I'm alive" button */
@@ -38,15 +36,7 @@ button {
 /* Edit info and recipients */
 .editing { text-align: center; }
 .editing button {
-    background-color: sienna;
-    font-size: 20px;
+	background-color: sienna;
+	font-size: 20px;
 }
 .editing button:hover { background-color: saddlebrown; }
-
-/* Additional options */
-.options { text-align: center; }
-.options button {
-    background-color: sienna;
-    font-size: 20px;
-}
-.options button:hover { background-color: saddlebrown; }
