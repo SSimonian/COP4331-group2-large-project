@@ -1,10 +1,10 @@
-/*	GameOfLife Sign Up Page
+/*	Last Word Sign Up Page
 	CSS Document
-	Author: Mark Poulsen */
+	Author: Eugene Lucino */
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: ghostwhite;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: ghostwhite;
 }
 
 /* Full-width input fields */
@@ -14,11 +14,11 @@ input[type=text], input[type=password] {
     margin: 5px 0 22px 0;
     display: inline-block;
     border: 2px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-    outline: none;
+	border-radius: 4px;
+	box-sizing: border-box;
+	-webkit-transition: 0.5s;
+	transition: 0.5s;
+	outline: none;
 }
 
 input[type=text]:focus, input[type=password]:focus {
@@ -41,14 +41,14 @@ button {
 }
 
 .cancelbtn, .signupbtn {
-    width: 40%;
+	width: 40%;
 }
 
 /* Extra styles for the cancel button */
 .cancelbtn {
     padding: 14px 20px;
     background-color: red;
-    margin-right: 5px;
+	margin-right: 5px;
 }
 .cancelbtn:hover { background-color: firebrick; }
 
@@ -56,7 +56,7 @@ button {
 .signupbtn {
     padding: 14px 20px;
     background-color: green;
-    float: right;
+	float: right;
 }
 .signupbtn:hover { background-color: darkgreen; }
 
