@@ -63,8 +63,8 @@ app.use(function(req, res, next) {
 mongoose.Promise = require('bluebird');
 
 // Connect to Database
-const dbUser = process.env.ATLAS_USER || 'cruder';
-const dbPassword = process.env.ATLAS_PW;
+const dbUser = 'cruder';
+const dbPassword = 'BGjKEsEstM84jT1S';
 mongoose.connect(
     'mongodb://' + dbUser + ':' + dbPassword + '@cluster0-shard-00-00-8nsnm.mongodb.net:27017,' +
     'cluster0-shard-00-01-8nsnm.mongodb.net:27017,cluster0-shard-00-02-8nsnm.mongodb.net:27017/' +

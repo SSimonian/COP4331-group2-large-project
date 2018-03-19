@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const User = require('../models/user');
+const Document = require('../models/document');
+
 
 /* POST Login Request. */
 // If status code 204 is returned, the credentials were not provided.
@@ -85,5 +87,39 @@ router.post('/submituser', function(req, res, next) {
         res.status(204).json({error: "Missing user name or password."});
     }
 });
+
+router.post('/uploadDoc', function(req,res,next) {
+	const name = req.body.docName;
+	const content = req.body.content;
+	const date = new Date(req.body.expYear, req.body.expMonth, req.body.expDate, req.body.expHours, req.body.expMinutes, req.body.expSeconds);
+	console.log(date);
+	const resetTime = [req.body.expYear-new Date().getFullYear(), req.body.expMonth-new Date().getMonth(), 
+								(req.body.expDate-new Date().getDate()), (req.body.expHours-new Date().getHours()),
+								(req.body.expMinutes-new Date().getMinutes()), req.body.expSeconds-new Date().getSeconds()];
+	const file = new Document({
+		_id : new mongoose.Types.ObjectId(),
+		docName : name,
+		content : content,
+		expireDate : date,
+		refreshTime : resetTime
+	});
+	file.save()
+	.then(result =>{
+		console.log(result);
+		res.status(201).json({
+			createdDoc : file
+		});
+	})
+	.catch(err=>
+	{
+		console.log(err);
+		res.status(500).json({
+			error : err
+			
+		});
+	});
+});
+
+
 
 module.exports = router;
