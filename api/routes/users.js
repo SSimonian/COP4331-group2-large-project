@@ -62,12 +62,17 @@ router.post('/login', function(req, res, next) {
 router.post('/submituser', function(req, res, next) {
     const user_name = req.body.user_name;
     const password = req.body.password;
+    const public_key = req.body.public_key;
+    const current_time = new Date();
+    console.log("this is the time: " + current_time);
 
-    if (user_name && password) {
+    if (user_name && password && public_key) {
         const user = new User({
             _id: new mongoose.Types.ObjectId(),
             user_name: user_name,
-            password: password
+            password: password,
+            public_key: public_key,
+            last_login: current_time
         });
 
         user.save().then(function(result) {
@@ -82,7 +87,7 @@ router.post('/submituser', function(req, res, next) {
             });
         });
     } else {
-        res.status(204).json({error: "Missing user name or password."});
+        res.status(204).json({error: "Missing user name or password or public_key."});
     }
 });
 
