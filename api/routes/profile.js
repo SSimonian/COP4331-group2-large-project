@@ -1,13 +1,29 @@
 var express = require('express');
 var router = express.Router();
-// /* GET home page. */
-// router.get('/', function(req, res, next) {
-//
-//     res.status(200).json("Congratulations!")
-// });
+const User = require('../models/user');
+ /* GET home page. */
+ router.post('/', function(req, res, next) {
+  if (req.userSession && req.userSession.user) 
+  { 
+    User.findOne({_id: req.userSession.user._id }, function (err, user) {
+      if (!user) {
+        req.userSession.reset();
+        res.redirect('/login');
+      } else {
+        res.locals.user = user;
+        // render the dashboard page
+        res.render('profile');
+      }
+    });
+  } 
+	else 
+	{
+    res.redirect('/login');
+	}
+ });
 
 /* POST home page. */
-router.post('/', function(req, res, next) {
+/*router.post('/', function(req, res, next) {
     const user_name = req.body.username;
     const password = req.body.password;
 
@@ -16,6 +32,7 @@ router.post('/', function(req, res, next) {
 
     res.render('profile');
 });
+*/
 
 router.post('/:documentId', function(req, res, next)
 {
