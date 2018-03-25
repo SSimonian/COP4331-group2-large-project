@@ -22,10 +22,6 @@ const Document = require('../models/document');
 router.post('/login', function(req, res, next) {
     const user_name = req.body.username;
     const password = req.body.password;
-	var session = req.userSession;
-    console.log("User name: " + user_name);
-    console.log("Password: " + password);
-	console.log("session:"+session);
     if (user_name && password) {
         User.findOne({user_name: user_name, password: password})
             .exec()
