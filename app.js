@@ -40,11 +40,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //stuff for passports & sessions
 app.use(clientSessions({
-	cookieName: 'userSession',
-	path: '/',
-	secret: 'cookieStealer', //TODO: make this more secure
-	duration: 600000,
-	activeDuration: 600000
+    cookieName: 'userSession',
+    path: '/',
+    secret: 'cookieStealer', //TODO: make this more secure
+    duration: 600000,
+    activeDuration: 600000
 })); 
 //app.use(passport.initialize());
 //app.use(passport.session()); // persistent login sessions

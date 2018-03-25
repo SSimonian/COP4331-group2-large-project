@@ -16,10 +16,10 @@ const User = require('../models/user');
       }
     });
   } 
-	else 
-	{
+    else 
+    {
     res.redirect('/login');
-	}
+    }
  });
 
 /* POST home page. */
@@ -36,25 +36,25 @@ const User = require('../models/user');
 
 router.post('/:documentId', function(req, res, next)
 {
-	const id = req.params.documentId;
-	Document.findById(id).
-	exec().
-	then(doc=>
-	{
-	doc.expireDate = new Date(new Date().getFullYear()+doc.refreshTime.getFullYear(),
-	new Date().getMonth()+doc.refreshTime.getMonth(), new Date().getDate()+doc.refreshTime.getDate(),
-	new Date().getHours()+doc.refreshTime.getHours(), new Date().getMinutes()+doc.refreshTime.getMinutes(),
-	new Date().getSeconds()+doc.refreshTime.getSeconds());
-	console.log(doc);
-	res.status(201).json(doc);
-	}).
-	catch(err => {
-		console.log(err);
-		res.status(500).json({
-			error : err,
-			message : 'something broke :('
-		});
-	});
+    const id = req.params.documentId;
+    Document.findById(id).
+    exec().
+    then(doc=>
+    {
+    doc.expireDate = new Date(new Date().getFullYear()+doc.refreshTime.getFullYear(),
+    new Date().getMonth()+doc.refreshTime.getMonth(), new Date().getDate()+doc.refreshTime.getDate(),
+    new Date().getHours()+doc.refreshTime.getHours(), new Date().getMinutes()+doc.refreshTime.getMinutes(),
+    new Date().getSeconds()+doc.refreshTime.getSeconds());
+    console.log(doc);
+    res.status(201).json(doc);
+    }).
+    catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error : err,
+            message : 'something broke :('
+        });
+    });
 });
 
 
