@@ -27,7 +27,7 @@ router.post('/:documentId', function(req, res, next)
 	doc.expireDate = new Date(new Date().getFullYear()+doc.refreshTime.getFullYear(),
 	new Date().getMonth()+doc.refreshTime.getMonth(), new Date().getDate()+doc.refreshTime.getDate(),
 	new Date().getHours()+doc.refreshTime.getHours(), new Date().getMinutes()+doc.refreshTime.getMinutes(),
-	new Date().getSeconds()+doc.refreshTime.getSeconds(), new Date().getMilliseconds()+doc.refreshTime.getMilliseconds());
+	new Date().getSeconds()+doc.refreshTime.getSeconds());
 	console.log(doc);
 	res.status(201).json(doc);
 	}).

@@ -31,7 +31,7 @@ router.post('/login', function(req, res, next) {
             .then(function(doc) {
                 console.log(doc);
                 if (doc){
-                    // res.status(200).json(doc);
+                    res.status(200).json(doc);
                     res.redirect(307, '../profile');
                 } else {
                     res.status(204).json({error: "Could not find matching credentials."});
@@ -91,7 +91,7 @@ router.post('/submituser', function(req, res, next) {
 router.post('/uploadDoc', function(req,res,next) {
 	const name = req.body.docName;
 	const content = req.body.content;
-	const date = new Date(req.body.expYear, req.body.expMonth, req.body.expDate, req.body.expHours, req.body.expMinutes, req.body.expSeconds);
+	var date = new Date(req.body.expYear, req.body.expMonth, req.body.expDate, req.body.expHours, req.body.expMinutes, req.body.expSeconds);
 	console.log(date);
 	const resetTime = [req.body.expYear-new Date().getFullYear(), req.body.expMonth-new Date().getMonth(), 
 								(req.body.expDate-new Date().getDate()), (req.body.expHours-new Date().getHours()),
@@ -119,6 +119,28 @@ router.post('/uploadDoc', function(req,res,next) {
 		});
 	});
 });
+
+router.patch('/updateTimer', function(req, res, next) {
+	const docId = req.body.docId;
+	const updateTime = req.body.updateTime;
+	const date = new Date();
+	Document.update({_id : docId}, {$set : {expireDate : new Date(date.getFullYear()+updateTime[0], date.getMonth()+updateTime[1],
+	date.getDate()+updateTime[2], date.getHours()+updateTime[3], date.getMinutes()+updateTime[4], date.getSeconds()+updateTime[5])}})
+	.exec()
+	.then(doc =>{
+		console.log(new Date(date.getFullYear()+updateTime[0], date.getMonth()+updateTime[1],
+	date.getDate()+updateTime[2], date.getHours()+updateTime[3], date.getMinutes()+updateTime[4], date.getSeconds()+updateTime[5]));
+		res.status(200).json(doc);
+	})
+	.catch(err=> {
+		res.status(500).json({
+			error: err,
+			message: 'it broke'
+		})
+	});
+});
+
+
 
 
 
