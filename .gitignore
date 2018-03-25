@@ -57,3 +57,6 @@ freeline_project_description.json
 # Idea
 .idea/
 
+# npm
+node_modules/npm/
+

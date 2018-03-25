@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+var clientSessions = require('client-sessions');
 
 var index = require('./api/routes/index');
 var signup = require('./api/routes/signup');
@@ -36,6 +37,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//stuff for passports & sessions
+app.use(clientSessions({
+	cookieName: 'userSession',
+	path: '/',
+	secret: 'cookieStealer', //TODO: make this more secure
+	duration: 600000,
+	activeDuration: 600000
+})); 
+//app.use(passport.initialize());
+//app.use(passport.session()); // persistent login sessions
+//app.use(flash()); // use connect-flash for flash messages stored in session
+
 // Handling CORS.
 app.use(function(req, res, next) {
     // Allows accepts to any client; hence '*'
@@ -64,7 +77,7 @@ mongoose.Promise = require('bluebird');
 
 // Connect to Database
 const dbUser = 'cruder';
-const dbPassword = '';
+const dbPassword = 'BGjKEsEstM84jT1S';
 mongoose.connect(
     'mongodb://' + dbUser + ':' + dbPassword + '@cluster0-shard-00-00-8nsnm.mongodb.net:27017,' +
     'cluster0-shard-00-01-8nsnm.mongodb.net:27017,cluster0-shard-00-02-8nsnm.mongodb.net:27017/' +
