@@ -45,6 +45,33 @@ router.post('/login', function(req, res, next) {
 
 });
 
+router.post('/finduser', function(req, res, next) {
+    const user_name = req.body.username;
+
+    if (user_name) {
+        User.findOne({user_name: user_name})
+            .exec()
+            .then(function(doc) {
+                console.log(doc);
+                if (doc){
+                    res.status(200).json({
+						"id": doc['_id']
+					});
+                } else {
+                    res.status(204).json({error: "Could not find matching credentials."});
+                }
+            })
+            .catch(function(err) {
+                console.log(err);
+                res.status(500).json({error: err});
+            });
+    } else {
+        res.status(204).json({error: "Credentials not provided."});
+    }
+
+
+});
+
 /* POST Request. */
 // Inserts User.
 /*
