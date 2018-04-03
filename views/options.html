@@ -8,29 +8,38 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-	<title>Last Word</title>
+	<title>Options- Last Word</title>
 	<meta charset "UTF-8">
 	<meta name="description" content="Dead Man's Switch">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="COP4600 Group 2">
 	<link rel="stylesheet" href="../stylesheets/options.css">
+	<link rel="stylesheet" href="../stylesheets/topnav.css">
 </head>
 
 <body>
+
+<div class="topnav">
+	<a class="logo" href="#home" alt="Home" title="Home"><img src="Last Word.png" style="width:36px; height:36px; object-fit: scale-down;"></a>
+	<a class="menulab" href="#about">About Us</a>
+	<a class="menulab" href="#logout" style="float:right">Log Out</a>
+	<a class="menulab" href="#profile" style="float:right">Your Profile</a>
+</div>
 
 <h1>Options</h1>
 
 <div class="optform">
 	<form>
 		Set the time frame that you must log in before the information is
-		released to your selected recipients.
+		released to your selected recipients.&nbsp;&nbsp;&nbsp;
 		<select name="times">
 			<option value="30">30 days</option>
 			<option value="60">60 days</option>
 			<option value="90">90 days</option>
 			<option value="120">120 days</option>
 			<option value="150">150 days</option>
-			<option value="365">1 year</option>
+			<option value="180">180 days</option>
+			<option value="365">365 days</option>
 		</select>
 		<button type="submit" id="submit">Submit</button>
 	</form>
