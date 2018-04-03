@@ -2,9 +2,7 @@
 	CSS Document
 	Author: Eugene Lucino */
 
-body {
-	background-color: ghostwhite;
-}
+body { background-color: linen; }
 
 h1 {
 	color: firebrick;
@@ -12,32 +10,6 @@ h1 {
 	font-size: 50px;
 	text-align: center;
 	padding: 10px;
-	padding-bottom: 10px;
-}
-
-/* Add black background color to the top navigation */
-.topnav {
-	font-family: Helvetica, Arial, sans-serif;
-    background-color: skyblue;
-    overflow: hidden;
-}
-
-.topnav a {
-    float: left;
-	color: black;
-    text-align: center;
-    padding: 4px 20px;
-    text-decoration: none;
-    font-size: 20px;
-}
-
-.topnav a:hover {
-    background-color: gray;
-    color: white;
-}
-
-a.menulab {
-	padding: 10px 20px;
 }
 
 /* Username and Password fields */
@@ -54,9 +26,7 @@ input[type=text], input[type=password] {
 	outline: none;
 }
 /* black border when typing in box */
-input[type=text]:focus, input[type=password]:focus {
-	border: 2px solid #555;
-}
+input[type=text]:focus, input[type=password]:focus { border: 2px solid #555; }
 
 label {
 	width: 50%;
@@ -75,11 +45,10 @@ button {
 	border-radius: 4px;
 	cursor: pointer;
 }
-button[type=submit] { background-color: red; }
-button[type=button] { background-color: green; }
+button[type=submit] { background-color: green; }
+button[type=button] { background-color: green; width: 20%; }
 /* darken button when hovering over */
-button[type=submit]:hover {	background-color: firebrick; }
-button[type=button]:hover {	background-color: darkgreen; }
+button[type=submit]:hover, button[type=button]:hover { background-color: darkgreen; }
 
 div {
 	padding: 10px;
@@ -88,6 +57,4 @@ div {
 }
 
 /* Group and copyright information */
-.footer {
-	text-align: center;
-}
+.footer { text-align: center; }

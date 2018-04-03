@@ -1,0 +1,48 @@
+/* Last Word Recipients CSS
+	Author: Eugene Lucino */
+
+/* Shared styles */
+h1, p { font-family: Helvetica, Arial, sans-serif; }
+
+body { background-color: linen; }
+
+h1 {
+	color: firebrick;
+	font-size: 30px;
+	text-align: left;
+	padding: 10px;
+	padding-left: 50px;
+}
+
+p {
+	font-size: 20px;
+	padding: 10px;
+	padding-left: 50px;
+}
+
+.editing {
+	margin: 0 auto;
+	display: block;
+}
+.editing button {
+	background-color: burlywood;
+    border: 1px solid brown;
+    color: black;
+    padding: 10px 24px;
+    cursor: pointer;
+	font-size: 15px;
+}
+.editing button:hover { background-color: sienna; color: white; }
+
+table, td, th {
+	font-family: arial;
+	border: 2px solid black;
+	border-collapse: collapse;
+}
+
+table.names { margin: 0 auto; }
+
+tr:nth-child(odd) { background-color: white; }
+tr:nth-child(even) { background-color: lightgray; }
+
+td, th { text-align: left; padding: 8px; }
