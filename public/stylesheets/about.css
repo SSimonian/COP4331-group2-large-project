@@ -1,0 +1,18 @@
+/*	Last Word About Us
+	CSS Document
+	Author: Eugene Lucino */
+
+body { background-color: linen; }
+
+h1, h2, p, ul { font-family: Helvetica, Arial, sans-serif; }
+
+p, h2, hr { margin-left: 10px; margin-right: 20px; }
+p, ul {font-size: 15px; line-height: 1.6; }
+
+h1 {
+	color: firebrick;
+	font-size: 30px;
+	padding: 10px;
+}
+
+h2 { font-size: 20px; }
