@@ -1,17 +1,17 @@
 // Imports and constant members.
 const express = require('express');
 const mongoose = require('mongoose');
-const router = express.Router();
+const router = express.Router(null);
+
 const User = require('../models/user');
 const Document = require('../models/document');
-
 
 /* POST Login Request. */
 // If status code 204 is returned, the credentials were not provided.
 /*
     JSON Requirements:
         user_name: String
-        password: String -- must be md5 hashed. TODO replace MD5 hash with different hash.
+        password: String TODO use bcrypt to hash password -- https://github.com/kelektiv/node.bcrypt.js.
 
     Example:
     {
@@ -22,12 +22,14 @@ const Document = require('../models/document');
 router.post('/login', function(req, res, next) {
     const user_name = req.body.user_name;
     const password = req.body.password;
+
     if (user_name && password) {
         User.findOne({user_name: user_name, password: password})
+            .select('-__v')
             .exec()
             .then(function(user) {
                 if (user){
-                    //res.status(200).json(doc);
+                    updateTimes(user);
                     req.userSession.user = user;
                     res.redirect(307, '../profile');
                 } else {
@@ -41,62 +43,6 @@ router.post('/login', function(req, res, next) {
     } else {
         res.status(204).json({error: "Credentials not provided."});
     }
-
-
-});
-
-router.post('/finduser', function(req, res, next) {
-    const user_name = req.body.username;
-
-    if (user_name) {
-        User.findOne({user_name: user_name})
-            .exec()
-            .then(function(doc) {
-                console.log(doc);
-                if (doc){
-                    res.status(200).json({
-                        "id": doc['_id']
-                    });
-                } else {
-                    res.status(204).json({error: "Could not find matching credentials."});
-                }
-            })
-            .catch(function(err) {
-                console.log(err);
-                res.status(500).json({error: err});
-            });
-    } else {
-        res.status(204).json({error: "Credentials not provided."});
-    }
-
-
-});
-
-router.post('/finduser', function(req, res, next) {
-    const user_name = req.body.username;
-
-    if (user_name) {
-        User.findOne({user_name: user_name})
-            .exec()
-            .then(function(doc) {
-                console.log(doc);
-                if (doc){
-                    res.status(200).json({
-                        "id": doc['_id']
-                    });
-                } else {
-                    res.status(204).json({error: "Could not find matching credentials."});
-                }
-            })
-            .catch(function(err) {
-                console.log(err);
-                res.status(500).json({error: err});
-            });
-    } else {
-        res.status(204).json({error: "Credentials not provided."});
-    }
-
-
 });
 
 /* POST Request. */
@@ -104,100 +50,120 @@ router.post('/finduser', function(req, res, next) {
 /*
     JSON Requirements:
         user_name: String
-        password: String -- must be md5 hashed. TODO replace MD5 hash with different hash.
+        password: String TODO use bcrypt to hash password -- https://github.com/kelektiv/node.bcrypt.js.
 
     Example:
     {
-        "user_name": "admin",
-        "password": "5f4dcc3b5aa765d61d8327deb882cf99"
+        "user_name": "jane",
+        "password": "password",
+        "public_key": "janes_public_key"
     }
 */
 router.post('/submituser', function(req, res, next) {
     const user_name = req.body.user_name;
     const password = req.body.password;
+    const password_repeat = req.body.password_repeat;
     const public_key = req.body.public_key;
     const current_time = new Date();
-    console.log("this is the time: " + current_time);
 
-    if (user_name && password && public_key) {
-        const user = new User({
-            _id: new mongoose.Types.ObjectId(),
-            user_name: user_name,
-            password: password,
-            public_key: public_key,
-            last_login: current_time
-        });
-
-        user.save().then(function(result) {
-            console.log(result);
-            res.status(201).json({
-                createdUser: user
-            });
-        }).catch(function(err) {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
-        });
+    if (password !== password_repeat) {
+        console.log("Passwords do not match.");
+        res.status(204).json({error: "Passwords do not match."});
     } else {
-        res.status(204).json({error: "Missing user name or password or public_key."});
+        console.log("this is the time: " + current_time);
+        console.log("user_name: " + user_name + " password: " + password + " public_key: " + public_key);
+
+        if (user_name && password && public_key) {
+            User.find({ user_name: user_name })
+                .exec()
+                .then(user => {
+                    if (user.length > 0) {
+                        return res.status(409).json({
+                            message: "user_name already exist"
+                        });
+                    } else {
+                        const user = new User({
+                            _id: new mongoose.Types.ObjectId(),
+                            user_name: user_name,
+                            password: password,
+                            public_key: public_key,
+                            last_login: current_time
+                        });
+
+                        user.save().then(function(result) {
+                            console.log(result);
+                            // res.status(201).json({
+                            //     createdUser: user
+                            // });
+                            res.redirect('/login');
+                        }).catch(function(err) {
+                            console.log(err);
+                            res.status(500).json({
+                                error: err
+                            });
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+        } else {
+            res.status(204).json({error: "Missing user name or password or public key."});
+        }
+    }
+
+
+});
+
+/* POST Find Recipient
+    Example:
+    {
+        "user_name": "jacques"
+    }
+ */
+router.post('/findrecipient', function(req, res, next) {
+    const user_name = req.body.user_name;
+
+    if (user_name) {
+        User.findOne({user_name: user_name})
+            .select('-__v')
+            .exec()
+            .then(function(user) {
+                if (user){
+                    res.status(200).json({
+                       _id: user._id,
+                       public_key: user.public_key
+                    });
+                } else {
+                    res.status(204).json({error: "Could not find user_name."});
+                }
+            })
+            .catch(function(err) {
+                console.log(err);
+                res.status(500).json({error: err});
+            });
+    } else {
+        res.status(204).json({error: "User_name was not provided"});
     }
 });
 
-router.post('/uploadDoc', function(req,res,next) {
-    const name = req.body.docName;
-    const content = req.body.content;
-    var date = new Date(req.body.expYear, req.body.expMonth, req.body.expDate, req.body.expHours, req.body.expMinutes, req.body.expSeconds);
-    console.log(date);
-    const resetTime = [req.body.expYear-new Date().getFullYear(), req.body.expMonth-new Date().getMonth(), 
-                                (req.body.expDate-new Date().getDate()), (req.body.expHours-new Date().getHours()),
-                                (req.body.expMinutes-new Date().getMinutes()), req.body.expSeconds-new Date().getSeconds()];
-    const file = new Document({
-        _id : new mongoose.Types.ObjectId(),
-        docName : name,
-        content : content,
-        expireDate : date,
-        refreshTime : resetTime
-    });
-    file.save()
-    .then(result =>{
-        console.log(result);
-        res.status(201).json({
-            createdDoc : file
-        });
-    })
-    .catch(err=>
-    {
-        console.log(err);
-        res.status(500).json({
-            error : err
-            
-        });
-    });
-});
-
-router.patch('/updateTimer', function(req, res, next) {
-    const docId = req.body.docId;
-    const updateTime = req.body.updateTime;
-    const date = new Date();
-    Document.update({_id : docId}, {$set : {expireDate : new Date(date.getFullYear()+updateTime[0], date.getMonth()+updateTime[1],
-    date.getDate()+updateTime[2], date.getHours()+updateTime[3], date.getMinutes()+updateTime[4], date.getSeconds()+updateTime[5])}})
-    .exec()
-    .then(doc =>{
-        console.log(new Date(date.getFullYear()+updateTime[0], date.getMonth()+updateTime[1],
-    date.getDate()+updateTime[2], date.getHours()+updateTime[3], date.getMinutes()+updateTime[4], date.getSeconds()+updateTime[5]));
-        res.status(200).json(doc);
-    })
-    .catch(err=> {
-        res.status(500).json({
-            error: err,
-            message: 'it broke'
+function updateTimes(user) {
+    Document.updateMany({user_id: user._id},
+        {$set: {expire_time: +user.frequency + Date.now()}},
+        function(err, result) {
+            if (err) {
+                // Console log is commented out because user's without docs will cause this branch to
+                // execute upon sign in.
+                // console.log("Error: " + err);
+            } else {
+                console.log("Document times updated");
+            }
         })
-    });
-});
 
-
-
+}
 
 
 module.exports = router;
