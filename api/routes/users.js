@@ -152,7 +152,7 @@ router.post('/findrecipient', function(req, res, next) {
 
 function updateTimes(user) {
     Document.updateMany({user_id: user._id},
-        {$set: {expire_time: +user.frequency + Date.now()}},
+        {$set: {expire_time: +user.freq + Date.now()}},
         function(err, result) {
             if (err) {
                 // Console log is commented out because user's without docs will cause this branch to
