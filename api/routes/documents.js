@@ -25,6 +25,7 @@ router.post('/submitdoc', function(req, res, next) {
             .exec()
             .then(user => {
                 // Obtain user's frequency and set time
+                // TODO handle null user!
                 var frequency = user.freq;
                 var expire_time = new Date();
                 expire_time.setTime(+expire_time.getTime() + frequency);
@@ -46,7 +47,7 @@ router.post('/submitdoc', function(req, res, next) {
                         document.save().then(function(result) {
                             console.log(result);
                             res.status(201).json({
-                                createdRelationship: document
+                                createdDocument: document
                             });
                         }).catch(function(err) {
                             console.log(err);
@@ -138,7 +139,8 @@ router.post('/fetchrecipientdocs', function(req, res, next) {
                         // TODO decide if this is worth doing. Not returning an object will map "null" into the collection.
                         return {
                             _id: doc._id,
-                            nickname: doc.nickname
+                            nickname: doc.nickname,
+                            expire_time: doc.expire_time
                         }
                     }
                 })
@@ -158,29 +160,29 @@ router.post('/fetchrecipientdocs', function(req, res, next) {
     }
  */
 router.post('/fetchuserdocs', function(req, res, next) {
-    Document.find({user_id: req.body.user_id})
-        .select('-__v')
-        .exec()
-        .then(docs => {
-            const response = {
-                count : docs.length,
-                documents : docs.map(doc => {
-                        return {
-                            _id: doc._id,
-                            nickname: doc.nickname,
-                            ciphertext: doc.ciphertext,
-                            expire_time: doc.expire_time,
-                            user_id: doc.user_id,
-                            recipient_id: doc.recipient_id
-                        }
-                })
-            };
-            res.status(200).json(response);
-        })
-        .catch(function(err) {
-            console.log(err);
-            res.status(500).json({error: err});
-        });
+  Document.find({user_id: req.body.user_id})
+      .select('-__v')
+      .exec()
+      .then(docs => {
+          const response = {
+              count : docs.length,
+              documents : docs.map(doc => {
+                      return {
+                          _id: doc._id,
+                          nickname: doc.nickname,
+                          ciphertext: doc.ciphertext,
+                          expire_time: doc.expire_time,
+                          user_id: doc.user_id,
+                          recipient_id: doc.recipient_id
+                      }
+              })
+          };
+          res.status(200).json(response);
+      })
+      .catch(function(err) {
+          console.log(err);
+          res.status(500).json({error: err});
+      });
 });
 
 module.exports = router;
