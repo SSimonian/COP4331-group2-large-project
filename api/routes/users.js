@@ -56,6 +56,7 @@ router.post('/login', function(req, res, next) {
     {
         "user_name": "jane",
         "password": "password",
+        "password_repeat: "password",
         "public_key": "janes_public_key"
     }
 */
@@ -155,15 +156,193 @@ function updateTimes(user) {
         {$set: {expire_time: +user.freq + Date.now()}},
         function(err, result) {
             if (err) {
-                // Console log is commented out because user's without docs will cause this branch to
-                // execute upon sign in.
-                // console.log("Error: " + err);
+                console.log("Error: " + err);
             } else {
                 console.log("Document times updated");
             }
         })
 
 }
+
+/* PATCH User's frequency
+  Freq must be a number and milliseconds.
+    Example:
+    {
+        "user_id": "5aca7930702c110af87fc9d9",
+        "freq": 60000
+    }
+ */
+router.patch('/updatefreq', function(req, res, next) {
+  console.log(req.body.user_id);
+  User.update({_id: req.body.user_id},
+    {$set: {freq: req.body.freq }},
+    function(err, result) {
+      if (err) {
+        res.status(500).json({error: err});
+      } else {
+        res.status(200).json({success: "Successfully updated frequency to: " + req.body.freq});
+      }
+    })
+});
+
+/* POST User's details
+
+  While this should be a PATCH method. The form that submits this information does not allow for PATCH methods.
+  Therefore, this method accepts a post request.
+
+  // TODO figure out how to keep this a PATCH. May need to avoid <form></form> for sending info.
+
+  Freq must be a number and milliseconds.
+
+    Example:
+    {
+        "_id": "5aca7930702c110af87fc9d9",
+        "user_name": "jane",
+        "password": "password",
+        "password_repeat": "password",
+        "public_key": "janes_public_key",
+        "freq": 60000
+    }
+ */
+router.post('/updateprofile', function(req, res, next) {
+
+  const user_id = req.body._id;
+  const user_name = req.body.user_name;
+  const password = req.body.password;
+  const password_repeat = req.body.password_repeat;
+  const public_key = req.body.public_key;
+  const frequency = req.body.freq;
+
+  console.log(user_id + "\n" + user_name + "\n" + password + "\n" + password_repeat + "\n" + public_key + "\n" + frequency);
+
+  if (!user_id) {
+    res.status(204).json({error: "Missing user_id."});
+  } else {
+
+    if (user_name) {
+      User.update({_id: user_id},
+        {$set: {user_name: user_name }}, function(err, result) {
+          if (err) {
+            res.status(500).json({error: err});
+          } else {
+            console.log("Successfully updated user name.");
+          }
+        });
+    }
+
+    if (password === password_repeat && password) {
+      // TODO bcrypt password before storing!
+      User.update({_id: user_id},
+        {$set: {password: password }}, function(err, result) {
+          if (err) {
+            res.status(500).json({error: err});
+          } else {
+            console.log("Successfully updated password.");
+          }
+        });
+    }
+
+    if (public_key) {
+      User.update({_id: user_id},
+        {$set: {public_key: public_key }}, function(err, result) {
+          if (err) {
+            res.status(500).json({error: err});
+          } else {
+            console.log("Successfully updated public key.");
+          }
+        });
+    }
+
+    if (frequency) {
+      User.update({_id: user_id},
+        {$set: {freq: frequency }}, function(err, result) {
+          if (err) {
+            res.status(500).json({error: err});
+          } else {
+            console.log("Successfully updated frequency.");
+          }
+        });
+    }
+
+    res.redirect('/profile/edit');
+  }
+});
+
+/* PATCH User's details
+
+  Freq must be a number and milliseconds.
+
+    Example:
+    {
+        "_id": "5aca7930702c110af87fc9d9",
+        "user_name": "jane",
+        "password": "password",
+        "password_repeat": "password",
+        "public_key": "janes_public_key",
+        "freq": 60000
+    }
+ */
+router.patch('/updateprofile', function(req, res, next) {
+
+  const user_id = req.body._id;
+  const user_name = req.body.user_name;
+  const password = req.body.password;
+  const password_repeat = req.body.password_repeat;
+  const public_key = req.body.public_key;
+  const frequency = req.body.freq;
+
+  var error_flag = 0;
+  var error = null;
+
+  console.log(user_id + "\n" + user_name + "\n" + password + "\n" + password_repeat + "\n" + public_key + "\n" + frequency);
+
+  if (!user_id) {
+    res.status(204).json({error: "Missing user_id."});
+  } else {
+
+    if (user_name) {
+      User.update({_id: user_id},
+        {$set: {user_name: user_name }}, function(err, result) {
+          if (err) {
+            error = err;
+            error_flag = 1;
+          } else {
+            console.log("Successfully updated user name.");
+          }
+        });
+    }
+
+    if (!error_flag && public_key) {
+      User.update({_id: user_id},
+        {$set: {public_key: public_key }}, function(err, result) {
+          if (err) {
+            error = err;
+            error_flag = 1;
+          } else {
+            console.log("Successfully updated public key.");
+          }
+        });
+    }
+
+    if (!error_flag && frequency) {
+      User.update({_id: user_id},
+        {$set: {freq: frequency }}, function(err, result) {
+          if (err) {
+            error = err;
+            error_flag = 1;
+          } else {
+            console.log("Successfully updated frequency.");
+          }
+        });
+    }
+
+    if (error_flag) {
+      res.status(500).json({error: error});
+    } else {
+      res.status(200).json({message: "Successful update."});
+    }
+  }
+});
 
 
 module.exports = router;
