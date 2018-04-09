@@ -164,27 +164,6 @@ function updateTimes(user) {
 
 }
 
-/* PATCH User's frequency
-  Freq must be a number and milliseconds.
-    Example:
-    {
-        "user_id": "5aca7930702c110af87fc9d9",
-        "freq": 60000
-    }
- */
-router.patch('/updatefreq', function(req, res, next) {
-  console.log(req.body.user_id);
-  User.update({_id: req.body.user_id},
-    {$set: {freq: req.body.freq }},
-    function(err, result) {
-      if (err) {
-        res.status(500).json({error: err});
-      } else {
-        res.status(200).json({success: "Successfully updated frequency to: " + req.body.freq});
-      }
-    })
-});
-
 /* POST User's details
 
   While this should be a PATCH method. The form that submits this information does not allow for PATCH methods.
