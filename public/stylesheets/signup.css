@@ -37,21 +37,21 @@ button {
     width: 100%;
 }
 
-.cancelbtn, .signupbtn { width: 40%; border-radius: 4px; font-size: 18px; }
+.resetbtn, .signupbtn { width: 40%; border-radius: 4px; font-size: 18px; }
 
-/* Extra styles for the cancel button */
-.cancelbtn {
+/* Extra styles for the reset button */
+.resetbtn {
     padding: 14px 20px;
     background-color: red;
-	margin-right: 5px;
+    float: right;
 }
-.cancelbtn:hover { background-color: firebrick; }
+.resetbtn:hover { background-color: firebrick; }
 
 /* Extra styles for the sign up button */
 .signupbtn {
     padding: 14px 20px;
     background-color: green;
-	float: right;
+    margin-right: 5px;
 }
 .signupbtn:hover { background-color: darkgreen; }
 

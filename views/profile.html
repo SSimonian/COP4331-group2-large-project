@@ -10,13 +10,27 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-	<title>Your Profile- Last Word</title>
-	<meta charset "UTF-8">
+	<title>Your Profile - Last Word</title>
+	<meta charset = "UTF-8">
 	<meta name="description" content="Dead Man's Switch">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="COP4600 Group 1">
+    <!--===============================================================================================-->
 	<link rel="stylesheet" href="../stylesheets/profile.css">
+    <!--===============================================================================================-->
 	<link rel="stylesheet" href="../stylesheets/topnav.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../stylesheets/util.css">
+    <!--===============================================================================================-->
+	<script type="text/javascript" src="../javascripts/angular.min.js"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="../javascripts/profile_fe.js"></script>
+    <!--===============================================================================================-->
+    <script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 </head>
 <body>
 
@@ -47,6 +61,340 @@
 	
 	<button type="button" id="logout"><b>Log Out</b></button>
 </div>
+
+<div ng-app="myApp" ng-controller="myCtrl" data-ng-init="getUsersDocs()">
+
+    <div class="Init_profile">
+        <!--p tag for storing user's ID.-->
+        <p id="user_id" hidden></p>
+        <!--Get data sent from server and assign it where appropriate.-->
+        <script>
+          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>");
+          document.getElementById("user_id").innerHTML = "<%= _id %>";
+        </script>
+    </div>
+
+    <br>
+    <br>
+    <p align="center">User Docs</p>
+    <div class="limiter">
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table100 ver2 m-b-110">
+                    <div class="table100-head">
+                        <table>
+                            <thead>
+                            <tr class="row100 head">
+                                <th class="cell100 column1">Nickname</th>
+                                <th class="cell100 column2">Expire Time</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="table100-body js-pscroll">
+                        <table id="docs_table">
+                            <tbody>
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p align="center">Recipient Docs</p>
+    <div class="limiter">
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table100 ver2 m-b-110">
+                    <div class="table100-head">
+                        <table>
+                            <thead>
+                            <tr class="row100 head">
+                                <th class="cell100 column1">Nickname</th>
+                                <th class="cell100 column2">Expire Time</th>
+                                <th class="cell100 column3">Cipher Text</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="table100-body js-pscroll">
+                        <table id="recpient_table">
+                            <tbody>
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+
+                            <tr class="row100 body">
+                                <td class="cell100 column1">Like a butterfly</td>
+                                <td class="cell100 column2">Boxing</td>
+                                <td class="cell100 column3">9:00 AM</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!--Handle Document Scroll-->
+<script>
+  $('.js-pscroll').each(function(){
+    var ps = new PerfectScrollbar(this);
+
+    $(window).on('resize', function(){
+      ps.update();
+    })
+  });
+</script>
 
 </body>
 </html>

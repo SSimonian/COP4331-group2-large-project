@@ -9,7 +9,7 @@
 <html lang="en-US">
 <head>
 	<title>Sign Up for Last Word</title>
-	<meta charset "UTF-8">
+	<meta charset = "UTF-8">
 	<meta name="description" content="Dead Man's Switch">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="COP4600 Group 1">
@@ -27,26 +27,34 @@
 </div>
 <br>
 
-<form name="signup" action="#" style="border:1px solid gray; margin:10px 10px;">
+
+<form name="signup" action="users/submituser" method="post" style="border:1px solid gray; margin:10px 10px;">
   <div class="container">
-    <h1>Sign Up for Last W&Omega;rd</h1>
+    <h1>Sign Up for <a href='/'> Last W&Omega;rd</a> </h1>
     <p>Start protecting your valuable information by filling out this form.</p>
     <hr>
 
     <label for="username"><b>Username</b></label> <br>
-    <input type="text" id="newuser" placeholder="Enter Username" name="username" required> <br>
+    <input type="text" id="newuser" placeholder="Enter Username" name="user_name" required> <br>
 
     <label for="psw"><b>Password</b></label> <br>
-    <input type="password" id="newpass" placeholder="Enter Password" name="psw" required> <br>
+    <input type="password" id="newpass" placeholder="Enter Password" name="password"
+           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and
+           lowercase letter, and at least 8 or more characters" required> <br>
 
     <label for="psw-repeat"><b>Repeat Password</b></label> <br>
-    <input type="password" id="repeatpass" placeholder="Repeat Password" name="psw-repeat" required> <br>
+    <input type="password" id="repeatpass" placeholder="Repeat Password" name="password_repeat"
+           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and
+           lowercase letter, and at least 8 or more characters" required> <br>
+
+    <label for="public_key"><b>Public Key</b></label> <br>
+    <input type="text" id="pub_key" placeholder="Enter Public Key" name="public_key" required> <br>
     
     <p>By creating an account you agree to our <a href="#">Terms and Privacy</a>.</p>
 
     <div>
-      <button type="button" class="cancelbtn" id="cancel">Cancel</button>
-	  <button type="submit" class="signupbtn" id="signup">Sign Up</button>
+      <button type="submit" class="signupbtn" id="signup">Sign Up</button>
+      <button type="reset" class="resetbtn" id="cancel">Reset</button>
     </div>
   </div>
 </form>
