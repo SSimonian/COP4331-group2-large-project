@@ -13,6 +13,7 @@ var login = require('./api/routes/login');
 var profile = require('./api/routes/profile');
 var users = require('./api/routes/users');
 var documents = require('./api/routes/documents');
+var about = require('./api/routes/about');
 
 var app = express();
 
@@ -92,6 +93,7 @@ app.use('/login', login);
 app.use('/profile', profile);
 app.use('/users', users);
 app.use('/documents', documents);
+app.use('/about', about);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

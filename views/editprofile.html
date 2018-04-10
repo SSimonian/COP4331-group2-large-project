@@ -1,0 +1,136 @@
+<!--Last Word Profile Page
+	HTML Document
+	Author: Eugene Lucino-->
+
+<!-- This page is the home page for a user once they sign in. It contains the "I'm Alive" button,
+	which must be pressed by the user within a certain time frame to keep their information
+	from being released. It also contains buttons for users to edit their information,
+	who will recieve it, and the time frame, among other options. -->
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Your Profile - Last Word</title>
+	<meta charset = "UTF-8">
+	<meta name="description" content="Dead Man's Switch">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="COP4600 Group 1">
+    <!--===============================================================================================-->
+	<link rel="stylesheet" href="../stylesheets/editprofile.css">
+    <!--===============================================================================================-->
+	<link rel="stylesheet" href="../stylesheets/topnav.css">
+    <!--===============================================================================================-->
+    <!--<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">-->
+    <!--===============================================================================================-->
+    <!--<link rel="stylesheet" type="text/css" href="../stylesheets/util.css">-->
+    <!--===============================================================================================-->
+	<script type="text/javascript" src="../javascripts/angular.min.js"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="../javascripts/edit_profile_fe.js"></script>
+    <!--===============================================================================================-->
+    <!--<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>-->
+    <!--===============================================================================================-->
+    <!--<script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>-->
+</head>
+<body>
+
+<div class="topnav">
+	<a class="logo" href="/" alt="Home" title="Home"><img src="Last Word.png" style="width:36px; height:36px; object-fit: scale-down;"></a>
+	<a class="menulab" href="/about">About Us</a>
+	<a class="menulab" href="/" style="float:right">Log Out</a>
+	<a class="menulab" href="/profile" style="float:right">Your Docs</a>
+</div>
+
+<!--<form name="updateprofile" action="/users/updateprofile" method="post" style="border:1px solid gray; margin:10px 10px;">-->
+    <!--<div class="container">-->
+        <!--<h1>Edit Your Profile</h1>-->
+        <!--<hr>-->
+
+        <!--<input type="hidden" id="_id" placeholder="" name="_id"> <br>-->
+
+        <!--<label for="user_name"><b>User Name</b></label> <br>-->
+        <!--<input type="text" id="user_name" placeholder="Enter user name" name="user_name"> <br>-->
+
+        <!--<label for="frequency"><b>Frequency</b></label> <br>-->
+        <!--<input type="text" id="frequency" placeholder="Enter frequency" name="freq"> <br>-->
+
+        <!--<label for="public_key"><b>Public Key</b></label> <br>-->
+        <!--<input type="text" id="pub_key" placeholder="Enter Public Key" name="public_key"> <br>-->
+
+        <!--<label for="psw"><b>Password</b></label> <br>-->
+        <!--<input type="password" id="newpass" placeholder="Enter Password" name="password"-->
+               <!--pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and-->
+           <!--lowercase letter, and at least 8 or more characters"> <br>-->
+
+        <!--<label for="psw-repeat"><b>Repeat Password</b></label> <br>-->
+        <!--<input type="password" id="repeatpass" placeholder="Repeat Password" name="password_repeat"-->
+               <!--pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and-->
+           <!--lowercase letter, and at least 8 or more characters"> <br>-->
+
+        <!--<div>-->
+            <!--<button type="submit" class="submitbtn" id="signup">Submit Changes</button>-->
+            <!--<button type="reset" class="resetbtn" id="cancel">Reset</button>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</form>-->
+
+<div class="container">
+    <h1>Edit Your Profile</h1>
+    <hr>
+
+    <label for="user_name"><b>User Name</b></label> <br>
+    <input type="text" id="user_name" placeholder="Enter user name" name="user_name"> <br>
+
+    <label for="frequency"><b>Frequency</b></label> <br>
+    <input type="text" id="frequency" placeholder="Enter frequency" name="freq"> <br>
+
+    <label for="public_key"><b>Public Key</b></label> <br>
+    <input type="text" id="public_key" placeholder="Enter Public Key" name="public_key"> <br>
+
+    <label for="newpass"><b>Password</b></label> <br>
+    <input type="password" id="newpass" placeholder="Enter Password" name="password"
+           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and
+           lowercase letter, and at least 8 or more characters"> <br>
+
+    <label for="repeatpass"><b>Repeat Password</b></label> <br>
+    <input type="password" id="repeatpass" placeholder="Repeat Password" name="password_repeat"
+           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and
+           lowercase letter, and at least 8 or more characters"> <br>
+
+    <p id="errors"></p>
+</div>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+    <!--data-ng-init="getUsersDocs()"-->
+
+    <button type="button" id="update" class="buttons" ng-click="updateUser();"> Update Account </button>
+
+    <div class="Init_profile">
+        <!--p tag for storing user's ID.-->
+        <p id="user_id" hidden></p>
+        <!--Get data sent from server and assign it where appropriate.-->
+        <script>
+          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>"  + "\n" + "<%= public_key %>");
+          document.getElementById("user_id").innerHTML = "<%= _id %>";
+          document.getElementById("user_name").value = "<%= user_name %>";
+          document.getElementById("frequency").value = "<%= frequency %>";
+          document.getElementById("public_key").value = "<%= public_key %>";
+        </script>
+    </div>
+
+</div>
+
+<!--Handle Document Scroll-->
+<!--<script>-->
+  <!--$('.js-pscroll').each(function(){-->
+    <!--var ps = new PerfectScrollbar(this);-->
+
+    <!--$(window).on('resize', function(){-->
+      <!--ps.update();-->
+    <!--})-->
+  <!--});-->
+<!--</script>-->
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!--Last Word Profile Page
+	HTML Document
+	Author: Eugene Lucino-->
+
+<!-- This page is the home page for a user once they sign in. It contains the "I'm Alive" button,
+	which must be pressed by the user within a certain time frame to keep their information
+	from being released. It also contains buttons for users to edit their information,
+	who will recieve it, and the time frame, among other options. -->
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Your Profile - Last Word</title>
+	<meta charset = "UTF-8">
+	<meta name="description" content="Dead Man's Switch">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="COP4600 Group 1">
+    <!--===============================================================================================-->
+	<link rel="stylesheet" href="../stylesheets/uploaddoc.css">
+    <!--===============================================================================================-->
+	<link rel="stylesheet" href="../stylesheets/topnav.css">
+    <!--===============================================================================================-->
+    <!--<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">-->
+    <!--===============================================================================================-->
+    <!--<link rel="stylesheet" type="text/css" href="../stylesheets/util.css">-->
+    <!--===============================================================================================-->
+	<script type="text/javascript" src="../javascripts/angular.min.js"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="../javascripts/upload_doc_fe.js"></script>
+    <!--===============================================================================================-->
+    <!--<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>-->
+    <!--===============================================================================================-->
+    <!--<script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>-->
+</head>
+<body>
+
+<div class="topnav">
+	<a class="logo" href="/" alt="Home" title="Home"><img src="Last Word.png" style="width:36px; height:36px; object-fit: scale-down;"></a>
+	<a class="menulab" href="/about">About Us</a>
+	<a class="menulab" href="/" style="float:right">Log Out</a>
+	<a class="menulab" href="/profile" style="float:right">Your Docs</a>
+</div>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+    <!--data-ng-init="getUsersDocs()"-->
+    <div class="container">
+        <h1>Upload a Document</h1>
+        <hr>
+
+        <div id="find_recipient">
+            <label for="recipient"><b>Find Your Recipient</b></label> <br>
+            <input type="text" id="recipient" placeholder="Enter a recipient's user name" name="user_name"> <br>
+
+            <button type="button" id="findrecipient" class="buttons" ng-click="findRecipient();"> Find Recipient </button>
+        </div>
+
+        <div id="upload_doc" style="visibility: hidden">
+            <label for="nickname"><b>Nickname</b></label> <br>
+            <input type="text" id="nickname" placeholder="Enter document's nickname" name="nickname"> <br>
+
+            <label for="plaintext"><b>Plain Text</b></label> <br>
+            <input type="text" id="plaintext" placeholder="Enter your text here" name="plaintext"> <br>
+
+            <button type="button" id="uploaddoc" class="buttons" ng-click="uploadDoc();"> Upload Document </button>
+        </div>
+
+        <p id="messages"></p>
+
+    </div>
+
+
+
+    <div class="Init_profile">
+        <!--p tag for storing user's ID.-->
+        <p id="user_id" hidden></p>
+        <p id="recipient_id" hidden></p>
+        <p id="recipient_public_key" hidden></p>
+        <!--Get data sent from server and assign it where appropriate.-->
+        <script>
+          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>"  + "\n" + "<%= public_key %>");
+          document.getElementById("user_id").innerHTML = "<%= _id %>";
+        </script>
+    </div>
+
+</div>
+
+<!--Handle Document Scroll-->
+<!--<script>-->
+  <!--$('.js-pscroll').each(function(){-->
+    <!--var ps = new PerfectScrollbar(this);-->
+
+    <!--$(window).on('resize', function(){-->
+      <!--ps.update();-->
+    <!--})-->
+  <!--});-->
+<!--</script>-->
+
+</body>
+</html>
