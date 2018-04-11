@@ -20,6 +20,7 @@
     "method-override": "~2.3.6",
     "mongoose": "^5.0.7",
     "morgan": "~1.9.0",
+    "nodemon": "^1.17.3",
     "npm": "^5.8.0",
     "passport": "~0.3.2",
     "serve-favicon": "~2.4.5"
