@@ -191,6 +191,10 @@ router.post('/updateprofile', function(req, res, next) {
   const password_repeat = req.body.password_repeat;
   const public_key = req.body.public_key;
   const frequency = req.body.freq;
+  var flag1 = false;
+  var flag2 = false;
+  var flag3 = false;
+  var flag4 = false;
 
   console.log(user_id + "\n" + user_name + "\n" + password + "\n" + password_repeat + "\n" + public_key + "\n" + frequency);
 
@@ -207,7 +211,11 @@ router.post('/updateprofile', function(req, res, next) {
             console.log("Successfully updated user name.");
           }
         });
+		flag1 = true;
     }
+	else {
+		flag1 = true;
+	}
 
     if (password === password_repeat && password) {
       // TODO bcrypt password before storing!
@@ -219,7 +227,11 @@ router.post('/updateprofile', function(req, res, next) {
             console.log("Successfully updated password.");
           }
         });
+		flag2 = true;
     }
+	else {
+		flag2 = true;
+	}
 
     if (public_key) {
       User.update({_id: user_id},
@@ -230,7 +242,11 @@ router.post('/updateprofile', function(req, res, next) {
             console.log("Successfully updated public key.");
           }
         });
+		flag3 = true;
     }
+	else {
+		flag3 = true;
+	}
 
     if (frequency) {
       User.update({_id: user_id},
@@ -241,7 +257,14 @@ router.post('/updateprofile', function(req, res, next) {
             console.log("Successfully updated frequency.");
           }
         });
+		flag4 = true;
     }
+	else {
+		flag4 = true;
+	}
+	
+	while (!flag1 || !flag2 || !flag3 || !flag4) {
+	}
 
     res.redirect('/profile/edit');
   }
@@ -322,6 +345,5 @@ router.patch('/updateprofile', function(req, res, next) {
     }
   }
 });
-
 
 module.exports = router;
