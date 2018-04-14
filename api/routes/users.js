@@ -191,10 +191,7 @@ router.post('/updateprofile', function(req, res, next) {
   const password_repeat = req.body.password_repeat;
   const public_key = req.body.public_key;
   const frequency = req.body.freq;
-  var flag1 = false;
-  var flag2 = false;
-  var flag3 = false;
-  var flag4 = false;
+  var itemsProcessed = 0;
 
   console.log(user_id + "\n" + user_name + "\n" + password + "\n" + password_repeat + "\n" + public_key + "\n" + frequency);
 
@@ -202,7 +199,19 @@ router.post('/updateprofile', function(req, res, next) {
     res.status(204).json({error: "Missing user_id."});
   } else {
 
-    if (user_name) {
+    if (!user_name)
+		itemsProcessed++;
+	
+	if (!(password === password_repeat && password))
+		itemsProcessed++;
+	
+	if (!public_key)
+		itemsProcessed++;
+	
+	if (!frequency)
+		itemsProcessed++;
+	
+	if (user_name) {
       User.update({_id: user_id},
         {$set: {user_name: user_name }}, function(err, result) {
           if (err) {
@@ -210,12 +219,11 @@ router.post('/updateprofile', function(req, res, next) {
           } else {
             console.log("Successfully updated user name.");
           }
+		  itemsProcessed++;
+		  if(itemsProcessed === 4)
+			  res.redirect('/profile/edit');
         });
-		flag1 = true;
     }
-	else {
-		flag1 = true;
-	}
 
     if (password === password_repeat && password) {
       // TODO bcrypt password before storing!
@@ -226,12 +234,11 @@ router.post('/updateprofile', function(req, res, next) {
           } else {
             console.log("Successfully updated password.");
           }
+		  itemsProcessed++;
+		  if(itemsProcessed === 4)
+			  res.redirect('/profile/edit');
         });
-		flag2 = true;
     }
-	else {
-		flag2 = true;
-	}
 
     if (public_key) {
       User.update({_id: user_id},
@@ -241,12 +248,11 @@ router.post('/updateprofile', function(req, res, next) {
           } else {
             console.log("Successfully updated public key.");
           }
+		  itemsProcessed++;
+		  if(itemsProcessed === 4)
+			  res.redirect('/profile/edit');
         });
-		flag3 = true;
     }
-	else {
-		flag3 = true;
-	}
 
     if (frequency) {
       User.update({_id: user_id},
@@ -256,17 +262,12 @@ router.post('/updateprofile', function(req, res, next) {
           } else {
             console.log("Successfully updated frequency.");
           }
+		  itemsProcessed++;
+		  if(itemsProcessed === 4)
+			  res.redirect('/profile/edit');
         });
-		flag4 = true;
     }
-	else {
-		flag4 = true;
-	}
-	
-	while (!flag1 || !flag2 || !flag3 || !flag4) {
-	}
 
-    res.redirect('/profile/edit');
   }
 });
 
