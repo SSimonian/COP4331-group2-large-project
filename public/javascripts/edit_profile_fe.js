@@ -5,26 +5,37 @@ app.controller('myCtrl', function($scope, $http) {
 
   $scope.updateUser = function() {
     const user_name = document.getElementById("user_name").value;
-    const frequency = document.getElementById("frequency").value;
     const public_key = document.getElementById("public_key").value;
     const newpass = document.getElementById("newpass").value;
     const repeatpass = document.getElementById("repeatpass").value;
 
-    $http.patch('/users/updateprofile', {
+    const years = document.getElementById("years").value;
+    const months = document.getElementById("months").value;
+    const days = document.getElementById("days").value;
+    const hours = document.getElementById("hours").value;
+
+    console.log(years + "\n" + months + "\n" + days + "\n" + hours);
+
+    $http.post('/users/updateprofile', {
       "_id": userId,
       "user_name": user_name,
-      "frequency": frequency,
       "public_key": public_key,
-      "freq": frequency,
+      "freq": [{
+        "years": years,
+        "months": months,
+        "days": days,
+        "hours": hours
+      }],
       "password": newpass,
       "password_repeat": repeatpass
     })
     .then(function(response) {
       if (response.status === 200) {
         console.log("Status was 200!");
-        console.log(response.data);
+        document.getElementById("errors").innerHTML = "Account successfully updated."
+      } else if (response.status === 500) {
+        document.getElementById("errors").innerHTML = "Error with server's database. Please try again later."
       } else {
-        // TODO figure out how to return a status code that signals something was not updated. Fix on back end, then address issue, here.
         document.getElementById("errors").innerHTML = "Please verify that you provided the correct credentials."
       }
 

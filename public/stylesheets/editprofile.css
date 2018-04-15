@@ -57,3 +57,7 @@ button {
 
 /* Add padding to container elements */
 .container { padding: 30px; }
+
+.freq_drop_downs {
+    padding: 15px;
+}
