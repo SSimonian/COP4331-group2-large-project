@@ -31,8 +31,10 @@ app.controller('myCtrl', function($scope, $http) {
             nickname_cell.className = 'column1';
             expire_time_cell.className = 'column2';
 
+            var date = new Date(documents.expire_time);
+
             nickname_cell.innerHTML = documents.nickname;
-            expire_time_cell.innerHTML = documents.expire_time;
+            expire_time_cell.innerHTML = date.toLocaleDateString() + " -- " + date.toLocaleTimeString();
           }
         }
       }
