@@ -23,7 +23,7 @@ const Document = require('../models/document');
 router.post('/login', function(req, res, next) {
     const user_name = req.body.user_name;
     const password = req.body.password;
-
+    // TODO notify user their credentials were invalid. As of now, the page does not reload and the user must guess they entered invalid creds.
     if (user_name && password) {
         User.findOne({user_name: user_name})
             .select('-__v')
@@ -32,20 +32,16 @@ router.post('/login', function(req, res, next) {
                 if (user){
                     bcrypt.compare(password, user.password, (err, verified) => 
                     {
-                        if(err)
-                        {
+                        if (err) {
                             console.log(err);
-                            res.status(500).json({error: err})
-                        }
-                        if (!verified)
-                        {
+                            res.status(500).json({error: err});
+                        } else if (!verified) {
                             res.status(204).json({error: "invalid password."});
-                        }
-                        else{
+                        } else {
                              updateTimes(user);
                              req.userSession.user = user;
                              res.redirect(307, '../profile');
-                            }
+                        }
                     });
                 } else {
                     res.status(204).json({error: "Invalid username."});
@@ -103,7 +99,7 @@ router.post('/submituser', function(req, res, next) {
                             if (err)
                             {
                                 return res.status(500).json({
-                                error: err
+                                  error: err
                                 });
                             }
                             const user = new User({
@@ -203,7 +199,12 @@ function updateTimes(user) {
         "password": "password",
         "password_repeat": "password",
         "public_key": "janes_public_key",
-        "freq": 60000
+        "freq": [{
+          "years" : 1,
+          "months" : 1,
+          "days" : 1,
+          "hours" : 1
+        }]
     }
  */
 router.post('/updateprofile', function(req, res, next) {
@@ -213,16 +214,17 @@ router.post('/updateprofile', function(req, res, next) {
   const password = req.body.password;
   const password_repeat = req.body.password_repeat;
   const public_key = req.body.public_key;
-  const frequency = req.body.freq;
+  const frequency = req.body.freq[0];
   var itemsProcessed = 0;
 
   console.log(user_id + "\n" + user_name + "\n" + password + "\n" + password_repeat + "\n" + public_key + "\n" + frequency);
+  console.log(frequency.years + "\n" + frequency.months + "\n" + frequency.days + "\n" + frequency.hours);
 
   if (!user_id) {
     res.status(204).json({error: "Missing user_id."});
   } else {
 
-    if (!user_name)
+  if (!user_name)
 		itemsProcessed++;
 	
 	if (!(password === password_repeat && password))
@@ -242,31 +244,29 @@ router.post('/updateprofile', function(req, res, next) {
           } else {
             console.log("Successfully updated user name.");
           }
-		  itemsProcessed++;
-		  if(itemsProcessed === 4)
-			  res.redirect('/profile/edit');
+		      itemsProcessed++;
+		      if(itemsProcessed === 4)
+			      res.redirect('/profile/edit');
         });
     }
 
     if (password === password_repeat && password) {
       bcrypt.hash(password, null,null, (err, hash) => {
-          if(err)
-          {
+          if(err) {
               console.log(err);
               res.status(500).json({error: err})
-          }
-          else{
-            User.update({_id: user_id},
-             {$set: {password: hash }}, function(err, result) {
-          if (err) {
-            res.status(500).json({error: err});
           } else {
-            console.log("Successfully updated password.");
-          }
-		  itemsProcessed++;
-		  if(itemsProcessed === 4)
-			  res.redirect('/profile/edit');
-        });
+            User.update({_id: user_id},
+              {$set: {password: hash }}, function(err, result) {
+                if (err) {
+                  res.status(500).json({error: err});
+                } else {
+                  console.log("Successfully updated password.");
+                }
+                itemsProcessed++;
+                if(itemsProcessed === 4)
+                  res.redirect('/profile/edit');
+              });
           }
       });
     }
@@ -279,14 +279,14 @@ router.post('/updateprofile', function(req, res, next) {
           } else {
             console.log("Successfully updated public key.");
           }
-		  itemsProcessed++;
-		  if(itemsProcessed === 4)
-			  res.redirect('/profile/edit');
+          itemsProcessed++;
+          if(itemsProcessed === 4)
+            res.redirect('/profile/edit');
         });
     }
 
     if (frequency) {
-      var millisecs = (frequency[0]*31556952000)+(frequency[1]*2629746000)+(frequency[2]*86400000)+(frequency[3]*3600000);
+      var millisecs = (frequency.years*31556952000)+(frequency.months*2629746000)+(frequency.days*86400000)+(frequency.hours*3600000);
       User.update({_id: user_id},
         {$set: {freq: millisecs }}, function(err, result) {
           if (err) {
@@ -294,9 +294,9 @@ router.post('/updateprofile', function(req, res, next) {
           } else {
             console.log("Successfully updated frequency.");
           }
-		  itemsProcessed++;
-		  if(itemsProcessed === 4)
-			  res.redirect('/profile/edit');
+          itemsProcessed++;
+          if(itemsProcessed === 4)
+            res.redirect('/profile/edit');
         });
     }
 
