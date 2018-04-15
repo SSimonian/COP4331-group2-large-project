@@ -1,6 +1,7 @@
 // Imports and constant members.
 const express = require('express');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
 const router = express.Router(null);
 
 const User = require('../models/user');
@@ -24,16 +25,30 @@ router.post('/login', function(req, res, next) {
     const password = req.body.password;
 
     if (user_name && password) {
-        User.findOne({user_name: user_name, password: password})
+        User.findOne({user_name: user_name})
             .select('-__v')
             .exec()
             .then(function(user) {
                 if (user){
-                    updateTimes(user);
-                    req.userSession.user = user;
-                    res.redirect(307, '../profile');
+                    bcrypt.compare(password, user.password, (err, verified) => 
+                    {
+                        if(err)
+                        {
+                            console.log(err);
+                            res.status(500).json({error: err})
+                        }
+                        if (!verified)
+                        {
+                            res.status(204).json({error: "invalid password."});
+                        }
+                        else{
+                             updateTimes(user);
+                             req.userSession.user = user;
+                             res.redirect(307, '../profile');
+                            }
+                    });
                 } else {
-                    res.status(204).json({error: "Could not find matching credentials."});
+                    res.status(204).json({error: "Invalid username."});
                 }
             })
             .catch(function(err) {
@@ -83,14 +98,21 @@ router.post('/submituser', function(req, res, next) {
                             message: "user_name already exist"
                         });
                     } else {
-                        const user = new User({
+                        bcrypt.hash(password, null, null, (err, hash)=>
+                        {
+                            if (err)
+                            {
+                                return res.status(500).json({
+                                error: err
+                                });
+                            }
+                            const user = new User({
                             _id: new mongoose.Types.ObjectId(),
                             user_name: user_name,
-                            password: password,
+                            password: hash,
                             public_key: public_key,
                             last_login: current_time
-                        });
-
+                            });
                         user.save().then(function(result) {
                             console.log(result);
                             // res.status(201).json({
@@ -102,6 +124,7 @@ router.post('/submituser', function(req, res, next) {
                             res.status(500).json({
                                 error: err
                             });
+                        });
                         });
                     }
                 })
@@ -226,9 +249,15 @@ router.post('/updateprofile', function(req, res, next) {
     }
 
     if (password === password_repeat && password) {
-      // TODO bcrypt password before storing!
-      User.update({_id: user_id},
-        {$set: {password: password }}, function(err, result) {
+      bcrypt.hash(password, null,null, (err, hash) => {
+          if(err)
+          {
+              console.log(err);
+              res.status(500).json({error: err})
+          }
+          else{
+            User.update({_id: user_id},
+             {$set: {password: hash }}, function(err, result) {
           if (err) {
             res.status(500).json({error: err});
           } else {
@@ -238,6 +267,8 @@ router.post('/updateprofile', function(req, res, next) {
 		  if(itemsProcessed === 4)
 			  res.redirect('/profile/edit');
         });
+          }
+      });
     }
 
     if (public_key) {
@@ -255,8 +286,9 @@ router.post('/updateprofile', function(req, res, next) {
     }
 
     if (frequency) {
+      var millisecs = (frequency[0]*31556952000)+(frequency[1]*2629746000)+(frequency[2]*86400000)+(frequency[3]*3600000);
       User.update({_id: user_id},
-        {$set: {freq: frequency }}, function(err, result) {
+        {$set: {freq: millisecs }}, function(err, result) {
           if (err) {
             res.status(500).json({error: err});
           } else {
