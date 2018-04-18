@@ -15,6 +15,47 @@
 	<meta name="author" content="COP4600 Group 1">
 	<link rel="stylesheet" href="../stylesheets/signup.css">
 	<link rel="stylesheet" href="../stylesheets/topnav.css">
+  <script type="text/javascript" src="../javascripts/openpgp.js"></script>
+  <script type="text/javascript">
+    function generateKeys()
+    {
+      var userName = document.getElementById('newuser').value;
+      var options = 
+      {
+        userIds: [{name: userName}],
+        numBits: 2048
+      };
+
+      var publicKey, privateKey;
+
+      openpgp.generateKey(options).then( key =>
+      {
+        privateKey = key.privateKeyArmored;
+        publicKey = key.publicKeyArmored;
+        downloadKey(privateKey, "privateKey.txt");
+        document.getElementById('pub_key').value = publicKey;
+      });
+    }
+
+    function downloadKey(key, filename)
+    {
+      var file = new Blob([key], {type: "txt"});
+
+      var a = document.createElement("a"), url = URL.createObjectURL(file);
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+
+      setTimeout(
+        function()
+        {
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        }, 0
+      );
+    }
+  </script>
 </head>
 
 <body>
@@ -47,12 +88,13 @@
            lowercase letter, and at least 8 or more characters" required> <br>
 
     <label for="pub_key"><b>Public Key</b></label> <br>
-    <input type="text" id="pub_key" placeholder="Enter Public Key" name="public_key" title="Enter a string of characters.
-	This key will be used to encrypt your information" required> <br>
+    <textarea type="text" id="pub_key" placeholder="Enter Public Key" name="public_key" title="Enter a string of characters.
+	This key will be used to encrypt your information" required></textarea> <br>
     
     <p>By creating an account you agree to our <a href="#">Terms and Privacy</a>.</p>
 
     <div>
+      <button type="button" onclick="generateKeys()">Generate Keys</button>
       <button type="submit" class="signupbtn" id="signup">Sign Up</button>
       <button type="reset" class="resetbtn" id="cancel">Reset</button>
     </div>
