@@ -158,18 +158,15 @@
         </table>
     </div>
 
-    <label for="public_key"><b>Public Key</b></label> <br>
-    <input type="text" id="public_key" placeholder="Enter Public Key" name="public_key"> <br>
-<<<<<<< HEAD
     <label for="newpass"><b>Password</b></label> <br>
     <input type="password" id="newpass" onkeyup="check();" placeholder="Enter Password" name="password"
            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and
-           lowercase letter, and at least 8 or more characters"> <br>
+           lowercase letter, and at least 8 or more characters" required> <br>
 
     <label for="repeatpass"><b>Repeat Password</b></label> <br>
     <input type="password" id="repeatpass" onkeyup="check();" placeholder="Repeat Password" name="password_repeat"
            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and
-           lowercase letter, and at least 8 or more characters"> <br>
+           lowercase letter, and at least 8 or more characters" required> <br>
     <p id="errors"></p>
 </div>
 
@@ -184,11 +181,10 @@
         <p id="user_id" hidden></p>
         <!--Get data sent from server and assign it where appropriate.-->
         <script>
-          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>"  + "\n" + "<%= public_key %>");
+          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>");
           document.getElementById("user_id").innerHTML = "<%= _id %>";
           document.getElementById("user_name").value = "<%= user_name %>";
           // document.getElementById("frequency").value = "<%= frequency %>";
-          document.getElementById("public_key").value = "<%= public_key %>";
 
           const freq = "<%= frequency %>";
           const HOUR = 3600000;

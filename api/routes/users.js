@@ -214,11 +214,10 @@ router.post('/updateprofile', function(req, res, next) {
   const user_name = req.body.user_name;
   const password = req.body.password;
   const password_repeat = req.body.password_repeat;
-  const public_key = req.body.public_key;
   const frequency = req.body.freq[0];
   var itemsProcessed = 0;
 
-  console.log(user_id + "\n" + user_name + "\n" + password + "\n" + password_repeat + "\n" + public_key + "\n" + frequency);
+  console.log(user_id + "\n" + user_name + "\n" + password + "\n" + password_repeat + "\n" + frequency);
   console.log(frequency.years + "\n" + frequency.months + "\n" + frequency.days + "\n" + frequency.hours);
 
   if (!user_id) {
@@ -231,8 +230,6 @@ router.post('/updateprofile', function(req, res, next) {
 	if (!(password === password_repeat && password))
 		itemsProcessed++;
 	
-	if (!public_key)
-		itemsProcessed++;
 	
 	if (!frequency)
 		itemsProcessed++;
@@ -241,7 +238,7 @@ router.post('/updateprofile', function(req, res, next) {
       User.findOne({user_name: user_name}).
       exec().
       then(user=>{
-          if(!user)
+          if(user._id==req.userSession.user._id)
           {
           User.update({_id: user_id},
             {$set: {user_name: user_name }}, function(err, result) {
@@ -252,13 +249,12 @@ router.post('/updateprofile', function(req, res, next) {
                     console.log("Successfully updated user name.");
                 }
 		      itemsProcessed++;
-		      if(itemsProcessed === 4)
+		      if(itemsProcessed === 3)
 			      res.redirect('/profile/edit');
         });
         }
         else
         {
-         console.log("user name in use");
          res.status(409).json({
              message: "user name in use"
          });
@@ -285,27 +281,13 @@ router.post('/updateprofile', function(req, res, next) {
                   console.log("Successfully updated password.");
                 }
                 itemsProcessed++;
-                if(itemsProcessed === 4)
+                if(itemsProcessed === 3)
                   res.redirect('/profile/edit');
               });
           }
       });
     }
-
-    if (public_key) {
-      User.update({_id: user_id},
-        {$set: {public_key: public_key }}, function(err, result) {
-          if (err) {
-            res.status(500).json({error: err});
-          } else {
-            console.log("Successfully updated public key.");
-          }
-          itemsProcessed++;
-          if(itemsProcessed === 4)
-            res.redirect('/profile/edit');
-        });
-    }
-
+    
     if (frequency) {
       var millisecs = (frequency.years*31556952000)+(frequency.months*2629746000)+(frequency.days*86400000)+(frequency.hours*3600000);
       User.update({_id: user_id},
@@ -316,7 +298,7 @@ router.post('/updateprofile', function(req, res, next) {
             console.log("Successfully updated frequency.");
           }
           itemsProcessed++;
-          if(itemsProcessed === 4)
+          if(itemsProcessed === 3)
             res.redirect('/profile/edit');
         });
     }

@@ -5,7 +5,6 @@ app.controller('myCtrl', function($scope, $http) {
 
   $scope.updateUser = function() {
     const user_name = document.getElementById("user_name").value;
-    const public_key = document.getElementById("public_key").value;
     const newpass = document.getElementById("newpass").value;
     const repeatpass = document.getElementById("repeatpass").value;
 
@@ -19,7 +18,6 @@ app.controller('myCtrl', function($scope, $http) {
     $http.post('/users/updateprofile', {
       "_id": userId,
       "user_name": user_name,
-      "public_key": public_key,
       "freq": [{
         "years": years,
         "months": months,
@@ -38,7 +36,6 @@ app.controller('myCtrl', function($scope, $http) {
       } else {
         document.getElementById("errors").innerHTML = "Please verify that you provided the correct credentials."
       }
-
     });
   }
 });
