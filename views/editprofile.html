@@ -1,11 +1,8 @@
-<!--Last Word Profile Page
-	HTML Document
+<!--Last Word Edit Profile HTML
 	Author: Eugene Lucino-->
 
-<!-- This page is the home page for a user once they sign in. It contains the "I'm Alive" button,
-	which must be pressed by the user within a certain time frame to keep their information
-	from being released. It also contains buttons for users to edit their information,
-	who will recieve it, and the time frame, among other options. -->
+<!-- This page allows users to edit information such as frequency, public key,
+	 and a new username and/or password. -->
 
 <!DOCTYPE html>
 <html lang="en-US">
@@ -50,16 +47,13 @@
     <label for="user_name"><b>User Name</b></label> <br>
     <input type="text" id="user_name" placeholder="Enter user name" name="user_name"> <br>
 
-    <label for="frequency_options"><b>Frequency</b></label> <br>
+    <label for="frequency_options">	<b>Frequency <span title="Set the length of time without signing in when your information is released.">(?)</span>
+	</b></label> <br>
     <!--<input type="text" id="frequency" placeholder="Enter frequency" name="freq"> <br>-->
 
     <div class="freq_drop_downs" id="frequency_options">
 
         <table>
-            <thead>
-                <th>Length</th>
-                <th>Value</th>
-            </thead>
             <tbody>
                 <tr>
                     <td>
@@ -71,9 +65,6 @@
                         <option value=1>1</option>
                         </select>
                     </td>
-                </tr>
-
-                <tr>
                     <td>
                         <label for="months">Months</label>
                     </td>
@@ -93,10 +84,7 @@
                             <option value=11>11</option>
                         </select>
                     </td>
-                </tr>
-
-                <tr>
-                    <td>
+					<td>
                         <label for="days">Days</label>
                     </td>
                     <td>
@@ -134,10 +122,7 @@
                             <option value=30>30</option>
                         </select>
                     </td>
-                </tr>
-
-                <tr>
-                    <td>
+					<td>
                         <label for="hours">Hours</label>
                     </td>
                     <td>
@@ -175,6 +160,7 @@
 
     <label for="public_key"><b>Public Key</b></label> <br>
     <input type="text" id="public_key" placeholder="Enter Public Key" name="public_key"> <br>
+<<<<<<< HEAD
     <label for="newpass"><b>Password</b></label> <br>
     <input type="password" id="newpass" onkeyup="check();" placeholder="Enter Password" name="password"
            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and
@@ -191,7 +177,7 @@
 
     <!--data-ng-init="getUsersDocs()"-->
 
-    <button type="button" id="update" class="buttons" ng-click="updateUser();"> Update Account </button>
+    <button type="button" id="update" class="buttons" ng-click="updateUser();"> Update Account </button> <br>
 
     <div class="Init_profile">
         <!--p tag for storing user's ID.-->

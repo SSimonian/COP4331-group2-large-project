@@ -1,5 +1,4 @@
-/*	Last Word Sign Up Page
-	CSS Document
+/*	Last Word Edit Profile CSS
 	Author: Eugene Lucino */
 
 body {
@@ -27,7 +26,24 @@ input[type=text]:focus, input[type=password]:focus { border: 2px solid #555; }
 
 hr { border: 1px solid gray; margin-bottom: 20px; }
 
-/* Standard style for all buttons */
+table {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+td:nth-child(odd) { padding-right: 5px; }		/* spacing for values */
+td:nth-child(even) { padding-right: 50px; }		/* spacing for lengths */
+td:nth-child(8) { padding-right: 0px; }			/* remove padding in last column */
+
+/* frequency select times */
+select {
+	padding: 10px 10px;
+	border: none;
+	border-radius: 4px;
+	background-color: burlywood;
+}
+
 button {
     color: white;
     padding: 14px 20px;
@@ -37,27 +53,19 @@ button {
     width: 100%;
 }
 
-.resetbtn, .submitbtn { width: 40%; border-radius: 4px; font-size: 18px; }
-
-/* Extra styles for the reset button */
-.resetbtn {
-    padding: 14px 20px;
-    background-color: red;
-    float: right;
-}
-.resetbtn:hover { background-color: firebrick; }
-
-/* Extra styles for the sign up button */
-.submitbtn {
-    padding: 14px 20px;
+/* Update Account button */
+#update {
+	width: 50%;
+	border-radius: 4px;
+	font-size: 18px;
+	margin: 0px 30px;
+	margin-bottom: 50px;
     background-color: green;
-    margin-right: 5px;
+	display: inline-block;
 }
-.submitbtn:hover { background-color: darkgreen; }
+#update:hover { background-color: darkgreen; }
 
 /* Add padding to container elements */
 .container { padding: 30px; }
 
-.freq_drop_downs {
-    padding: 15px;
-}
+.freq_drop_downs { padding: 15px; }

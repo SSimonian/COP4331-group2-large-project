@@ -1,11 +1,8 @@
-<!--Last Word Profile Page
+<!--Last Word Upload Document
 	HTML Document
 	Author: Eugene Lucino-->
 
-<!-- This page is the home page for a user once they sign in. It contains the "I'm Alive" button,
-	which must be pressed by the user within a certain time frame to keep their information
-	from being released. It also contains buttons for users to edit their information,
-	who will recieve it, and the time frame, among other options. -->
+<!-- Allows users to upload a document to a chosen recipient. -->
 
 <!DOCTYPE html>
 <html lang="en-US">
@@ -54,7 +51,7 @@
 
             <button type="button" id="findrecipient" class="buttons" ng-click="findRecipient();"> Find Recipient </button>
         </div>
-
+		<br>
         <div id="upload_doc" style="visibility: hidden">
             <label for="nickname"><b>Nickname</b></label> <br>
             <input type="text" id="nickname" placeholder="Enter document's nickname" name="nickname"> <br>
