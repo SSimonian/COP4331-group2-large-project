@@ -126,7 +126,7 @@ router.post('/fetchrecipientdocs', function(req, res, next) {
                 count : docs.length,
                 documents : docs.map(doc => {
                     if (doc.expire_time.getTime() < Date.now()) {
-                        //console.log(doc.expire_time.getTime() + '\n' + Date.now());
+                        doc.renewable = false;
                         return {
                             _id: doc._id,
                             nickname: doc.nickname,

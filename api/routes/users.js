@@ -38,6 +38,7 @@ router.post('/login', function(req, res, next) {
                         } else if (!verified) {
                             res.status(204).json({error: "invalid password."});
                         } else {
+                             console.log(user);
                              updateTimes(user);
                              req.userSession.user = user;
                              res.redirect(307, '../profile');
@@ -171,7 +172,7 @@ router.post('/findrecipient', function(req, res, next) {
 });
 
 function updateTimes(user) {
-    Document.updateMany({user_id: user._id},
+    Document.updateMany({user_id: user._id, renewable: true},
         {$set: {expire_time: +user.freq + Date.now()}},
         function(err, result) {
             if (err) {
@@ -237,17 +238,37 @@ router.post('/updateprofile', function(req, res, next) {
 		itemsProcessed++;
 	
 	if (user_name) {
-      User.update({_id: user_id},
-        {$set: {user_name: user_name }}, function(err, result) {
-          if (err) {
-            res.status(500).json({error: err});
-          } else {
-            console.log("Successfully updated user name.");
-          }
+      User.findOne({user_name: user_name}).
+      exec().
+      then(user=>{
+          if(!user)
+          {
+          User.update({_id: user_id},
+            {$set: {user_name: user_name }}, function(err, result) {
+                if (err) {
+                     res.status(500).json({error: err});
+                } 
+                else {
+                    console.log("Successfully updated user name.");
+                }
 		      itemsProcessed++;
 		      if(itemsProcessed === 4)
 			      res.redirect('/profile/edit');
         });
+        }
+        else
+        {
+         console.log("user name in use");
+         res.status(409).json({
+             message: "user name in use"
+         });
+        }
+      }).
+      catch(err =>
+      {
+          console.log(err);
+          res.status(500).json(err);
+      });
     }
 
     if (password === password_repeat && password) {
