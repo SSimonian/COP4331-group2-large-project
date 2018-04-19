@@ -1,4 +1,4 @@
-/*	Last Word Sign Up Page
+/*	Last Word Upload Document
 	CSS Document
 	Author: Eugene Lucino */
 
@@ -32,28 +32,15 @@ button {
     color: white;
     padding: 14px 20px;
     margin: 4px 0px;
+	margin-right: 5px;
     border: none;
     cursor: pointer;
     width: 100%;
+	border-radius: 4px;
+	font-size: 14px;
+	background-color: green;
 }
-
-.resetbtn, .submitbtn { width: 40%; border-radius: 4px; font-size: 18px; }
-
-/* Extra styles for the reset button */
-.resetbtn {
-    padding: 14px 20px;
-    background-color: red;
-    float: right;
-}
-.resetbtn:hover { background-color: firebrick; }
-
-/* Extra styles for the sign up button */
-.submitbtn {
-    padding: 14px 20px;
-    background-color: green;
-    margin-right: 5px;
-}
-.submitbtn:hover { background-color: darkgreen; }
+button:hover { background-color: darkgreen; }
 
 /* Add padding to container elements */
 .container { padding: 30px; }
