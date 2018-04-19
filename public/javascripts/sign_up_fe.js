@@ -1,17 +1,17 @@
     var check = function() {
   if(!document.getElementById("newpass").value && !document.getElementById("repeatpass").value)
   {
-      document.getElementById("message").innerHTML = "";
+      document.getElementById("errors").innerHTML = "";
       return;
   }
   if (document.getElementById("newpass").value ==
     document.getElementById("repeatpass").value) {
-    document.getElementById("message").style.color = 'green';
-    document.getElementById("message").innerHTML = 'Passwords are matching';
+    document.getElementById("errors").style.color = 'green';
+    document.getElementById("errors").innerHTML = 'Passwords are matching';
   } else {
-    document.getElementById("message").style.color = 'red';
-    document.getElementById("message").innerHTML = 'Passwords are not matching';
-    console.log(document.getElementById("message").value);
+    document.getElementById("errors").style.color = 'red';
+    document.getElementById("errors").innerHTML = 'Passwords are not matching';
+    console.log(document.getElementById("errors").value);
   }
-  console.log(document.getElementById("message").value);
+  console.log(document.getElementById("errors").value);
 }
