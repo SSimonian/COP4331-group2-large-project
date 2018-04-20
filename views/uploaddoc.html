@@ -1,6 +1,5 @@
 <!--Last Word Upload Document
-	HTML Document
-	Author: Eugene Lucino-->
+	HTML Document -->
 
 <!-- Allows users to upload a document to a chosen recipient. -->
 
@@ -11,23 +10,70 @@
 	<meta charset = "UTF-8">
 	<meta name="description" content="Dead Man's Switch">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="author" content="COP4600 Group 1">
-    <!--===============================================================================================-->
+	<meta name="author" content="COP4600 Group 2">
+	<!--===============================================================================================-->
 	<link rel="stylesheet" href="../stylesheets/uploaddoc.css">
-    <!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" href="../stylesheets/topnav.css">
-    <!--===============================================================================================-->
-    <!--<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">-->
-    <!--===============================================================================================-->
-    <!--<link rel="stylesheet" type="text/css" href="../stylesheets/util.css">-->
-    <!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<!--<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">-->
+	<!--===============================================================================================-->
+	<!--<link rel="stylesheet" type="text/css" href="../stylesheets/util.css">-->
+	<!--===============================================================================================-->
 	<script type="text/javascript" src="../javascripts/angular.min.js"></script>
-    <!--===============================================================================================-->
-    <script type="text/javascript" src="../javascripts/upload_doc_fe.js"></script>
-    <!--===============================================================================================-->
-    <!--<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>-->
-    <!--===============================================================================================-->
-    <!--<script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>-->
+	<!--===============================================================================================-->
+	<script type="text/javascript" src="../javascripts/upload_doc_fe.js"></script>
+	<!--===============================================================================================-->
+	<!--<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>-->
+	<!--===============================================================================================-->
+	<!--<script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>-->
+	<script type="text/javascript" src="../javascripts/openpgp.js"></script>
+	<script type="text/javascript">
+		var readPrivKey = function (event)
+		{
+			var input = event.target;
+			var reader = new FileReader();
+			reader.onload = function ()
+			{
+				document.getElementById('up_priv_key').innerHTML = reader.result;
+			};
+			reader.readAsText(input.files[0]);
+		};
+
+		function encrypt(pubKey, privKey, message)
+		{
+			var privateKey = openpgp.key.readArmored(privKey).keys[0];
+
+			var options = 
+			{
+				data: message,
+				publicKeys: openpgp.key.readArmored(pubKey).keys,
+				privateKeys: [privateKey]
+			};
+
+			openpgp.encrypt(options).then(encryptedData =>
+			{
+				// return encryptedData.data;
+				document.getElementById("encrypted_message").value = encryptedData.data;
+			});
+		}
+
+		function driver() 
+		{
+			var pubKey = document.getElementById("recipient_public_key").innerText;
+			var privKey = document.getElementById("up_priv_key").innerText;
+			var message = document.getElementById("plaintext").value;
+
+			console.log(pubKey);
+			console.log(privKey);
+			encrypt(pubKey, privKey, message);
+
+			// Clear the stored private key from the page
+			document.getElementById('up_priv_key').innerHTML = null;
+		}
+
+	</script>
+
 </head>
 <body>
 
@@ -40,56 +86,66 @@
 
 <div ng-app="myApp" ng-controller="myCtrl">
 
-    <!--data-ng-init="getUsersDocs()"-->
-    <div class="container">
-        <h1>Upload a Document</h1>
-        <hr>
+	<!--data-ng-init="getUsersDocs()"-->
+	<div class="container">
+		<h1>Upload a Document</h1>
+		<hr>
 
-        <div id="find_recipient">
-            <label for="recipient"><b>Find Your Recipient</b></label> <br>
-            <input type="text" id="recipient" placeholder="Enter a recipient's user name" name="user_name"> <br>
+		<div id="find_recipient">
+			<label for="recipient"><b>Find Your Recipient</b></label> <br>
+			<input type="text" id="recipient" placeholder="Enter a recipient's user name" name="user_name"> <br>
 
-            <button type="button" id="findrecipient" class="buttons" ng-click="findRecipient();"> Find Recipient </button>
-        </div>
+			<button type="button" id="findrecipient" class="buttons" ng-click="findRecipient();"> Find Recipient </button>
+		</div>
 		<br>
-        <div id="upload_doc" style="visibility: hidden">
-            <label for="nickname"><b>Nickname</b></label> <br>
-            <input type="text" id="nickname" placeholder="Enter document's nickname" name="nickname"> <br>
+		<div id="upload_doc" style="visibility: hidden">
+			<label for="nickname"><b>Nickname</b></label> <br>
+			<input type="text" id="nickname" placeholder="Enter document's nickname" name="nickname"> <br>
 
-            <label for="plaintext"><b>Plain Text</b></label> <br>
-            <input type="text" id="plaintext" placeholder="Enter your text here" name="plaintext"> <br>
+			<label for="plaintext"><b>Plain Text</b></label> <br>
+			<input type="text" id="plaintext" placeholder="Enter your text here" name="plaintext"> <br>
+		
+<!-- 			<textarea type="text" id="up_priv_key" placeholder="Upload your private key." name="uploader_private_key" title="Uploader's private key" required></textarea>
+ -->
+ 			<div style="display: none" id="up_priv_key"></div>
 
-            <button type="button" id="uploaddoc" class="buttons" ng-click="uploadDoc();"> Upload Document </button>
-        </div>
+			<input type='file' accept='txt/plain' onchange='readPrivKey(event)'> Upload Private Key </input>
 
-        <p id="messages"></p>
+			<textarea readonly type="text" id="encrypted_message" placeholder="Encrypted message will go here." name="encrypted" title="Encrypted Message" required></textarea>
 
-    </div>
+			<button type="button" id="encryptbutton" class="buttons" onclick="driver();">Encrypt Message</button>
+
+			<button type="button" id="uploaddoc" class="buttons" ng-click="uploadDoc();"> Upload Document </button>
+		</div>
+
+		<p id="messages"></p>
+
+	</div>
 
 
 
-    <div class="Init_profile">
-        <!--p tag for storing user's ID.-->
-        <p id="user_id" hidden></p>
-        <p id="recipient_id" hidden></p>
-        <p id="recipient_public_key" hidden></p>
-        <!--Get data sent from server and assign it where appropriate.-->
-        <script>
-          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>"  + "\n" + "<%= public_key %>");
-          document.getElementById("user_id").innerHTML = "<%= _id %>";
-        </script>
-    </div>
+	<div class="Init_profile">
+		<!--p tag for storing user's ID.-->
+		<p id="user_id" hidden></p>
+		<p id="recipient_id" hidden></p>
+		<div id="recipient_public_key" ></div>
+		<!--Get data sent from server and assign it where appropriate.-->
+		<!-- <script>
+		  console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>"  + "\n" + "<%= public_key %>");
+		  document.getElementById("user_id").innerHTML = "<%= _id %>";
+		</script> -->
+	</div>
 
 </div>
 
 <!--Handle Document Scroll-->
 <!--<script>-->
   <!--$('.js-pscroll').each(function(){-->
-    <!--var ps = new PerfectScrollbar(this);-->
+	<!--var ps = new PerfectScrollbar(this);-->
 
-    <!--$(window).on('resize', function(){-->
-      <!--ps.update();-->
-    <!--})-->
+	<!--$(window).on('resize', function(){-->
+	  <!--ps.update();-->
+	<!--})-->
   <!--});-->
 <!--</script>-->
 
