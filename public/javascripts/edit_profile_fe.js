@@ -1,7 +1,7 @@
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $http) {
 
-  const userId = document.getElementById("user_id").innerHTML;
+  const userId = document.getElementById("user_id").textContent;
 
   $scope.updateUser = function() {
     const user_name = document.getElementById("user_name").value;
@@ -32,11 +32,11 @@ app.controller('myCtrl', function($scope, $http) {
     .then(function(response) {
       if (response.status === 200) {
         console.log("Status was 200!");
-        document.getElementById("errors").innerHTML = "Account successfully updated."
+        document.getElementById("errors").textContent = "Account successfully updated."
       } else if (response.status === 500) {
-        document.getElementById("errors").innerHTML = "Error with server's database. Please try again later."
+        document.getElementById("errors").textContent = "Error with server's database. Please try again later."
       } else {
-        document.getElementById("errors").innerHTML = "Please verify that you provided the correct credentials."
+        document.getElementById("errors").textContent = "Please verify that you provided the correct credentials."
       }
 
     });

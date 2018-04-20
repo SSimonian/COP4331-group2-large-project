@@ -199,7 +199,7 @@
         <!--Get data sent from server and assign it where appropriate.-->
         <script>
           console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>"  + "\n" + "<%= public_key %>");
-          document.getElementById("user_id").innerHTML = "<%= _id %>";
+          document.getElementById("user_id").textContent = "<%= _id %>";
           document.getElementById("user_name").value = "<%= user_name %>";
           // document.getElementById("frequency").value = "<%= frequency %>";
           document.getElementById("public_key").value = "<%= public_key %>";

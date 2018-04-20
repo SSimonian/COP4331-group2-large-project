@@ -1,7 +1,7 @@
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $http) {
 
-  const userId = document.getElementById("user_id").innerHTML;
+  const userId = document.getElementById("user_id").textContent;
 
   // Hides or Shows a Div.
   function hideOrShow( elementId, showState ) {
@@ -26,15 +26,15 @@ app.controller('myCtrl', function($scope, $http) {
     })
       .then(function(response) {
         if (response.status === 200) {
-          document.getElementById("messages").innerHTML = "";
+          document.getElementById("messages").textContent = "";
           console.log("Status was 200!");
           console.log(response.data);
           var jsonObject = response.data;
-          document.getElementById("recipient_id").innerHTML = jsonObject._id;
-          document.getElementById("recipient_public_key").innerHTML = jsonObject.public_key;
+          document.getElementById("recipient_id").textContent = jsonObject._id;
+          document.getElementById("recipient_public_key").textContent = jsonObject.public_key;
           hideOrShow("upload_doc", true);
         } else {
-          document.getElementById("messages").innerHTML = "Recipient not found."
+          document.getElementById("messages").textContent = "Recipient not found."
         }
 
       });
@@ -43,7 +43,7 @@ app.controller('myCtrl', function($scope, $http) {
   $scope.uploadDoc = function() {
     const nickname = document.getElementById("nickname").value;
     const ciphertext = document.getElementById("plaintext").value; // TODO create actual cipher text.
-    const recipient_id = document.getElementById("recipient_id").innerHTML;
+    const recipient_id = document.getElementById("recipient_id").textContent;
 
     $http.post('/documents/submitdoc', {
       "nickname": nickname,
@@ -55,9 +55,9 @@ app.controller('myCtrl', function($scope, $http) {
       if (response.status === 201) {
         console.log("Status was 201!");
         console.log(response.data);
-        document.getElementById("messages").innerHTML = "Document successfully uploaded.";
+        document.getElementById("messages").textContent = "Document successfully uploaded.";
       } else {
-        document.getElementById("messages").innerHTML = "Please verify that you provided the correct credentials."
+        document.getElementById("messages").textContent = "Please verify that you provided the correct credentials."
       }
 
     });

@@ -84,8 +84,8 @@
         <!--Get data sent from server and assign it where appropriate.-->
         <script>
           console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>");
-          document.getElementById("user_id").innerHTML = "<%= _id %>";
-          document.getElementById("h1").innerText += " <%= user_name %>";
+          document.getElementById("user_id").textContent = "<%= _id %>";
+          document.getElementById("h1").textContent += " <%= user_name %>";
         </script>
     </div>
 

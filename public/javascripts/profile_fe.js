@@ -1,7 +1,7 @@
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $http) {
 
-  const userId = document.getElementById("user_id").innerHTML;
+  const userId = document.getElementById("user_id").textContent;
 
   $scope.getUsersDocs = function() {
     $http.post('/documents/fetchuserdocs', {
@@ -33,8 +33,8 @@ app.controller('myCtrl', function($scope, $http) {
 
             var date = new Date(documents.expire_time);
 
-            nickname_cell.innerHTML = documents.nickname;
-            expire_time_cell.innerHTML = date.toLocaleDateString() + " -- " + date.toLocaleTimeString();
+            nickname_cell.textContent = documents.nickname;
+            expire_time_cell.textContent = date.toLocaleDateString() + " -- " + date.toLocaleTimeString();
           }
         }
       }
@@ -69,13 +69,13 @@ app.controller('myCtrl', function($scope, $http) {
               expire_time_cell.className = 'column2';
               cipher_text_cell.className = 'column3';
 
-              nickname_cell.innerHTML = documents.nickname;
-              expire_time_cell.innerHTML = documents.expire_time;
+              nickname_cell.textContent = documents.nickname;
+              expire_time_cell.textContent = documents.expire_time;
 
               if (documents.ciphertext) {
-                cipher_text_cell.innerHTML = documents.ciphertext;
+                cipher_text_cell.textContent = documents.ciphertext;
               } else {
-                cipher_text_cell.innerHTML = "Not available.";
+                cipher_text_cell.textContent = "Not available.";
               }
             }
           }
