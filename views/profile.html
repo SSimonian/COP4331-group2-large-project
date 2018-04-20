@@ -2,10 +2,9 @@
 	HTML Document
 	Author: Eugene Lucino-->
 
-<!-- This page is the home page for a user once they sign in. It contains the "I'm Alive" button,
-	which must be pressed by the user within a certain time frame to keep their information
-	from being released. It also contains buttons for users to edit their information,
-	who will recieve it, and the time frame, among other options. -->
+<!-- This page is the home page for a user once they sign in. It contains the documents
+	 submitted by the user as well as documents the user has recieved. Two buttons are
+	 provided to allow the user to edit their information or add a new document. -->
 
 <!DOCTYPE html>
 <html lang="en-US">
@@ -41,7 +40,7 @@
     <a class="menulab" href="/profile" style="float:right">Your Docs</a>
 </div>
 
-<h1 id="h1">Welcome to Last W&Omega;rd, </h1>
+<h1 id="h1">Welcome to L&Alpha;st W&Omega;rd, </h1>
 
 <!-- Obsolete? Signing into the website renews document expiration times -->
 <!--<div class="imalive">-->
@@ -53,8 +52,8 @@
 <!--<br> </br>-->
 
 <div class="editing">
-	<p>Your information is protected. Select a button to change your information,</p>
-	<p>recipients, and other options, including the time until your information is released.</p>
+	<p>Your information is protected. Select a button to change your information</p>
+	<p>or add a new document. All your documents are listed below.</p>
     <form method="get" action="/profile/edit">
         <button type="submit" id="information"><b>Edit Information</b></button> <br>
     </form>
@@ -91,7 +90,7 @@
 
     <br>
     <br>
-    <p align="center">Your Docs</p>
+    <p align="center">Your Documents</p>
     <div class="limiter">
         <div class="container-table100">
             <div class="wrap-table100">
@@ -110,120 +109,7 @@
                     <div class="table100-body js-pscroll">
                         <table id="docs_table">
                             <tbody>
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                            </tr>
+								<!-- Documents sent by user -->
                             </tbody>
                         </table>
                     </div>
@@ -232,7 +118,7 @@
         </div>
     </div>
 
-    <p align="center">Recipient Docs</p>
+    <p align="center">Recipient Documents</p>
     <div class="limiter">
         <div class="container-table100">
             <div class="wrap-table100">
@@ -252,143 +138,7 @@
                     <div class="table100-body js-pscroll">
                         <table id="recpient_table">
                             <tbody>
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">Like a butterfly</td>
-                                <td class="cell100 column2">Boxing</td>
-                                <td class="cell100 column3">9:00 AM</td>
-                            </tr>
+								<!-- Documents received by user -->
                             </tbody>
                         </table>
                     </div>

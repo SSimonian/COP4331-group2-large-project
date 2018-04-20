@@ -1,18 +1,35 @@
 /*	Last Word Sign Up Page
-	CSS Document
-	Author: Eugene Lucino */
+	CSS Document */
 
 body {
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: linen;
+    height: 100%;
 }
 
 h1 { color: firebrick; }
 
+div {
+    height: 100%;
+    width: 97%;
+    float: left;
+}
+#left {
+    float: left;
+    width: 30%;
+    margin: 1%;
+}
+#right {
+    float: left;
+    margin: 1%;
+    width: 35%;
+}
+
 /* Full-width input fields */
 input[type=text], input[type=password] {
-    width: 100%;
-    padding: 15px;
+    width: 250px;
+    font-size: 17px;
+    padding: 10px;
     margin: 5px 0 22px 0;
     display: inline-block;
     border: 2px solid #ccc;
@@ -27,6 +44,11 @@ input[type=text]:focus, input[type=password]:focus { border: 2px solid #555; }
 
 hr { border: 1px solid gray; margin-bottom: 20px; }
 
+textarea {
+    width: 470px;
+    height: 476px;
+}
+
 /* Standard style for all buttons */
 button {
     color: white;
@@ -37,13 +59,22 @@ button {
     width: 100%;
 }
 
-.resetbtn, .signupbtn { width: 40%; border-radius: 4px; font-size: 18px; }
+.resetbtn, .signupbtn, .generatebtn { width: 40%; border-radius: 4px; font-size: 18px; }
+
+.generatebtn {
+    width: 100%;
+    padding: 14px 20px;
+    background-color: blue;
+    float: middle;
+}
+
+.generatebtn:hover { background-color: darkblue; }
 
 /* Extra styles for the reset button */
 .resetbtn {
     padding: 14px 20px;
     background-color: red;
-    float: right;
+    float: left;
 }
 .resetbtn:hover { background-color: firebrick; }
 
