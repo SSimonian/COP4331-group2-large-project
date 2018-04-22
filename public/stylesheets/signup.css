@@ -1,19 +1,35 @@
 /*	Last Word Sign Up Page
-	CSS Document
-	Author: Eugene Lucino */
+	CSS Document */
 
 body {
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: linen;
+    height: 100%;
 }
 
 h1 { color: firebrick; }
-hr { border: 1px solid gray; margin-bottom: 20px; }
+
+div {
+    height: 100%;
+    width: 97%;
+    float: left;
+}
+#left {
+    float: left;
+    width: 30%;
+    margin: 1%;
+}
+#right {
+    float: left;
+    margin: 1%;
+    width: 35%;
+}
 
 /* Full-width input fields */
-input[type=text], input[type=password], textarea {
-    width: 100%;
-    padding: 15px;
+input[type=text], input[type=password] {
+    width: 250px;
+    font-size: 17px;
+    padding: 10px;
     margin: 5px 0 22px 0;
     display: inline-block;
     border: 2px solid #ccc;
@@ -23,7 +39,15 @@ input[type=text], input[type=password], textarea {
 	transition: 0.5s;
 	outline: none;
 }
-input[type=text]:focus, input[type=password]:focus, textarea:focus { border: 2px solid #555; }
+
+input[type=text]:focus, input[type=password]:focus { border: 2px solid #555; }
+
+hr { border: 1px solid gray; margin-bottom: 20px; }
+
+textarea {
+    width: 470px;
+    height: 476px;
+}
 
 /* Standard style for all buttons */
 button {
@@ -35,35 +59,32 @@ button {
     width: 100%;
 }
 
-.resetbtn, .signupbtn, .keysbtn {
-	width: 40%;
-	border-radius: 4px;
-	font-size: 18px;
-	padding: 14px 20px;
+.resetbtn, .signupbtn, .generatebtn { width: 40%; border-radius: 4px; font-size: 18px; }
+
+.generatebtn {
+    width: 100%;
+    padding: 14px 20px;
+    background-color: blue;
+    float: middle;
 }
+
+.generatebtn:hover { background-color: darkblue; }
 
 /* Extra styles for the reset button */
 .resetbtn {
+    padding: 14px 20px;
     background-color: red;
-    float: right;
+    float: left;
 }
 .resetbtn:hover { background-color: firebrick; }
 
 /* Extra styles for the sign up button */
 .signupbtn {
+    padding: 14px 20px;
     background-color: green;
     margin-right: 5px;
 }
 .signupbtn:hover { background-color: darkgreen; }
-
-/* Extra styles for the generate keys button */
-.keysbtn {
-	color: black;
-	width: 100%;
-    background-color: burlywood;
-    margin-right: 5px;
-}
-.keysbtn:hover { background-color: sienna; color: white; }
 
 /* Add padding to container elements */
 .container { padding: 30px; }

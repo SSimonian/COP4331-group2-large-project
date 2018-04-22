@@ -1,9 +1,8 @@
-<!--Last Word Sign Up Page
-	HTML Document
-	Author: Leinecker Enterprises -->
+<!-- Last Word Sign Up Page
+	HTML Document -->
 
-<!-- A new user can sign up for an account here. The user fills in information
-	such as a username, password, and public key. -->
+<!-- A new user can sign up for an account on this page. The user fills in information
+	such as a username and password. -->
 
 <!DOCTYPE html>
 <html lang="en-US">
@@ -15,12 +14,10 @@
 	<meta name="author" content="COP4600 Group 1">
 	<link rel="stylesheet" href="../stylesheets/signup.css">
 	<link rel="stylesheet" href="../stylesheets/topnav.css">
-
-
     <script type="text/javascript" src="../javascripts/angular.min.js"></script>
     <script type="text/javascript" src="../javascripts/sign_up_fe.js"></script>
-  <script type="text/javascript" src="../javascripts/openpgp.js"></script>
-  <script type="text/javascript">
+    <script type="text/javascript" src="../javascripts/openpgp.js"></script>
+    <script type="text/javascript">
     function generateKeys()
     {
       var userName = document.getElementById('newuser').value;
@@ -74,7 +71,7 @@
 
 <form name="signup" action="users/submituser" method="post" style="border:1px solid gray; margin:10px 10px;">
   <div class="container">
-    <h1>Sign Up for Last W&Omega;rd</h1>
+    <h1>Sign Up for L&Alpha;st W&Omega;rd</h1>
     <p>Start protecting your valuable information by filling out this form.</p>
     <hr>
     <label for="newuser"><b>Username</b></label> <br>
@@ -102,6 +99,14 @@
 		<button type="submit" class="signupbtn" id="signup">Sign Up</button>
 		<button type="reset" class="resetbtn" id="cancel">Reset</button>
     </div>
+
+    <div id="right">
+      <label for="pub_key"><b>Public Key</b></label> <br>
+      <textarea readonly type="text" id="pub_key" placeholder="You must click the button below to generate your key pair before signing up. Your private key should automatically download onto your computer after you press the button." name="public_key" title="Enter a string of characters.
+      This key will be used to encrypt your information" required></textarea> 
+      <button type="button" class="generatebtn" onclick="generateKeys()">Generate Keys</button> <br>
+    </div>
+
   </div>
 </form>
 
