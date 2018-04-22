@@ -69,8 +69,10 @@ app.controller('myCtrl', function($scope, $http) {
               expire_time_cell.className = 'column2';
               cipher_text_cell.className = 'column3';
 
+              var date = new Date(documents.expire_time);
+
               nickname_cell.textContent = documents.nickname;
-              expire_time_cell.textContent = documents.expire_time;
+              expire_time_cell.textContent = date.toLocaleDateString() + " -- " + date.toLocaleTimeString();
 
               if (documents.ciphertext) {
                 cipher_text_cell.textContent = documents.ciphertext;
