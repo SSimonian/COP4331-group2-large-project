@@ -1,6 +1,6 @@
-<!-- Last Word Receive Documents -->
+<!-- Last Word Received Document -->
 
-<!-- Displays a document received by the user, then decrypt and download -->
+<!-- Displays a document received by the user, then decrypts and downloads document. -->
 
 <!DOCTYPE html>
 <html lang="en-US">
@@ -13,8 +13,12 @@
 	<link rel="stylesheet" href="../public/stylesheets/receive.css">
 	<link rel="stylesheet" href="../public/stylesheets/topnav.css">
 	<script type="text/javascript" src="../javascripts/angular.min.js"></script>
-
+    <script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="../javascripts/openpgp.js"></script>
+    <script>
+    document.getElementById('ciphertext') = '<%= ciphertext %>';
+    document.getElementById('up_public_key') ='<%= uploaderPublicKey %>';
+    </script>
 	<script type="text/javascript">
 		var readPrivKey = function (event)
 		{
@@ -113,11 +117,6 @@
 
 
 </div>
-
-
-
-
-
 
 <h1>View Document</h1>
 <p>You've received the following document:</p>

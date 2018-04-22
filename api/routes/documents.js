@@ -201,7 +201,7 @@ router.post('/view', function (req,res, next) {
         User.findOne({_id: doc.user_id})
         .exec()
         .then(user =>{
-           res.render('viewdoc', {
+           res.render('receive', {
             ciphertext: doc.ciphertext,
             uploaderID: user._id,
             uploaderPublicKey: user.public_key

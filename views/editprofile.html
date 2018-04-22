@@ -49,7 +49,6 @@
 
     <label for="frequency_options">	<b>Frequency <span title="Set the length of time without signing in when your information is released.">(?)</span>
 	</b></label> <br>
-    <!--<input type="text" id="frequency" placeholder="Enter frequency" name="freq"> <br>-->
 
     <div class="freq_drop_downs" id="frequency_options">
 
@@ -184,8 +183,7 @@
           console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>");
           document.getElementById("user_id").textContent = "<%= _id %>";
           document.getElementById("user_name").value = "<%= user_name %>";
-          // document.getElementById("frequency").value = "<%= frequency %>";
-
+          document.getElementById("public_key").value = "<%= public_key %>";
           const freq = "<%= frequency %>";
           const HOUR = 3600000;
           const DAY = 86400000;
