@@ -50,9 +50,15 @@ app.controller('myCtrl', function($scope, $http)
 
 	$scope.uploadDoc = function()
 	{
+		// const userId = document.getElementById("user_id").innerHTML;
 		const nickname = document.getElementById("nickname").value;
 		const ciphertext = document.getElementById("encrypted_message").value;
 		const recipient_id = document.getElementById("recipient_id").innerHTML;
+
+		console.log("nickname: " + nickname);
+		console.log("ciphertext: " + ciphertext);
+		console.log("recipient_id: " + recipient_id);
+		console.log("user_id: " + userId);
 
 		$http.post('/documents/submitdoc',
 		{

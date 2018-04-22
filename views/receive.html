@@ -1,68 +1,128 @@
-<!--Last Word Recipients HTML
-	Author: Eugene Lucino-->
+<!-- Last Word Receive Documents -->
 
-<!-- Table of recipients. Users can add, delete, and edit the people that 
-	they want to send information to. -->
+<!-- Displays a document received by the user, then decrypt and download -->
 
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-	<title>Recipients- Last Word</title>
-	<meta charset "UTF-8">
+	<title>Last Word</title>
+	<meta charset = "UTF-8">
 	<meta name="description" content="Dead Man's Switch">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="COP4600 Group 2">
-	<link rel="stylesheet" href="../stylesheets/receive.css">
-	<link rel="stylesheet" href="../stylesheets/topnav.css">
+	<link rel="stylesheet" href="../public/stylesheets/receive.css">
+	<link rel="stylesheet" href="../public/stylesheets/topnav.css">
+	<script type="text/javascript" src="../javascripts/angular.min.js"></script>
+
+	<script type="text/javascript" src="../javascripts/openpgp.js"></script>
+	<script type="text/javascript">
+		var readPrivKey = function (event)
+		{
+			var input = event.target;
+			var reader = new FileReader();
+			reader.onload = function ()
+			{
+				document.getElementById('recip_priv_key').innerHTML = reader.result;
+			};
+			reader.readAsText(input.files[0]);
+		};
+
+		function decrypt(pubKey, privKey, ciphertext)
+		{
+			var name = "message.txt";
+			var privateKey = openpgp.key.readArmored(privKey).keys[0];
+
+			var options =
+			{
+				message: openpgp.message.readArmored(ciphertext),
+				publicKeys: openpgp.key.readArmored(pubKey).keys,
+				privateKeys: key
+			};
+
+			openpgp.decrypt(options).then(decryptedMessage => 
+			{
+				// document.getElementById("decryted_message").value = decryptedMessage.data;
+				downloadMessage(decryptedMessage.data, name);
+			});
+		}
+
+		function downloadMessage(message, filename)
+		{
+			var file = new Blob([message], {type: "txt"});
+
+			var a = document.createElement("a"), url = URL.createObjectURL(file);
+			a.href = url;
+			a.download = filename;
+			document.body.appendChild(a);
+			a.click();
+
+			setTimeout(
+				function()
+				{
+					document.body.removeChild(a);
+					window.URL.revokeObjectURL(url);
+				}, 0
+			);
+		}
+
+		function driver() 
+		{
+			var pubKey = document.getElementById("up_public_key").innerText;
+			var privKey = document.getElementById("recip_priv_key").innerText;
+			var ciphertext = document.getElementById("ciphertext").value;
+
+			console.log(pubKey);
+			console.log(privKey);
+			decrypt(pubKey, privKey, ciphertext);
+
+			// Clear the stored private key from the page
+			document.getElementById('recip_priv_key').innerHTML = null;
+		}
+
+
+	</script>
+
 </head>
 
 <body>
 
 <div class="topnav">
-	<a class="logo" href="#home" alt="Home" title="Home"><img src="../images/Last Word.png" style="width:36px; height:36px; object-fit: scale-down;"></a>
-	<a class="menulab" href="#about">About Us</a>
-	<a class="menulab" href="#logout" style="float:right">Log Out</a>
-	<a class="menulab" href="#profile" style="float:right">Your Profile</a>
+	<a class="logo" href="/" alt="Home" title="Home"><img src="../images/Last Word.png" style="width:36px; height:36px; object-fit: scale-down;"></a>
+	<a class="menulab" href="/about">About Us</a>
+	<a class="menulab" href="/" style="float:right">Log Out</a>
+	<a class="menulab" href="/profile" style="float:right">Your Docs</a>
 </div>
 
-<h1>Recipient Information</h1>
+<div>
+	<div id="left">
+			<label for="encryptedMessage"><b>Encrypted Message</b></label> <br>
+			<textarea readonly type="text" id="encryptedMessage" placeholder="Encrypted Message" name="encrypted"
+					title="Encrypted message goes here" required></textarea> <br>
+			<br><br>
+		</div>
 
-<p>Should you be unable to confirm that you are alive, your information will be sent 
-to the recipients you designate here.</p>
-<br>
+		<div id="right">
+			<div style="display: none" id="recip_priv_key"></div>
+			<div style="display: none" id="up_pub_key"></div>
 
-<div class="editing" style="width:60%">
-  <button>Add Person</button>
-  <button>Delete Person</button>
-  <button>Edit Person</button>
-  <button>Sort by First Name</button>
-  <button>Sort by Last Name</button>
-  <button>Sort by Email</button>
+			<input type='file' accept='txt/plain' onchange='readPrivKey(event)'> Upload Private Key </input>
+
+			<button type="button" id="decryptbutton" class="buttons" onclick="driver();">Decrypt and Download Message</button>
+
+		</div>
+
+
 </div>
-<br>
 
-<table class="names" style="width:70%">
-	<tr>
-		<th>First Name</th>
-		<th>Last Name</th>
-		<th>Email</th>
-	</tr>
-	<tr>
-		<td>Jill</td>
-		<td>Smith</td> 
-		<td>jsmith40@mailer.com</td>
-	</tr>
-	<tr>
-		<td>Eve</td>
-		<td>Jackson</td> 
-		<td>eveja@fortran.com</td>
-	</tr>
-	<tr>
-		<td>John</td>
-		<td>Cena</td>
-		<td>youcantseeme@gmail.com</td>
-	</tr>
-</table>
+
+
+
+
+
+<h1>View Document</h1>
+<p>You've received the following document:</p>
+
+<textarea rows="15" cols="50" placeholder="Document text here. For user's eyes only!" readonly></textarea>
 
 </body>
 </html>

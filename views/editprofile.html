@@ -181,8 +181,8 @@
         <p id="user_id" hidden></p>
         <!--Get data sent from server and assign it where appropriate.-->
         <script>
-          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>");
-          document.getElementById("user_id").innerHTML = "<%= _id %>";
+          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>"  + "\n" + "<%= public_key %>");
+          document.getElementById("user_id").textContent = "<%= _id %>";
           document.getElementById("user_name").value = "<%= user_name %>";
           // document.getElementById("frequency").value = "<%= frequency %>";
 
@@ -190,16 +190,17 @@
           const HOUR = 3600000;
           const DAY = 86400000;
           const MONTH = 2629746000;
-          const YEAR = 31556952000;
+          let YEAR = 31556952000;
 
           const user_year = freq - YEAR;
           if (user_year >= 0) {
             document.getElementById("years").value = 1;
           } else {
             document.getElementById("years").value = 0;
+            YEAR = 0;
           }
 
-          const user_month = (freq - YEAR) / MONTH;
+          const user_month = (freq - (document.getElementById("years").value) * YEAR) / MONTH;
           if (user_month < 1) {
             document.getElementById("months").value = 0;
           } else if (user_month < 2) {
@@ -226,7 +227,7 @@
             document.getElementById("months").value = 11;
           }
 
-          const user_day = (freq - YEAR - (MONTH * document.getElementById("months").value)) / DAY;
+          const user_day = ((freq - (document.getElementById("years").value) * YEAR) - (MONTH * document.getElementById("months").value)) / DAY;
           if (user_day < 1) {
             document.getElementById("days").value = 0;
           } else if (user_day < 2) {
@@ -291,7 +292,7 @@
             document.getElementById("days").value = 30;
           }
 
-          const user_hour = (freq - YEAR - (MONTH * document.getElementById("months").value) - (DAY * document.getElementById("days").value)) / HOUR;
+          const user_hour = ((freq - (document.getElementById("years").value) * YEAR) - (MONTH * document.getElementById("months").value) - (DAY * document.getElementById("days").value)) / HOUR;
 
           if (user_hour < 1) {
             document.getElementById("hours").value = 0;
