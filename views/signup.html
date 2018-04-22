@@ -16,44 +16,44 @@
 	<link rel="stylesheet" href="../stylesheets/topnav.css">
 	<script type="text/javascript" src="../javascripts/openpgp.js"></script>
 	<script type="text/javascript">
-	function generateKeys()
-	{
-		var userName = document.getElementById('newuser').value;
-		var options = 
+		function generateKeys()
 		{
-			userIds: [{name: userName}],
-			numBits: 2048
-		};
+			var userName = document.getElementById('newuser').value;
+			var options = 
+			{
+				userIds: [{name: userName}],
+				numBits: 2048
+			};
 
-		var publicKey, privateKey;
+			var publicKey, privateKey;
 
-		openpgp.generateKey(options).then( key =>
+			openpgp.generateKey(options).then( key =>
+			{
+				privateKey = key.privateKeyArmored;
+				publicKey = key.publicKeyArmored;
+				downloadKey(privateKey, "privateKey.txt");
+				document.getElementById('pub_key').value = publicKey;
+			});
+		}
+
+		function downloadKey(key, filename)
 		{
-			privateKey = key.privateKeyArmored;
-			publicKey = key.publicKeyArmored;
-			downloadKey(privateKey, "privateKey.txt");
-			document.getElementById('pub_key').value = publicKey;
-		});
-	}
+			var file = new Blob([key], {type: "txt"});
 
-	function downloadKey(key, filename)
-	{
-		var file = new Blob([key], {type: "txt"});
+			var a = document.createElement("a"), url = URL.createObjectURL(file);
+			a.href = url;
+			a.download = filename;
+			document.body.appendChild(a);
+			a.click();
 
-		var a = document.createElement("a"), url = URL.createObjectURL(file);
-		a.href = url;
-		a.download = filename;
-		document.body.appendChild(a);
-		a.click();
-
-		setTimeout(
-		function()
-		{
-			document.body.removeChild(a);
-			window.URL.revokeObjectURL(url);
-		}, 0
-		);
-	}
+			setTimeout(
+				function()
+				{
+					document.body.removeChild(a);
+					window.URL.revokeObjectURL(url);
+				}, 0
+			);
+		}
 	</script>
 </head>
 
@@ -67,7 +67,7 @@
 <br>
 
 
-<form name="signup" action="users/submituser" method="post">
+<form name="signup" action="users/submituser" method="post" style="border:1px solid gray; margin:10px 10px;">
 	<div class="container">
 		<h1>Sign Up for L&Alpha;st W&Omega;rd</h1>
 		<p>Start protecting your valuable information by filling out this form.</p>
@@ -79,11 +79,13 @@
 
 			<label for="newpass"><b>Password</b></label> <br>
 			<input type="password" id="newpass" placeholder="Enter Password" name="password"
-				pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required> <br>
+						 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and
+						 lowercase letter, and at least 8 or more characters" required> <br>
 
 			<label for="repeatpass"><b>Repeat Password</b></label> <br>
 			<input type="password" id="repeatpass" placeholder="Repeat Password" name="password_repeat"
-				pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and	lowercase letter, and at least 8 or more characters" required> <br>
+						 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and
+						 lowercase letter, and at least 8 or more characters" required> <br>
 			<button type="submit" class="signupbtn" id="signup">Sign Up</button> <br>
 			<button type="reset" class="resetbtn" id="cancel">Reset</button> <br>
 			<br><br>
@@ -92,7 +94,8 @@
 
 		<div id="right">
 			<label for="pub_key"><b>Public Key</b></label> <br>
-			<textarea readonly type="text" id="pub_key" placeholder="You must click the button below to generate your key pair before signing up. Your private key should automatically download onto your computer after you press the button. Please save this file for future use." name="public_key" required></textarea>
+			<textarea readonly type="text" id="pub_key" placeholder="You must click the button below to generate your key pair before signing up. Your private key should automatically download onto your computer after you press the button." name="public_key" title="Enter a string of characters.
+			This key will be used to encrypt your information" required></textarea> 
 			<button type="button" class="generatebtn" onclick="generateKeys()">Generate Keys</button> <br>
 		</div>
 
