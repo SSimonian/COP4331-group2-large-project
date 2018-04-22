@@ -204,16 +204,30 @@ router.post('/findrecipient', function(req, res, next) {
     }
 });
 
-function updateTimes(user) {
-    Document.updateMany({user_id: user._id},
-        {$set: {expire_time: +user.freq + Date.now()}},
-        function(err, result) {
-            if (err) {
+function updateTimes(user_id) {
+
+  if (user_id) {
+    User.findOne({_id: user_id})
+      .select('-__v')
+      .exec()
+      .then(function(user) {
+        if (user){
+          Document.updateMany({user_id: user._id},
+            {$set: {expire_time: +user.freq + Date.now()}},
+            function(err, result) {
+              if (err) {
                 console.log("Error: " + err);
-            } else {
+              } else {
                 console.log("Document times updated");
-            }
-        })
+              }
+            })
+        }
+      }).catch(function(err) {
+        console.log(err);
+      });
+  }
+
+
 
 }
 
