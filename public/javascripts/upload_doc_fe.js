@@ -2,7 +2,7 @@ var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $http)
 {
 
-	const userId = document.getElementById("user_id").textContent;
+	const userId = document.getElementById("user_id").innerHTML;
 
 	// Hides or Shows a Div.
 	function hideOrShow( elementId, showState )
@@ -33,25 +33,32 @@ app.controller('myCtrl', function($scope, $http)
 			{
 				if (response.status === 200)
 				{
-					document.getElementById("messages").textContent = "";
+					document.getElementById("messages").innerHTML = "";
 					console.log("Status was 200!");
 					console.log(response.data);
 					var jsonObject = response.data;
-					document.getElementById("recipient_id").textContent = jsonObject._id;
-					document.getElementById("recipient_public_key").textContent = jsonObject.public_key;
+					document.getElementById("recipient_id").innerHTML = jsonObject._id;
+					document.getElementById("recipient_public_key").innerText = jsonObject.public_key;
 					hideOrShow("upload_doc", true);
 				} else
 				{
-					document.getElementById("messages").textContent = "Recipient not found."
+					document.getElementById("messages").innerHTML = "Recipient not found."
 				}
+
 			});
 	};
 
 	$scope.uploadDoc = function()
 	{
+		// const userId = document.getElementById("user_id").innerHTML;
 		const nickname = document.getElementById("nickname").value;
 		const ciphertext = document.getElementById("encrypted_message").value;
-		const recipient_id = document.getElementById("recipient_id").textContent;
+		const recipient_id = document.getElementById("recipient_id").innerHTML;
+
+		console.log("nickname: " + nickname);
+		console.log("ciphertext: " + ciphertext);
+		console.log("recipient_id: " + recipient_id);
+		console.log("user_id: " + userId);
 
 		$http.post('/documents/submitdoc',
 		{
@@ -66,11 +73,12 @@ app.controller('myCtrl', function($scope, $http)
 			{
 				console.log("Status was 201!");
 				console.log(response.data);
-				document.getElementById("messages").textContent = "Document successfully uploaded.";
+				document.getElementById("messages").innerHTML = "Document successfully uploaded.";
 			} else
 			{
-				document.getElementById("messages").textContent = "Please verify that you provided the correct credentials."
+				document.getElementById("messages").innerHTML = "Please verify that you provided the correct credentials."
 			}
+
 		});
 	}
 });
