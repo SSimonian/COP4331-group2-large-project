@@ -52,7 +52,7 @@ app.controller('myCtrl', function($scope, $http) {
 
         if (count > 0) {
           var i = 0;
-          var documents, row, nickname_cell, expire_time_cell, cipher_text_cell,docId_cell;
+          var documents, row, nickname_cell, expire_time_cell, cipher_text_cell, docId_cell, upPubKey_cell;
           var docs_table = document.getElementById("recpient_table");
           for (; i < count; i++) {
             documents = data.documents[i];
@@ -65,16 +65,26 @@ app.controller('myCtrl', function($scope, $http) {
             expire_time_cell = row.insertCell(1);
             cipher_text_cell = row.insertCell(2);
             docId_cell = row.insertCell(3);
+            upPubKey_cell = row.insertCell(4);
+
             nickname_cell.className = 'column1';
             expire_time_cell.className = 'column2';
             cipher_text_cell.className = 'column3';
             docId_cell.className = 'column4';
+            upPubKey_cell = 'column5';
+
             var date = new Date(documents.expire_time);
 
             nickname_cell.textContent = documents.nickname;
             expire_time_cell.textContent = date.toLocaleDateString() + " -- " + date.toLocaleTimeString();
+            
             docId_cell.textContent = documents._id;
             docId_cell.style.display = 'none';
+
+            upPubKey_cell.textContent = "";
+            upPubKey_cell.display = 'none';
+
+
             if (documents.ciphertext) {
               cipher_text_cell.textContent = documents.ciphertext;
             } else {
@@ -87,10 +97,10 @@ app.controller('myCtrl', function($scope, $http) {
   }
 
   $('#recpient_table').on('click', 'tr', function(){
-      // $http.post('/documents/viewdoc', {
-      //    docId : $(this).find('td:eq(3)').html()
-      // })
-      $http.get('/documents/viewdoc')
+      $http.post('/documents/viewdoc', {
+         docId : $(this).find('td:eq(3)').html()
+      })
+      // $http.post('/documents/viewdoc')
       .then(response => {
         // $('body').html(response.data);
         // if(response.status == 200) {

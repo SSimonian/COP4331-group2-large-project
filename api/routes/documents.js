@@ -5,11 +5,6 @@ const router = express.Router();
 const Document = require('../models/document');
 const User = require('../models/user');
 
-router.get('/dsafjka', function(req, res, next) {
-    // res.status(200).json("fuck you");
-    res.render('receive');
-});
-
 /* POST Submit Document
     Example:
     {
@@ -134,6 +129,28 @@ router.post('/fetchrecipientdocs', function(req, res, next) {
                     }
                 })
             };
+            console.log("Response: " + response.documents[0]._id);
+            if (docs) {
+
+                for (let i = 0; i < response.count; i++) {
+                    console.log("user_id: " + response.documents[i].user_id);
+                    var user_id = response.documents[i].user_id;
+
+                    if (user_id) {
+                        User.find({_id: user_id})
+                            .exec()
+                            .then(user => {
+                                console.log("public_key: " + user);
+                            })
+                            .catch(err => {
+                                console.log(err);
+                                res.status(500).json({
+                                    error: err
+                                });
+                            })
+                    }
+                }
+            }
             console.log(response);
             res.status(200).json(response);
         })
@@ -204,7 +221,7 @@ router.post('/retrieveText', function (req,res, next) {
 }); 
 
 router.post('/viewdoc', function (req,res, next) {
-    res.redirect(307, '/documents/viewdoc');
+    res.redirect(307, '../receive');
     // res.render('receive', {
     //     docId : req.body.docId
     // });
