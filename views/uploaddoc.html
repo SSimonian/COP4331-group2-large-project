@@ -117,20 +117,25 @@
 
 			<button type="button" id="uploaddoc" class="buttons" ng-click="uploadDoc();"> Upload Document </button>
 		</div>
+
 		<p id="messages"></p>
+
 	</div>
 
-    <div class="Init_profile">
-        <!--p tag for storing user's ID.-->
-        <p id="user_id" hidden></p>
-        <p id="recipient_id" hidden></p>
-        <p id="recipient_public_key" hidden></p>
-        <!--Get data sent from server and assign it where appropriate.-->
-        <script>
-          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>"  + "\n" + "<%= public_key %>");
-          document.getElementById("user_id").textContent = "<%= _id %>";
-        </script>
-    </div>
+
+
+	<div class="Init_profile">
+		<!--p tag for storing user's ID.-->
+		<p id="user_id" hidden></p>
+		<p id="recipient_id" hidden></p>
+		<div id="recipient_public_key" ></div>
+		<!--Get data sent from server and assign it where appropriate.-->
+		<script>
+		  console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>" );
+		  document.getElementById("user_id").innerHTML = "<%= _id %>";
+		</script>
+	</div>
+
 </div>
 
 <!--Handle Document Scroll-->
