@@ -58,5 +58,5 @@ freeline_project_description.json
 .idea/
 
 # npm
-node_modules/npm/
+node_modules/
 
