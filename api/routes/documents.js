@@ -41,7 +41,8 @@ router.post('/submitdoc', function(req, res, next) {
                             ciphertext: ciphertext,
                             expire_time: expire_time,
                             user_id: user_id,
-                            recipient_id: recipient_id
+                            recipient_id: recipient_id,
+                            renewable: true
                         });
 
                         document.save().then(function(result) {
@@ -134,7 +135,8 @@ router.post('/fetchrecipientdocs', function(req, res, next) {
                             ciphertext: doc.ciphertext,
                             expire_time: doc.expire_time,
                             user_id: doc.user_id,
-                            recipient_id: doc.recipient_id
+                            recipient_id: doc.recipient_id,
+                            renewable: doc.renewable
                         }
                     } else {
                         // TODO decide if this is worth doing. Not returning an object will map "null" into the collection.
@@ -176,7 +178,8 @@ router.post('/fetchuserdocs', function(req, res, next) {
               ciphertext: doc.ciphertext,
               expire_time: doc.expire_time,
               user_id: doc.user_id,
-              recipient_id: doc.recipient_id
+              recipient_id: doc.recipient_id,
+              renewable: doc.renewable
             }
           })
         };
