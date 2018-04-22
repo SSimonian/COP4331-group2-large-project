@@ -216,7 +216,6 @@ function updateTimes(user_id) {
             {$set: {expire_time: +user.freq + Date.now()}},
             function(err, result) {
               if (err) {
->>>>>>> master
                 console.log("Error: " + err);
               } else {
                 console.log("Document times updated");
@@ -260,13 +259,6 @@ router.post('/updateprofile', function(req, res, next) {
   const user_name = req.body.user_name;
   const password = req.body.password;
   const password_repeat = req.body.password_repeat;
-<<<<<<< HEAD
-  const frequency = req.body.freq[0];
-  var itemsProcessed = 0;
-
-  console.log(user_id + "\n" + user_name + "\n" + password + "\n" + password_repeat + "\n" + frequency);
-  console.log(frequency.years + "\n" + frequency.months + "\n" + frequency.days + "\n" + frequency.hours);
-=======
   const public_key = req.body.public_key;
   let frequency;
   if (req.body.freq) {
@@ -279,8 +271,6 @@ router.post('/updateprofile', function(req, res, next) {
   if (frequency) {
     console.log(frequency.years + "\n" + frequency.months + "\n" + frequency.days + "\n" + frequency.hours);
   }
-
->>>>>>> master
 
   if (!user_id) {
     res.status(204).json({error: "Missing user_id."});

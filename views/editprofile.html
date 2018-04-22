@@ -181,7 +181,7 @@
         <p id="user_id" hidden></p>
         <!--Get data sent from server and assign it where appropriate.-->
         <script>
-          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>"  + "\n" + "<%= public_key %>");
+          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>");
           document.getElementById("user_id").textContent = "<%= _id %>";
           document.getElementById("user_name").value = "<%= user_name %>";
           // document.getElementById("frequency").value = "<%= frequency %>";
