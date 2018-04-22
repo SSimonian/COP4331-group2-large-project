@@ -79,44 +79,26 @@
 
 <body>
 
-	<div class="topnav">
-		<a class="logo" href="/" alt="Home" title="Home"><img src="../images/Last Word.png" style="width:36px; height:36px; object-fit: scale-down;"></a>
-		<a class="menulab" href="/about">About Us</a>
-		<a class="menulab" href="/" style="float:right">Log Out</a>
-		<a class="menulab" href="/profile" style="float:right">Your Docs</a>
-	</div>
-
-	<div>
-		<div id="left">
-				<label for="encryptedMessage"><b>Encrypted Message</b></label> <br>
-				<textarea readonly type="text" id="encryptedMessage" placeholder="Encrypted Message" name="encrypted"
-						title="Encrypted message goes here" required></textarea> <br>
-				<br><br>
-			</div>
-
-			<div id="right">
-				<div style="display: none" id="recip_priv_key"></div>
-				<div style="display: none" id="up_pub_key"></div>
-
-				<input type='file' accept='txt/plain' onchange='readPrivKey(event)'>Upload Private Key
-
-				<button type="button" id="decryptbutton" class="buttons" onclick="driver();">Decrypt and Download Message</button>
-
-			</div>
-
-
-	</div>
-
-	<div>
-
-	<h1>View Document</h1>
-	<p id="test">You've received the following document:</p>
-
-	<textarea rows="15" cols="50" placeholder="Document text here. For user's eyes only!" readonly></textarea>
-
+<div class="topnav">
+	<a class="logo" href="/" alt="Home" title="Home"><img src="../images/Last Word.png" style="width:36px; height:36px; object-fit: scale-down;"></a>
+	<a class="menulab" href="/about">About Us</a>
+	<a class="menulab" href="/" style="float:right">Log Out</a>
+	<a class="menulab" href="/profile" style="float:right">Your Docs</a>
 </div>
 
 
+<h1>View Document</h1>
+<p>You've received the following encrypted document:</p>
+<textarea readonly type="text" id="encryptedMessage" placeholder="Encrypted Message" name="encrypted"
+	title="Encrypted message goes here" required></textarea> <br>
+
+<div style="display: none" id="recip_priv_key"></div>
+<div style="display: none" id="up_pub_key"></div>
+
+<p>Upload your private key to access this file</p>
+<input type='file' accept='txt/plain' onchange='readPrivKey(event)'></input>
+<br><br>
+<button type="button" id="decryptbutton" class="decryptbtn" onclick="driver();">Decrypt and Download Message</button>
 
 </body>
 </html>

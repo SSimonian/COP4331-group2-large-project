@@ -15,14 +15,34 @@ p {
 }
 
 textarea {
-	display: block;
-	margin: auto;
-	width: 50%;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
-	resize: none;
+	width: 470px;
+	height: 375px;
 }
+
+input[type=file] {
+	float: middle;
+	color: black;
+	height: 50px;
+	font-size: 20px;
+	overflow: hidden;
+}
+
+/* Standard style for all buttons */
+button {
+	color: white;
+	padding: 14px 20px;
+	margin: 4px 0px;
+	border: none;
+	cursor: pointer;
+	font-size: 18px;
+	width: 100%;
+}
+
+.decryptbtn {
+	width: 40%;
+	padding: 14px 20px;
+	background-color: green;
+	float: middle;
+}
+
+.decryptbtn:float {background-color: darkgreen;}
