@@ -260,11 +260,18 @@ router.post('/updateprofile', function(req, res, next) {
   const password = req.body.password;
   const password_repeat = req.body.password_repeat;
   const public_key = req.body.public_key;
-  const frequency = req.body.freq[0];
+  let frequency;
+  if (req.body.freq) {
+    frequency = req.body.freq[0];
+  }
   var itemsProcessed = 0;
 
   console.log(user_id + "\n" + user_name + "\n" + password + "\n" + password_repeat + "\n" + public_key + "\n" + frequency);
-  console.log(frequency.years + "\n" + frequency.months + "\n" + frequency.days + "\n" + frequency.hours);
+
+  if (frequency) {
+    console.log(frequency.years + "\n" + frequency.months + "\n" + frequency.days + "\n" + frequency.hours);
+  }
+
 
   if (!user_id) {
     res.status(204).json({error: "Missing user_id."});
@@ -352,16 +359,15 @@ router.post('/updateprofile', function(req, res, next) {
 
 router.post('/updateprofile/mobile', function(req, res, next) {
 
-  const user_id = req.body._id;
+  const user_id = req.body.user_id;
   const user_name = req.body.user_name;
   const password = req.body.password;
   const password_repeat = req.body.password_repeat;
   const public_key = req.body.public_key;
-  const frequency = req.body.freq[0];
+  const frequency = req.body.frequency;
   var itemsProcessed = 0;
 
   console.log(user_id + "\n" + user_name + "\n" + password + "\n" + password_repeat + "\n" + public_key + "\n" + frequency);
-  console.log(frequency.years + "\n" + frequency.months + "\n" + frequency.days + "\n" + frequency.hours);
 
   if (!user_id) {
     res.status(204).json({error: "Missing user_id."});
@@ -429,9 +435,8 @@ router.post('/updateprofile/mobile', function(req, res, next) {
     }
 
     if (frequency) {
-      var millisecs = (frequency.years*31556952000)+(frequency.months*2629746000)+(frequency.days*86400000)+(frequency.hours*3600000);
       User.update({_id: user_id},
-        {$set: {freq: millisecs }}, function(err, result) {
+        {$set: {freq: frequency }}, function(err, result) {
           if (err) {
             res.status(500).json({error: err});
           } else {
