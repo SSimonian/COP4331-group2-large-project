@@ -452,4 +452,21 @@ router.post('/updateprofile/mobile', function(req, res, next) {
   }
 });
 
+router.post('/userfreq/mobile', function(req, res, next) {
+  const user_id = req.body.user_id;
+
+  if (user_id) {
+    User.findOne({_id: user_id})
+      .select('-__v')
+      .exec()
+      .then(function(user) {
+        if (user){
+          res.status(200).json({freq: user.freq});
+        }
+      }).catch(function(err) {
+      console.log(err);
+    });
+  }
+});
+
 module.exports = router;
