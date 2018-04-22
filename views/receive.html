@@ -1,6 +1,8 @@
-<!-- Last Word Received Document -->
+<!--Last Word About Us
+	HTML Document
+	Author: Eugene Lucino-->
 
-<!-- Displays a document received by the user, then decrypts and downloads document. -->
+<!-- About Us page. Contains group members and info about purpose of Last Word. -->
 
 <!DOCTYPE html>
 <html lang="en-US">
@@ -13,107 +15,108 @@
 	<link rel="stylesheet" href="../stylesheets/receive.css">
 	<link rel="stylesheet" href="../stylesheets/topnav.css">
 	<script type="text/javascript" src="../javascripts/angular.min.js"></script>
-    <script type="text/javascript" src="../javascripts/receive_fe.js"></script>
+	<script type="text/javascript" src="../javascripts/receive_fe.js"></script>
 	<script type="text/javascript" src="../javascripts/openpgp.js"></script>
 	<script type="text/javascript">
-		var readPrivKey = function (event)
-		{
-			var input = event.target;
-			var reader = new FileReader();
-			reader.onload = function ()
-			{
-				document.getElementById('recip_priv_key').innerHTML = reader.result;
-			};
-			reader.readAsText(input.files[0]);
-		};
-		function decrypt(pubKey, privKey, ciphertext)
-		{
-			var name = "message.txt";
-			var privateKey = openpgp.key.readArmored(privKey).keys[0];
-			var options =
-			{
-				message: openpgp.message.readArmored(ciphertext),
-				publicKeys: openpgp.key.readArmored(pubKey).keys,
-				privateKeys: key
-			};
-			openpgp.decrypt(options).then(decryptedMessage => 
-			{
-				// document.getElementById("decryted_message").value = decryptedMessage.data;
-				downloadMessage(decryptedMessage.data, name);
-			});
-		}
-		function downloadMessage(message, filename)
-		{
-			var file = new Blob([message], {type: "txt"});
-			var a = document.createElement("a"), url = URL.createObjectURL(file);
-			a.href = url;
-			a.download = filename;
-			document.body.appendChild(a);
-			a.click();
-			setTimeout(
-				function()
+				var readPrivKey = function (event)
 				{
-					document.body.removeChild(a);
-					window.URL.revokeObjectURL(url);
-				}, 0
-			);
-		}
-		function driver() 
-		{
-            var JsonObject = JSON.parse(document.getElementById("payload").innerText);
-			var pubKey = JsonObject.uploaderPublicKey;
-			var privKey = document.getElementById("recip_priv_key").innerText;
-			var ciphertext = JsonObject.ciphertext;
-			console.log(pubKey);
-			console.log(privKey);
-			decrypt(pubKey, privKey, ciphertext);
-			// Clear the stored private key from the page
-			document.getElementById('recip_priv_key').innerHTML = null;
-		}
+					var input = event.target;
+					var reader = new FileReader();
+					reader.onload = function ()
+					{
+						document.getElementById('recip_priv_key').innerHTML = reader.result;
+					};
+					reader.readAsText(input.files[0]);
+				};
+				function decrypt(pubKey, privKey, ciphertext)
+				{
+					var name = "message.txt";
+					var privateKey = openpgp.key.readArmored(privKey).keys[0];
+					var options =
+					{
+						message: openpgp.message.readArmored(ciphertext),
+						publicKeys: openpgp.key.readArmored(pubKey).keys,
+						privateKeys: key
+					};
+					openpgp.decrypt(options).then(decryptedMessage => 
+					{
+						// document.getElementById("decryted_message").value = decryptedMessage.data;
+						downloadMessage(decryptedMessage.data, name);
+					});
+				}
+				function downloadMessage(message, filename)
+				{
+					var file = new Blob([message], {type: "txt"});
+					var a = document.createElement("a"), url = URL.createObjectURL(file);
+					a.href = url;
+					a.download = filename;
+					document.body.appendChild(a);
+					a.click();
+					setTimeout(
+						function()
+						{
+							document.body.removeChild(a);
+							window.URL.revokeObjectURL(url);
+						}, 0
+					);
+				}
+				function driver() 
+				{
+		            var JsonObject = JSON.parse(document.getElementById("payload").innerText);
+					var pubKey = JsonObject.uploaderPublicKey;
+					var privKey = document.getElementById("recip_priv_key").innerText;
+					var ciphertext = JsonObject.ciphertext;
+					console.log(pubKey);
+					console.log(privKey);
+					decrypt(pubKey, privKey, ciphertext);
+					// Clear the stored private key from the page
+					document.getElementById('recip_priv_key').innerHTML = null;
+				}
+
+
 	</script>
 </head>
 
 <body>
 
-<div class="topnav">
-	<a class="logo" href="/" alt="Home" title="Home"><img src="../images/Last Word.png" style="width:36px; height:36px; object-fit: scale-down;"></a>
-	<a class="menulab" href="/about">About Us</a>
-	<a class="menulab" href="/" style="float:right">Log Out</a>
-	<a class="menulab" href="/profile" style="float:right">Your Docs</a>
+	<div class="topnav">
+		<a class="logo" href="/" alt="Home" title="Home"><img src="../images/Last Word.png" style="width:36px; height:36px; object-fit: scale-down;"></a>
+		<a class="menulab" href="/about">About Us</a>
+		<a class="menulab" href="/" style="float:right">Log Out</a>
+		<a class="menulab" href="/profile" style="float:right">Your Docs</a>
+	</div>
+
+	<div>
+		<div id="left">
+				<label for="encryptedMessage"><b>Encrypted Message</b></label> <br>
+				<textarea readonly type="text" id="encryptedMessage" placeholder="Encrypted Message" name="encrypted"
+						title="Encrypted message goes here" required></textarea> <br>
+				<br><br>
+			</div>
+
+			<div id="right">
+				<div style="display: none" id="recip_priv_key"></div>
+				<div style="display: none" id="up_pub_key"></div>
+
+				<input type='file' accept='txt/plain' onchange='readPrivKey(event)'>Upload Private Key
+
+				<button type="button" id="decryptbutton" class="buttons" onclick="driver();">Decrypt and Download Message</button>
+
+			</div>
+
+
+	</div>
+
+	<div>
+
+	<h1>View Document</h1>
+	<p id="test">You've received the following document:</p>
+
+	<textarea rows="15" cols="50" placeholder="Document text here. For user's eyes only!" readonly></textarea>
+
 </div>
 
-<div>
-	<div id="left">
-			<label for="encryptedMessage"><b>Encrypted Message</b></label> <br>
-			<textarea readonly type="text" id="encryptedMessage" placeholder="Encrypted Message" name="encrypted"
-					title="Encrypted message goes here" required></textarea> <br>
-			<br><br>
-		</div>
-
-		<div id="right">
-			<div style="display: none" id="recip_priv_key"></div>
-			<div style="display: none" id="up_pub_key"></div>
-
-			<input type='file' accept='txt/plain' onchange='readPrivKey(event)'> Upload Private Key </input>
-
-			<button type="button" id="decryptbutton" class="buttons" onclick="driver();">Decrypt and Download Message</button>
-
-		</div>
 
 
-</div>
-
-<h1>View Document</h1>
-<p>You've received the following document:</p>
-
-<textarea rows="15" cols="50" placeholder="Document text here. For user's eyes only!" readonly></textarea>
-
-<div ng-app="myApp" ng-controller="myCtrl" data-ng-init="init()">
- <script>
-    console.log("<%= docId %>");
-    document.getElementById("docId").innerText = "<%= docId %>";
- </script>
- <p id="docId" ></p>
-</div>
 </body>
 </html>

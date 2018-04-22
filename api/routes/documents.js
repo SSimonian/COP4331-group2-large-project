@@ -5,6 +5,11 @@ const router = express.Router();
 const Document = require('../models/document');
 const User = require('../models/user');
 
+router.get('/dsafjka', function(req, res, next) {
+    // res.status(200).json("fuck you");
+    res.render('receive');
+});
+
 /* POST Submit Document
     Example:
     {
@@ -196,11 +201,13 @@ router.post('/retrieveText', function (req,res, next) {
     .catch(err => {
         res.status(500).json({error: err});
     })
-    }); 
-    router.post('/viewdoc', function (req,res, next) {
-        res.render('receive', {
-            docId : req.body.docId
-        });
-    });
+}); 
+
+router.post('/viewdoc', function (req,res, next) {
+    res.redirect(307, '/documents/viewdoc');
+    // res.render('receive', {
+    //     docId : req.body.docId
+    // });
+});
 
 module.exports = router;

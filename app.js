@@ -14,6 +14,7 @@ var profile = require('./api/routes/profile');
 var users = require('./api/routes/users');
 var documents = require('./api/routes/documents');
 var about = require('./api/routes/about');
+var receive = require('./api/routes/receive');
 
 var app = express();
 
@@ -37,7 +38,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
 
 //stuff for passports & sessions
 app.use(clientSessions({
@@ -79,7 +80,7 @@ mongoose.Promise = require('bluebird');
 
 // Connect to Database
 const dbUser = process.env.ATLAS_USER || 'cruder';
-const dbPassword = process.env.ATLAS_PW;
+const dbPassword = process.env.ATLAS_PW || 'BGjKEsEstM84jT1S';
 mongoose.connect(
     'mongodb://' + dbUser + ':' + dbPassword + '@cluster0-shard-00-00-8nsnm.mongodb.net:27017,' +
     'cluster0-shard-00-01-8nsnm.mongodb.net:27017,cluster0-shard-00-02-8nsnm.mongodb.net:27017/' +
@@ -94,6 +95,7 @@ app.use('/profile', profile);
 app.use('/users', users);
 app.use('/documents', documents);
 app.use('/about', about);
+app.use('/receive', receive);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
