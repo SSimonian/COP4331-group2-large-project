@@ -26,10 +26,6 @@ button {
 	cursor: pointer;
 }
 
-/* "I'm alive" button */
-.imalive button { font-size: 40px; }
-.imalive button:hover { background-color: darkgreen; }
-
 /* Edit info and recipients */
 .editing button {
 	background-color: sienna;

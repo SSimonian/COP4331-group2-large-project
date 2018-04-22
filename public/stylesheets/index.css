@@ -1,10 +1,8 @@
-/*	GameOfLife
+/*	Last Word Home Page
 	CSS Document
-	Author: Mark Poulsen */
+	Author: Mark Poulsen & Eugene Lucino */
 
-body {
-    background-color: seashell;
-}
+body { background-color: seashell; }
 
 h1 {
     color: firebrick;
@@ -13,24 +11,6 @@ h1 {
     text-align: center;
     padding: 50px;
     padding-bottom: 10px;
-}
-
-/* Username and Password fields */
-input[type=text], input[type=password] {
-    width: 60%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-    outline: none;
-}
-/* black border when typing in box */
-input[type=text]:focus, input[type=password]:focus {
-    border: 2px solid #555;
 }
 
 /* Submit button */
@@ -45,24 +25,9 @@ input[type=submit] {
     cursor: pointer;
 }
 /* darken button when hovering over */
-input[type=submit]:hover {
-    background-color: firebrick;
-}
+input[type=submit]:hover { background-color: firebrick; }
 
-div {
-    padding: 20px;
-    text-align: center;
-}
+div { padding: 20px; text-align: center; }
 
 /* Group and copyright information */
-#info {
-    text-align: center;
-}
-
-#developers {
-    text-align: center;
-}
-
-#copyright {
-    text-align: center;
-}
+#info, #developers, #copyright { text-align: center; }

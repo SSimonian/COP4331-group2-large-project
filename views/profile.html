@@ -42,15 +42,6 @@
 
 <h1 id="h1">Welcome to L&Alpha;st W&Omega;rd, </h1>
 
-<!-- Obsolete? Signing into the website renews document expiration times -->
-<!--<div class="imalive">-->
-	<!--<p> <i>WARNING: Unless you press the "I'm Alive" button, the information you give here </i> </p>-->
-	<!--<p> <i>will be distributed to your designated recipients after a determined amount of time.</i> </p>-->
-	<!--<button type="button" id="alive"><b>I'm Alive</b></button>-->
-<!--</div>-->
-
-<!--<br> </br>-->
-
 <div class="editing">
 	<p>Your information is protected. Select a button to change your information</p>
 	<p>or add a new document. All your documents are listed below.</p>
@@ -61,18 +52,6 @@
     <form method="get" action="/profile/submitdoc">
         <button type="submit" id="submitdoc"><b>Add a Document</b></button> <br>
     </form>
-
-    <!-- Are these necessary? -->
-	<!--<button type="button" id="recipients"><b>Edit Recipients</b></button> <br>-->
-	<!--<button type="button" id="options"><b>Other Options</b></button>-->
-	<!--<br><br>-->
-
-    <!-- Logout button in navbar. Do we still need this? -->
-    <!--<form method="get" action="/">-->
-        <!--<button type="button" id="logout"><b>Log Out</b></button>-->
-    <!--</form>-->
-	
-
 </div>
 
 <div ng-app="myApp" ng-controller="myCtrl" data-ng-init="getUsersDocs()">
