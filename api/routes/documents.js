@@ -185,4 +185,26 @@ router.post('/fetchuserdocs', function(req, res, next) {
       });
 });
 
+router.post('/view', function (req,res, next) {
+    Document.findOne({nickname: req.body.nickname, recipient_id:req.body.recipient})
+    .exec()
+    .then(doc => {
+        User.findOne({_id: doc.user_id})
+        .exec()
+        .then(user =>{
+           res.render('viewdoc', {
+            ciphertext: doc.ciphertext,
+            uploaderID: user._id,
+            uploaderPublicKey: user.public_key
+        });
+        })
+        .catch(err => {
+            res.status(500).json({error: err});
+        })
+    })
+    .catch(err => {
+        res.status(500).json({error: err});
+    })
+});
+
 module.exports = router;

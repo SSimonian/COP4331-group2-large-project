@@ -85,4 +85,13 @@ app.controller('myCtrl', function($scope, $http) {
 
       });
   }
+  $('#recpient_table').on('click', 'tr', function(){
+      $http.post('/documents/view', {
+         nickname : $(this).find('td:eq(0)').html(),
+         recipient : userId
+      })
+  .then(response => {
+      $('body').html(response.data);
+  });
+ });
 });
