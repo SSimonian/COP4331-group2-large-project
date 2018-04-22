@@ -39,7 +39,7 @@
 				privateKeys: key
 			};
 
-			openpgp.decrypt(options).then(decryptedMessage => 
+			openpgp.decrypt(options).then(decryptedMessage =>
 			{
 				// document.getElementById("decryted_message").value = decryptedMessage.data;
 				downloadMessage(decryptedMessage.data, name);
@@ -65,7 +65,7 @@
 			);
 		}
 
-		function driver() 
+		function driver()
 		{
 			var pubKey = document.getElementById("up_public_key").innerText;
 			var privKey = document.getElementById("recip_priv_key").innerText;
