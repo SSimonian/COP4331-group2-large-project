@@ -122,6 +122,7 @@ router.post('/fetchrecipientdocs', function(req, res, next) {
         .select('-__v')
         .exec()
         .then(docs => {
+          console.log("Found recipient");
             const response = {
                 count : docs.length,
                 documents : docs.map(doc => {
@@ -145,6 +146,7 @@ router.post('/fetchrecipientdocs', function(req, res, next) {
                     }
                 })
             };
+            console.log(response);
             res.status(200).json(response);
         })
         .catch(function(err) {
@@ -160,29 +162,33 @@ router.post('/fetchrecipientdocs', function(req, res, next) {
     }
  */
 router.post('/fetchuserdocs', function(req, res, next) {
-  Document.find({user_id: req.body.user_id})
+  if (req.body.user_id) {
+    Document.find({user_id: req.body.user_id})
       .select('-__v')
       .exec()
       .then(docs => {
-          const response = {
-              count : docs.length,
-              documents : docs.map(doc => {
-                      return {
-                          _id: doc._id,
-                          nickname: doc.nickname,
-                          ciphertext: doc.ciphertext,
-                          expire_time: doc.expire_time,
-                          user_id: doc.user_id,
-                          recipient_id: doc.recipient_id
-                      }
-              })
-          };
-          res.status(200).json(response);
+        const response = {
+          count : docs.length,
+          documents : docs.map(doc => {
+            return {
+              _id: doc._id,
+              nickname: doc.nickname,
+              ciphertext: doc.ciphertext,
+              expire_time: doc.expire_time,
+              user_id: doc.user_id,
+              recipient_id: doc.recipient_id
+            }
+          })
+        };
+        res.status(200).json(response);
       })
       .catch(function(err) {
-          console.log(err);
-          res.status(500).json({error: err});
+        console.log(err);
+        res.status(500).json({error: err});
       });
+  } else {
+    res.status(204).json({error: "missing user_id"});
+  }
 });
 
 module.exports = router;
