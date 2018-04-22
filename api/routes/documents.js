@@ -74,25 +74,6 @@ router.post('/submitdoc', function(req, res, next) {
         res.status(204).json({error: "Missing things."});
     }
 });
-
-router.get('/:user_id', function(req, res, next) {
-    console.log(req.params.user_id);
-    Document.find({user_id: req.params.user_id})
-        .select('-__v')
-        .exec()
-        .then(docs => {
-            const response = {
-                count : docs.length,
-                products : docs
-            };
-            res.status(200).json(response);
-        })
-        .catch(function(err) {
-            console.log(err);
-            res.status(500).json({error: err});
-        });
-});
-
 // router.post('/fetchdocs', function(req, res, next) {
 //     console.log(req.body.user_id);
 //     Document.find({user_id: req.body.user_id})
@@ -194,26 +175,32 @@ router.post('/fetchuserdocs', function(req, res, next) {
   }
 });
 
-router.post('/view', function (req,res, next) {
-    Document.findOne({nickname: req.body.nickname, recipient_id:req.body.recipient})
+router.post('/retrieveText', function (req,res, next) {
+    Document.findOne({_id: req.body.docId})
     .exec()
     .then(doc => {
         User.findOne({_id: doc.user_id})
         .exec()
         .then(user =>{
-           res.render('receive', {
+            let Jsonobject = {
             ciphertext: doc.ciphertext,
             uploaderID: user._id,
             uploaderPublicKey: user.public_key
-        });
+            };
+           res.status(200).json(Jsonobject);
         })
         .catch(err => {
             res.status(500).json({error: err});
-        })
+        });
     })
     .catch(err => {
         res.status(500).json({error: err});
     })
-});
+    }); 
+    router.post('/viewdoc', function (req,res, next) {
+        res.render('receive', {
+            docId : req.body.docId
+        });
+    });
 
 module.exports = router;
