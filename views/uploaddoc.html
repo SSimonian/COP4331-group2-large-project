@@ -99,21 +99,24 @@
 		</div>
 		<br>
 		<div id="upload_doc" style="visibility: hidden">
-			<label for="nickname"><b>Nickname</b></label> <br>
-			<input type="text" id="nickname" placeholder="Enter document's nickname" name="nickname"> <br>
+			<label for="nickname"><b>Document Nickname</b></label> <br>
+			<input type="text" id="nickname" placeholder="Give this document a name" name="nickname"> <br>
 
-			<label for="plaintext"><b>Plain Text</b></label> <br>
-			<input type="text" id="plaintext" placeholder="Enter your text here" name="plaintext"> <br>
+			<label for="plaintext"><b>Unencrypted Message</b></label> <br>
+			<input type="text" id="plaintext" placeholder="Enter the message you would like to encrypt" name="plaintext"> <br>
 		
-<!-- 			<textarea type="text" id="up_priv_key" placeholder="Upload your private key." name="uploader_private_key" title="Uploader's private key" required></textarea>
- -->
  			<div style="display: none" id="up_priv_key"></div>
+ 			<br>
+ 			Upload Your Private Key To Encrypt Your Message:  
+			<input type='file' accept='txt/plain' onchange='readPrivKey(event)'></input>
+			<br><br><br>
 
-			<input type='file' accept='txt/plain' onchange='readPrivKey(event)'> Upload Private Key </input>
+			<button type="button" id="encryptbutton" class="buttons" onclick="driver();">Encrypt Message</button>
+			<br>
 
 			<textarea readonly type="text" id="encrypted_message" placeholder="Encrypted message will go here." name="encrypted" title="Encrypted Message" required></textarea>
 
-			<button type="button" id="encryptbutton" class="buttons" onclick="driver();">Encrypt Message</button>
+			<br>
 
 			<button type="button" id="uploaddoc" class="buttons" ng-click="uploadDoc();"> Upload Document </button>
 		</div>
@@ -128,8 +131,11 @@
 		<!--p tag for storing user's ID.-->
 		<p id="user_id" hidden></p>
 		<p id="recipient_id" hidden></p>
-		<div id="recipient_public_key" ></div>
+
+		<!-- DO NOT TOUCH THIS OR EVERYTHING BREAKS!  -->
+		<div style="font-size: 0px;" id="recipient_public_key"></div>
 		<!--Get data sent from server and assign it where appropriate.-->
+		
 		<script>
 		  console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>" );
 		  document.getElementById("user_id").innerHTML = "<%= _id %>";
