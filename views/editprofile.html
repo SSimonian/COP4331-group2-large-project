@@ -1,7 +1,7 @@
 <!--Last Word Edit Profile HTML
 	Author: Eugene Lucino-->
 
-<!-- This page allows users to edit information such as frequency, public key,
+<!-- This page allows users to edit information such as frequency
 	 and a new username and/or password. -->
 
 <!DOCTYPE html>
@@ -12,22 +12,22 @@
 	<meta name="description" content="Dead Man's Switch">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="COP4600 Group 1">
-    <!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" href="../stylesheets/editprofile.css">
-    <!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" href="../stylesheets/topnav.css">
-    <!--===============================================================================================-->
-    <!--<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">-->
-    <!--===============================================================================================-->
-    <!--<link rel="stylesheet" type="text/css" href="../stylesheets/util.css">-->
-    <!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<!--<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">-->
+	<!--===============================================================================================-->
+	<!--<link rel="stylesheet" type="text/css" href="../stylesheets/util.css">-->
+	<!--===============================================================================================-->
 	<script type="text/javascript" src="../javascripts/angular.min.js"></script>
-    <!--===============================================================================================-->
-    <script type="text/javascript" src="../javascripts/edit_profile_fe.js"></script>
-    <!--===============================================================================================-->
-    <!--<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>-->
-    <!--===============================================================================================-->
-    <!--<script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>-->
+	<!--===============================================================================================-->
+	<script type="text/javascript" src="../javascripts/edit_profile_fe.js"></script>
+	<!--===============================================================================================-->
+	<!--<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>-->
+	<!--===============================================================================================-->
+	<!--<script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>-->
 </head>
 <body>
 
@@ -39,333 +39,330 @@
 </div>
 
 <div class="container">
-    <h1>Edit Your Profile</h1>
-    <hr>
+	<h1>Edit Your Profile</h1>
+	<hr>
 
-    <label for="user_name"><b>User Name</b></label> <br>
-    <input type="text" id="user_name" placeholder="Enter user name" name="user_name"> <br>
+	<label for="user_name"><b>User Name</b></label> <br>
+	<input type="text" id="user_name" placeholder="Enter user name" name="user_name"> <br>
 
-    <label for="frequency_options">	<b>Frequency <span title="Set the length of time without signing in when your information is released.">(?)</span>
+	<label for="frequency_options">	<b>Frequency <span title="Set the length of time without signing in when your information is released.">(?)</span>
 	</b></label> <br>
 
-    <div class="freq_drop_downs" id="frequency_options">
+	<div class="freq_drop_downs" id="frequency_options">
 
-        <table>
-            <tbody>
-                <tr>
-                    <td>
-                        <label for="years">Years</label>
-                    </td>
-                    <td>
-                        <select id="years">
-                        <option value=0>0</option>
-                        <option value=1>1</option>
-                        </select>
-                    </td>
-                    <td>
-                        <label for="months">Months</label>
-                    </td>
-                    <td>
-                        <select id="months">
-                            <option value=0>0</option>
-                            <option value=1>1</option>
-                            <option value=2>2</option>
-                            <option value=3>3</option>
-                            <option value=4>4</option>
-                            <option value=5>5</option>
-                            <option value=6>6</option>
-                            <option value=7>7</option>
-                            <option value=8>8</option>
-                            <option value=9>9</option>
-                            <option value=10>10</option>
-                            <option value=11>11</option>
-                        </select>
-                    </td>
+		<table>
+			<tbody>
+				<tr>
 					<td>
-                        <label for="days">Days</label>
-                    </td>
-                    <td>
-                        <select id="days">
-                            <option value=0>0</option>
-                            <option value=1>1</option>
-                            <option value=2>2</option>
-                            <option value=3>3</option>
-                            <option value=4>4</option>
-                            <option value=5>5</option>
-                            <option value=6>6</option>
-                            <option value=7>7</option>
-                            <option value=8>8</option>
-                            <option value=9>9</option>
-                            <option value=10>10</option>
-                            <option value=11>11</option>
-                            <option value=12>12</option>
-                            <option value=13>13</option>
-                            <option value=14>14</option>
-                            <option value=15>15</option>
-                            <option value=16>16</option>
-                            <option value=17>17</option>
-                            <option value=18>18</option>
-                            <option value=19>19</option>
-                            <option value=20>20</option>
-                            <option value=21>21</option>
-                            <option value=22>22</option>
-                            <option value=23>23</option>
-                            <option value=24>24</option>
-                            <option value=25>25</option>
-                            <option value=26>26</option>
-                            <option value=27>27</option>
-                            <option value=28>28</option>
-                            <option value=29>29</option>
-                            <option value=30>30</option>
-                        </select>
-                    </td>
+						<label for="years">Years</label>
+					</td>
 					<td>
-                        <label for="hours">Hours</label>
-                    </td>
-                    <td>
-                        <select id="hours">
-                            <option value=0>0</option>
-                            <option value=1>1</option>
-                            <option value=2>2</option>
-                            <option value=3>3</option>
-                            <option value=4>4</option>
-                            <option value=5>5</option>
-                            <option value=6>6</option>
-                            <option value=7>7</option>
-                            <option value=8>8</option>
-                            <option value=9>9</option>
-                            <option value=10>10</option>
-                            <option value=11>11</option>
-                            <option value=12>12</option>
-                            <option value=13>13</option>
-                            <option value=14>14</option>
-                            <option value=15>15</option>
-                            <option value=16>16</option>
-                            <option value=17>17</option>
-                            <option value=18>18</option>
-                            <option value=19>19</option>
-                            <option value=20>20</option>
-                            <option value=21>21</option>
-                            <option value=22>22</option>
-                            <option value=23>23</option>
-                        </select>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+						<select id="years">
+						<option value=0>0</option>
+						<option value=1>1</option>
+						</select>
+					</td>
+					<td>
+						<label for="months">Months</label>
+					</td>
+					<td>
+						<select id="months">
+							<option value=0>0</option>
+							<option value=1>1</option>
+							<option value=2>2</option>
+							<option value=3>3</option>
+							<option value=4>4</option>
+							<option value=5>5</option>
+							<option value=6>6</option>
+							<option value=7>7</option>
+							<option value=8>8</option>
+							<option value=9>9</option>
+							<option value=10>10</option>
+							<option value=11>11</option>
+						</select>
+					</td>
+					<td>
+						<label for="days">Days</label>
+					</td>
+					<td>
+						<select id="days">
+							<option value=0>0</option>
+							<option value=1>1</option>
+							<option value=2>2</option>
+							<option value=3>3</option>
+							<option value=4>4</option>
+							<option value=5>5</option>
+							<option value=6>6</option>
+							<option value=7>7</option>
+							<option value=8>8</option>
+							<option value=9>9</option>
+							<option value=10>10</option>
+							<option value=11>11</option>
+							<option value=12>12</option>
+							<option value=13>13</option>
+							<option value=14>14</option>
+							<option value=15>15</option>
+							<option value=16>16</option>
+							<option value=17>17</option>
+							<option value=18>18</option>
+							<option value=19>19</option>
+							<option value=20>20</option>
+							<option value=21>21</option>
+							<option value=22>22</option>
+							<option value=23>23</option>
+							<option value=24>24</option>
+							<option value=25>25</option>
+							<option value=26>26</option>
+							<option value=27>27</option>
+							<option value=28>28</option>
+							<option value=29>29</option>
+							<option value=30>30</option>
+						</select>
+					</td>
+					<td>
+						<label for="hours">Hours</label>
+					</td>
+					<td>
+						<select id="hours">
+							<option value=0>0</option>
+							<option value=1>1</option>
+							<option value=2>2</option>
+							<option value=3>3</option>
+							<option value=4>4</option>
+							<option value=5>5</option>
+							<option value=6>6</option>
+							<option value=7>7</option>
+							<option value=8>8</option>
+							<option value=9>9</option>
+							<option value=10>10</option>
+							<option value=11>11</option>
+							<option value=12>12</option>
+							<option value=13>13</option>
+							<option value=14>14</option>
+							<option value=15>15</option>
+							<option value=16>16</option>
+							<option value=17>17</option>
+							<option value=18>18</option>
+							<option value=19>19</option>
+							<option value=20>20</option>
+							<option value=21>21</option>
+							<option value=22>22</option>
+							<option value=23>23</option>
+						</select>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
-    <label for="public_key"><b>Public Key</b></label> <br>
-    <input type="text" id="public_key" placeholder="Enter Public Key" name="public_key"> <br>
 
-    <label for="newpass"><b>New Password</b></label> <br>
-    <input type="password" id="newpass" placeholder="Enter New Password" name="password"
-           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+	<label for="newpass"><b>New Password</b></label> <br>
+	<input type="password" id="newpass" placeholder="Enter New Password" name="password"
+		   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 		   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 characters."> <br>
 
-    <label for="repeatpass"><b>Repeat New Password</b></label> <br>
-    <input type="password" id="repeatpass" placeholder="Repeat New Password" name="password_repeat"
-           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+	<label for="repeatpass"><b>Repeat New Password</b></label> <br>
+	<input type="password" id="repeatpass" placeholder="Repeat New Password" name="password_repeat"
+		   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 		   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 characters."> <br>
 
-    <p id="errors"></p>
+	<p id="errors"></p>
 </div>
 
 <div ng-app="myApp" ng-controller="myCtrl">
 
-    <!--data-ng-init="getUsersDocs()"-->
+	<!--data-ng-init="getUsersDocs()"-->
 
-    <button type="button" id="update" class="buttons" ng-click="updateUser();"> Update Account </button> <br>
+	<button type="button" id="update" class="buttons" ng-click="updateUser();"> Update Account </button> <br>
 
-    <div class="Init_profile">
-        <!--p tag for storing user's ID.-->
-        <p id="user_id" hidden></p>
-        <!--Get data sent from server and assign it where appropriate.-->
-        <script>
-          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>"  + "\n" + "<%= public_key %>");
-          document.getElementById("user_id").textContent = "<%= _id %>";
-          document.getElementById("user_name").value = "<%= user_name %>";
-          document.getElementById("public_key").value = "<%= public_key %>";
+	<div class="Init_profile">
+		<!--p tag for storing user's ID.-->
+		<p id="user_id" hidden></p>
+		<!--Get data sent from server and assign it where appropriate.-->
+		<script>
+		  console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>");
+		  document.getElementById("user_id").textContent = "<%= _id %>";
+		  document.getElementById("user_name").value = "<%= user_name %>";
 
-          const freq = "<%= frequency %>";
-          const HOUR = 3600000;
-          const DAY = 86400000;
-          const MONTH = 2629746000;
-          let YEAR = 31556952000;
+		  const freq = "<%= frequency %>";
+		  const HOUR = 3600000;
+		  const DAY = 86400000;
+		  const MONTH = 2629746000;
+		  let YEAR = 31556952000;
 
-          const user_year = freq - YEAR;
-          if (user_year >= 0) {
-            document.getElementById("years").value = 1;
-          } else {
-            document.getElementById("years").value = 0;
-            YEAR = 0;
-          }
+		  const user_year = freq - YEAR;
+		  if (user_year >= 0) {
+			document.getElementById("years").value = 1;
+		  } else {
+			document.getElementById("years").value = 0;
+			YEAR = 0;
+		  }
 
-          const user_month = (freq - (document.getElementById("years").value) * YEAR) / MONTH;
-          if (user_month < 1) {
-            document.getElementById("months").value = 0;
-          } else if (user_month < 2) {
-            document.getElementById("months").value = 1;
-          } else if (user_month < 3) {
-            document.getElementById("months").value = 2;
-          } else if (user_month < 4) {
-            document.getElementById("months").value = 3;
-          } else if (user_month < 5) {
-            document.getElementById("months").value = 4;
-          } else if (user_month < 6) {
-            document.getElementById("months").value = 5;
-          } else if (user_month < 7) {
-            document.getElementById("months").value = 6;
-          } else if (user_month < 8) {
-            document.getElementById("months").value = 7;
-          } else if (user_month < 9) {
-            document.getElementById("months").value = 8;
-          } else if (user_month < 10) {
-            document.getElementById("months").value = 9;
-          } else if (user_month < 11) {
-            document.getElementById("months").value = 10;
-          } else {
-            document.getElementById("months").value = 11;
-          }
+		  const user_month = (freq - (document.getElementById("years").value) * YEAR) / MONTH;
+		  if (user_month < 1) {
+			document.getElementById("months").value = 0;
+		  } else if (user_month < 2) {
+			document.getElementById("months").value = 1;
+		  } else if (user_month < 3) {
+			document.getElementById("months").value = 2;
+		  } else if (user_month < 4) {
+			document.getElementById("months").value = 3;
+		  } else if (user_month < 5) {
+			document.getElementById("months").value = 4;
+		  } else if (user_month < 6) {
+			document.getElementById("months").value = 5;
+		  } else if (user_month < 7) {
+			document.getElementById("months").value = 6;
+		  } else if (user_month < 8) {
+			document.getElementById("months").value = 7;
+		  } else if (user_month < 9) {
+			document.getElementById("months").value = 8;
+		  } else if (user_month < 10) {
+			document.getElementById("months").value = 9;
+		  } else if (user_month < 11) {
+			document.getElementById("months").value = 10;
+		  } else {
+			document.getElementById("months").value = 11;
+		  }
 
-          const user_day = ((freq - (document.getElementById("years").value) * YEAR) - (MONTH * document.getElementById("months").value)) / DAY;
-          if (user_day < 1) {
-            document.getElementById("days").value = 0;
-          } else if (user_day < 2) {
-            document.getElementById("days").value = 1;
-          } else if (user_day < 3) {
-            document.getElementById("days").value = 2;
-          } else if (user_day < 4) {
-            document.getElementById("days").value = 3;
-          } else if (user_day < 5) {
-            document.getElementById("days").value = 4;
-          } else if (user_day < 6) {
-            document.getElementById("days").value = 5;
-          } else if (user_day < 7) {
-            document.getElementById("days").value = 6;
-          } else if (user_day < 8) {
-            document.getElementById("days").value = 7;
-          } else if (user_day < 9) {
-            document.getElementById("days").value = 8;
-          } else if (user_day < 10) {
-            document.getElementById("days").value = 9;
-          } else if (user_day < 11) {
-            document.getElementById("days").value = 10;
-          } else if (user_day < 12) {
-            document.getElementById("days").value = 11;
-          } else if (user_day < 13) {
-            document.getElementById("days").value = 12;
-          } else if (user_day < 14) {
-            document.getElementById("days").value = 13;
-          } else if (user_day < 15) {
-            document.getElementById("days").value = 14;
-          } else if (user_day < 16) {
-            document.getElementById("days").value = 15;
-          } else if (user_day < 17) {
-            document.getElementById("days").value = 16;
-          } else if (user_day < 18) {
-            document.getElementById("days").value = 17;
-          } else if (user_day < 19) {
-            document.getElementById("days").value = 18;
-          } else if (user_day < 20) {
-            document.getElementById("days").value = 19;
-          } else if (user_day < 21) {
-            document.getElementById("days").value = 20;
-          } else if (user_day < 22) {
-            document.getElementById("days").value = 21;
-          } else if (user_day < 23) {
-            document.getElementById("days").value = 22;
-          } else if (user_day < 24) {
-            document.getElementById("days").value = 23;
-          } else if (user_day < 25) {
-            document.getElementById("days").value = 24;
-          } else if (user_day < 26) {
-            document.getElementById("days").value = 25;
-          } else if (user_day < 27) {
-            document.getElementById("days").value = 26;
-          } else if (user_day < 28) {
-            document.getElementById("days").value = 27;
-          } else if (user_day < 29) {
-            document.getElementById("days").value = 28;
-          } else if (user_day < 30) {
-            document.getElementById("days").value = 29;
-          } else {
-            document.getElementById("days").value = 30;
-          }
+		  const user_day = ((freq - (document.getElementById("years").value) * YEAR) - (MONTH * document.getElementById("months").value)) / DAY;
+		  if (user_day < 1) {
+			document.getElementById("days").value = 0;
+		  } else if (user_day < 2) {
+			document.getElementById("days").value = 1;
+		  } else if (user_day < 3) {
+			document.getElementById("days").value = 2;
+		  } else if (user_day < 4) {
+			document.getElementById("days").value = 3;
+		  } else if (user_day < 5) {
+			document.getElementById("days").value = 4;
+		  } else if (user_day < 6) {
+			document.getElementById("days").value = 5;
+		  } else if (user_day < 7) {
+			document.getElementById("days").value = 6;
+		  } else if (user_day < 8) {
+			document.getElementById("days").value = 7;
+		  } else if (user_day < 9) {
+			document.getElementById("days").value = 8;
+		  } else if (user_day < 10) {
+			document.getElementById("days").value = 9;
+		  } else if (user_day < 11) {
+			document.getElementById("days").value = 10;
+		  } else if (user_day < 12) {
+			document.getElementById("days").value = 11;
+		  } else if (user_day < 13) {
+			document.getElementById("days").value = 12;
+		  } else if (user_day < 14) {
+			document.getElementById("days").value = 13;
+		  } else if (user_day < 15) {
+			document.getElementById("days").value = 14;
+		  } else if (user_day < 16) {
+			document.getElementById("days").value = 15;
+		  } else if (user_day < 17) {
+			document.getElementById("days").value = 16;
+		  } else if (user_day < 18) {
+			document.getElementById("days").value = 17;
+		  } else if (user_day < 19) {
+			document.getElementById("days").value = 18;
+		  } else if (user_day < 20) {
+			document.getElementById("days").value = 19;
+		  } else if (user_day < 21) {
+			document.getElementById("days").value = 20;
+		  } else if (user_day < 22) {
+			document.getElementById("days").value = 21;
+		  } else if (user_day < 23) {
+			document.getElementById("days").value = 22;
+		  } else if (user_day < 24) {
+			document.getElementById("days").value = 23;
+		  } else if (user_day < 25) {
+			document.getElementById("days").value = 24;
+		  } else if (user_day < 26) {
+			document.getElementById("days").value = 25;
+		  } else if (user_day < 27) {
+			document.getElementById("days").value = 26;
+		  } else if (user_day < 28) {
+			document.getElementById("days").value = 27;
+		  } else if (user_day < 29) {
+			document.getElementById("days").value = 28;
+		  } else if (user_day < 30) {
+			document.getElementById("days").value = 29;
+		  } else {
+			document.getElementById("days").value = 30;
+		  }
 
-          const user_hour = ((freq - (document.getElementById("years").value) * YEAR) - (MONTH * document.getElementById("months").value) - (DAY * document.getElementById("days").value)) / HOUR;
+		  const user_hour = ((freq - (document.getElementById("years").value) * YEAR) - (MONTH * document.getElementById("months").value) - (DAY * document.getElementById("days").value)) / HOUR;
 
-          if (user_hour < 1) {
-            document.getElementById("hours").value = 0;
-          } else if (user_hour < 2) {
-            document.getElementById("hours").value = 1;
-          } else if (user_hour < 3) {
-            document.getElementById("hours").value = 2;
-          } else if (user_hour < 4) {
-            document.getElementById("hours").value = 3;
-          } else if (user_hour < 5) {
-            document.getElementById("hours").value = 4;
-          } else if (user_hour < 6) {
-            document.getElementById("hours").value = 5;
-          } else if (user_hour < 7) {
-            document.getElementById("hours").value = 6;
-          } else if (user_hour < 8) {
-            document.getElementById("hours").value = 7;
-          } else if (user_hour < 9) {
-            document.getElementById("hours").value = 8;
-          } else if (user_hour < 10) {
-            document.getElementById("hours").value = 9;
-          } else if (user_hour < 11) {
-            document.getElementById("hours").value = 10;
-          } else if (user_hour < 12) {
-            document.getElementById("hours").value = 11;
-          } else if (user_hour < 13) {
-            document.getElementById("hours").value = 12;
-          } else if (user_hour < 14) {
-            document.getElementById("hours").value = 13;
-          } else if (user_hour < 15) {
-            document.getElementById("hours").value = 14;
-          } else if (user_hour < 16) {
-            document.getElementById("hours").value = 15;
-          } else if (user_hour < 17) {
-            document.getElementById("hours").value = 16;
-          } else if (user_hour < 18) {
-            document.getElementById("hours").value = 17;
-          } else if (user_hour < 19) {
-            document.getElementById("hours").value = 18;
-          } else if (user_hour < 20) {
-            document.getElementById("hours").value = 19;
-          } else if (user_hour < 21) {
-            document.getElementById("hours").value = 20;
-          } else if (user_hour < 22) {
-            document.getElementById("hours").value = 21;
-          } else if (user_hour < 23) {
-            document.getElementById("hours").value = 22;
-          } else if (user_hour < 24) {
-            document.getElementById("hours").value = 23;
-          } else {
-            document.getElementById("hours").value = 24;
-          }
+		  if (user_hour < 1) {
+			document.getElementById("hours").value = 0;
+		  } else if (user_hour < 2) {
+			document.getElementById("hours").value = 1;
+		  } else if (user_hour < 3) {
+			document.getElementById("hours").value = 2;
+		  } else if (user_hour < 4) {
+			document.getElementById("hours").value = 3;
+		  } else if (user_hour < 5) {
+			document.getElementById("hours").value = 4;
+		  } else if (user_hour < 6) {
+			document.getElementById("hours").value = 5;
+		  } else if (user_hour < 7) {
+			document.getElementById("hours").value = 6;
+		  } else if (user_hour < 8) {
+			document.getElementById("hours").value = 7;
+		  } else if (user_hour < 9) {
+			document.getElementById("hours").value = 8;
+		  } else if (user_hour < 10) {
+			document.getElementById("hours").value = 9;
+		  } else if (user_hour < 11) {
+			document.getElementById("hours").value = 10;
+		  } else if (user_hour < 12) {
+			document.getElementById("hours").value = 11;
+		  } else if (user_hour < 13) {
+			document.getElementById("hours").value = 12;
+		  } else if (user_hour < 14) {
+			document.getElementById("hours").value = 13;
+		  } else if (user_hour < 15) {
+			document.getElementById("hours").value = 14;
+		  } else if (user_hour < 16) {
+			document.getElementById("hours").value = 15;
+		  } else if (user_hour < 17) {
+			document.getElementById("hours").value = 16;
+		  } else if (user_hour < 18) {
+			document.getElementById("hours").value = 17;
+		  } else if (user_hour < 19) {
+			document.getElementById("hours").value = 18;
+		  } else if (user_hour < 20) {
+			document.getElementById("hours").value = 19;
+		  } else if (user_hour < 21) {
+			document.getElementById("hours").value = 20;
+		  } else if (user_hour < 22) {
+			document.getElementById("hours").value = 21;
+		  } else if (user_hour < 23) {
+			document.getElementById("hours").value = 22;
+		  } else if (user_hour < 24) {
+			document.getElementById("hours").value = 23;
+		  } else {
+			document.getElementById("hours").value = 24;
+		  }
 
-          console.log("user_year: " + user_year);
-          console.log("user_month: " + user_month);
-          console.log("user_day: " + user_day);
-          console.log("user_hour: " + user_hour);
+		  console.log("user_year: " + user_year);
+		  console.log("user_month: " + user_month);
+		  console.log("user_day: " + user_day);
+		  console.log("user_hour: " + user_hour);
 
 
-        </script>
-    </div>
+		</script>
+	</div>
 
 </div>
 
 <!--Handle Document Scroll-->
 <!--<script>-->
   <!--$('.js-pscroll').each(function(){-->
-    <!--var ps = new PerfectScrollbar(this);-->
+	<!--var ps = new PerfectScrollbar(this);-->
 
-    <!--$(window).on('resize', function(){-->
-      <!--ps.update();-->
-    <!--})-->
+	<!--$(window).on('resize', function(){-->
+	  <!--ps.update();-->
+	<!--})-->
   <!--});-->
 <!--</script>-->
 
