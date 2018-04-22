@@ -81,14 +81,15 @@
 			<input type="text" id="newuser" placeholder="Enter Username" name="user_name" required> <br>
 
 			<label for="newpass"><b>Password</b></label> <br>
-			<input type="password" id="newpass" placeholder="Enter Password" name="password"
+			<input type="password" id="newpass" placeholder="Enter Password" onkeyup="check();" name="password"
 						 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and
 						 lowercase letter, and at least 8 or more characters" required> <br>
 
 			<label for="repeatpass"><b>Repeat Password</b></label> <br>
-			<input type="password" id="repeatpass" placeholder="Repeat Password" name="password_repeat"
+			<input type="password" id="repeatpass" placeholder="Repeat Password" onkeyup="check();" name="password_repeat"
 						 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and
 						 lowercase letter, and at least 8 or more characters" required> <br>
+                          <p id="errors"></p>
 			<button type="submit" class="signupbtn" id="signup">Sign Up</button> <br>
 			<button type="reset" class="resetbtn" id="cancel">Reset</button> <br>
 			<br><br>

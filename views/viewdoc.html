@@ -29,7 +29,7 @@
 <p id="p">You've received the following document:</p>
 <textarea rows="15" cols="50" id= "text" placeholder="Document text here. For user's eyes only!" readonly></textarea>
 <script>
- console.log("Don't forget to decrypt");
+ document.getElementById("text").textContent = (" <%= ciphertext %>");
 </script>
 
 </body>
