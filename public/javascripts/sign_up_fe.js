@@ -11,7 +11,5 @@
   } else {
     document.getElementById("errors").style.color = 'red';
     document.getElementById("errors").innerHTML = 'Passwords are not matching';
-    console.log(document.getElementById("errors").value);
   }
-  console.log(document.getElementById("errors").value);
 }
