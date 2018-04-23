@@ -13,30 +13,103 @@
 	<meta name="description" content="Dead Man's Switch">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="COP4600 Group 1">
-    <!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" href="../stylesheets/profile.css">
-    <!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" href="../stylesheets/topnav.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../stylesheets/util.css">
-    <!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../stylesheets/util.css">
+	<!--===============================================================================================-->
 	<script type="text/javascript" src="../javascripts/angular.min.js"></script>
-    <!--===============================================================================================-->
-    <script type="text/javascript" src="../javascripts/profile_fe.js"></script>
-    <!--===============================================================================================-->
-    <script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<!--===============================================================================================-->
+	<script type="text/javascript" src="../javascripts/profile_fe.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script type="text/javascript" src="../javascripts/openpgp.js"></script>
+
+	<script type="text/javascript">
+		var readPrivKey = function (event)
+		{
+			var input = event.target;
+			var reader = new FileReader();
+			reader.onload = function ()
+			{
+				document.getElementById('recip_priv_key').innerHTML = reader.result;
+			};
+			reader.readAsText(input.files[0]);
+		};
+
+		function decrypt(pubKey, privKey, ciphertext)
+		{
+			var name = "message.txt";
+			var privateKey = openpgp.key.readArmored(privKey).keys[0];
+
+			var options =
+			{
+				message: openpgp.message.readArmored(ciphertext),
+				publicKeys: openpgp.key.readArmored(pubKey).keys,
+				privateKeys: privateKey
+			};
+
+			openpgp.decrypt(options).then(decryptedMessage =>
+			{
+				// document.getElementById("decryted_message").value = decryptedMessage.data;
+				downloadMessage(decryptedMessage.data, name);
+			});
+		}
+
+		function downloadMessage(message, filename)
+		{
+			var file = new Blob([message], {type: "txt"});
+
+			var a = document.createElement("a"), url = URL.createObjectURL(file);
+			a.href = url;
+			a.download = filename;
+			document.body.appendChild(a);
+			a.click();
+
+			setTimeout(
+				function()
+				{
+					document.body.removeChild(a);
+					window.URL.revokeObjectURL(url);
+				}, 0
+			);
+		}
+
+		function decryptdownload(rowNumber)
+		{
+			var table = document.getElementById("recpient_table");
+			var row = table.rows[rowNumber];
+
+			var ciphertext = row.cells[2].innerHTML;
+			var pubKey = row.cells[4].innerHTML;
+			var privKey = document.getElementById("recip_priv_key").innerText;
+
+
+			console.log("ciphertext:  " + ciphertext);
+			console.log("Public Key:  " + pubKey);
+			console.log("Private Key:  " + privKey);
+
+			decrypt(pubKey, privKey, ciphertext);
+
+			// Clear the stored private key from the page
+			// document.getElementById('recip_priv_key').innerHTML = null;
+		}
+	</script>
+
 </head>
 <body>
 
 <div class="topnav">
 	<a class="logo" href="/" alt="Home" title="Home"><img src="../images/Last Word.png" style="width:36px; height:36px; object-fit: scale-down;"></a>
 	<a class="menulab" href="/about">About Us</a>
-    <a class="menulab" href="/" style="float:right">Log Out</a>
-    <a class="menulab" href="/profile" style="float:right">Your Docs</a>
+	<a class="menulab" href="/" style="float:right">Log Out</a>
+	<a class="menulab" href="/profile" style="float:right">Your Docs</a>
 </div>
 
 <h1 id="h1">Welcome to L&Alpha;st W&Omega;rd, </h1>
@@ -44,88 +117,93 @@
 <div class="editing">
 	<p>Your information is protected. Select a button to change your information</p>
 	<p>or add a new document. All your documents are listed below.</p>
-    <form method="get" action="/profile/edit">
-        <button type="submit" id="information"><b>Edit Information</b></button> <br>
-    </form>
+	<form method="get" action="/profile/edit">
+		<button type="submit" id="information"><b>Edit Information</b></button> <br>
+	</form>
 
-    <form method="get" action="/profile/submitdoc">
-        <button type="submit" id="submitdoc"><b>Add New Document</b></button> <br>
-    </form>
+	<form method="get" action="/profile/submitdoc">
+		<button type="submit" id="submitdoc"><b>Add New Document</b></button> <br>
+	</form>
 </div>
 
 <div ng-app="myApp" ng-controller="myCtrl" data-ng-init="getUsersDocs()">
 
-    <div class="Init_profile">
-        <!--p tag for storing user's ID.-->
-        <p id="user_id" hidden></p>
-        <!--Get data sent from server and assign it where appropriate.-->
-        <script>
-          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>");
-          document.getElementById("user_id").innerHTML = "<%= _id %>";
-          document.getElementById("h1").innerText += " <%= user_name %>";
-        </script>
-    </div>
+	<div class="Init_profile">
+		<!--p tag for storing user's ID.-->
+		<p id="user_id" hidden></p>
+		<!--Get data sent from server and assign it where appropriate.-->
+		<script>
+		  console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>");
+		  document.getElementById("user_id").innerHTML = "<%= _id %>";
+		  document.getElementById("h1").innerText += " <%= user_name %>";
+		</script>
+	</div>
 
-    <br>
-    <br>
-    <p align="center" style="font-size: 20px;">Your Documents</p>
-    <div class="limiter">
-        <div class="container-table100">
-            <div class="wrap-table100">
-                <div class="table100 ver2 m-b-110">
-                    <div class="table100-head">
-                        <table>
-                            <thead>
-                            <tr class="row100 head">
-                                <th class="cell100 column1">Nickname</th>
-                                <th class="cell100 column2">Expire Time</th>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
+	<br>
+	<br>
+	<p align="center" style="font-size: 30px;">Your Documents</p>
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100 ver2 m-b-110">
+					<div class="table100-head">
+						<table>
+							<thead>
+							<tr class="row100 head">
+								<th class="cell100 column1">Document Name</th>
+								<th class="cell100 column2">Expire Time</th>
+							</tr>
+							</thead>
+						</table>
+					</div>
 
-                    <div class="table100-body js-pscroll">
-                        <table id="docs_table">
-                            <tbody>
+					<div class="table100-body js-pscroll">
+						<table id="docs_table">
+							<tbody>
 								<!-- Documents sent by user -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <p align="center" style="font-size: 20px;">Received Documents</p>
-    <div class="limiter">
-        <div class="container-table100">
-            <div class="wrap-table100">
-                <div class="table100 ver2 m-b-110">
-                    <div class="table100-head">
-                        <table>
-                            <thead>
-                            <tr class="row100 head">
-                                <th class="cell100 column1">Nickname</th>
-                                <th class="cell100 column2">Expire Time</th>
-                                <th class="cell100 column3">Cipher Text</th>
-                                <th class="cell100 column4" hidden>docId</th>
-                                <th class="cell100 column5">pubKey</th>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
+	<div style="display: none" id="recip_priv_key"></div>
+	<p style="font-size: 25px;">Upload your private key to begin decrypting and downloading received documents</p>
+	<input type='file' accept='txt/plain' onchange='readPrivKey(event)'></input>
 
-                    <div class="table100-body js-pscroll">
-                        <table id="recpient_table">
-                            <tbody>
+	<p align="center" style="font-size: 30px;">Received Documents</p>
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100 ver2 m-b-110">
+					<div class="table100-head">
+						<table>
+							<thead>
+							<tr class="row100 head">
+								<th class="cell100 column1">Document Name</th>
+								<th class="cell100 column2">Expire Time</th>
+								<th class="cell100 column3" hidden="">Encrypted Message</th>
+								<th class="cell100 column4" hidden>docId</th>
+								<th class="cell100 column5" hidden="">Public Key</th>
+								<th class="cell100 column5">Decrypt and Download</th>
+							</tr>
+							</thead>
+						</table>
+					</div>
+
+					<div class="table100-body js-pscroll">
+						<table id="recpient_table">
+							<tbody>
 								<!-- Documents received by user -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 </div>
@@ -133,11 +211,11 @@
 <!--Handle Document Scroll-->
 <script>
   $('.js-pscroll').each(function(){
-    var ps = new PerfectScrollbar(this);
+	var ps = new PerfectScrollbar(this);
 
-    $(window).on('resize', function(){
-      ps.update();
-    })
+	$(window).on('resize', function(){
+	  ps.update();
+	})
   });
 </script>
 
