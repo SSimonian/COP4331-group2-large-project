@@ -1,5 +1,4 @@
-/*	Last Word Edit Profile CSS
-	Author: Eugene Lucino */
+/*	Last Word Edit Profile CSS */
 
 body {
 	font-family: Arial, Helvetica, sans-serif;
@@ -10,12 +9,12 @@ h1 { color: firebrick; }
 
 /* Full-width input fields */
 input[type=text], input[type=password] {
-    width: 30%;
-    padding: 10px;
-    font-size: 17px;
-    margin: 5px 0 22px 0;
-    display: inline-block;
-    border: 2px solid #ccc;
+	width: 30%;
+	padding: 10px;
+	font-size: 17px;
+	margin: 5px 0 22px 0;
+	display: inline-block;
+	border: 2px solid #ccc;
 	border-radius: 4px;
 	box-sizing: border-box;
 	-webkit-transition: 0.5s;
@@ -46,12 +45,12 @@ select {
 }
 
 button {
-    color: white;
-    padding: 14px 20px;
-    margin: 4px 0px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
+	color: white;
+	padding: 14px 20px;
+	margin: 4px 0px;
+	border: none;
+	cursor: pointer;
+	width: 100%;
 }
 
 /* Update Account button */
@@ -61,7 +60,7 @@ button {
 	font-size: 18px;
 	margin: 0px 30px;
 	margin-bottom: 50px;
-    background-color: green;
+	background-color: green;
 	display: inline-block;
 }
 #update:hover { background-color: darkgreen; }
