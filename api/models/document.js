@@ -6,7 +6,8 @@ const documentSchema = mongoose.Schema({
     ciphertext: {type: String, required: true},
     expire_time: Date,
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    recipient_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+    recipient_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    renewable: Boolean
 });
 
 module.exports = mongoose.model('Document', documentSchema);

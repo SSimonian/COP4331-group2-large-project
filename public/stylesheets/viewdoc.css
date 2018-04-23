@@ -1,0 +1,29 @@
+/* Last Word Received Document
+	Author: Eugene Lucino */
+
+h1, p { font-family: Helvetica, Arial, sans-serif; }
+body { background-color: linen; text-align: center; }
+
+h1 {
+	color: firebrick;
+	font-size: 30px;
+	padding: 10px;
+}
+
+p {
+	font-size: 20px;
+	padding: 10px;
+}
+
+textarea {
+	display: block;
+	margin: auto;
+	width: 50%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+	resize: none;
+}

@@ -41,7 +41,8 @@ router.post('/submitdoc', function(req, res, next) {
                             ciphertext: ciphertext,
                             expire_time: expire_time,
                             user_id: user_id,
-                            recipient_id: recipient_id
+                            recipient_id: recipient_id,
+                            renewable: true
                         });
 
                         document.save().then(function(result) {
@@ -73,25 +74,6 @@ router.post('/submitdoc', function(req, res, next) {
         res.status(204).json({error: "Missing things."});
     }
 });
-
-router.get('/:user_id', function(req, res, next) {
-    console.log(req.params.user_id);
-    Document.find({user_id: req.params.user_id})
-        .select('-__v')
-        .exec()
-        .then(docs => {
-            const response = {
-                count : docs.length,
-                products : docs
-            };
-            res.status(200).json(response);
-        })
-        .catch(function(err) {
-            console.log(err);
-            res.status(500).json({error: err});
-        });
-});
-
 // router.post('/fetchdocs', function(req, res, next) {
 //     console.log(req.body.user_id);
 //     Document.find({user_id: req.body.user_id})
@@ -118,6 +100,7 @@ router.get('/:user_id', function(req, res, next) {
     }
  */
 router.post('/fetchrecipientdocs', function(req, res, next) {
+    var pubKeys = [];
     Document.find({recipient_id: req.body.recipient_id})
         .select('-__v')
         .exec()
@@ -127,27 +110,61 @@ router.post('/fetchrecipientdocs', function(req, res, next) {
                 count : docs.length,
                 documents : docs.map(doc => {
                     if (doc.expire_time.getTime() < Date.now()) {
-                        //console.log(doc.expire_time.getTime() + '\n' + Date.now());
+                        doc.renewable = false;
                         return {
                             _id: doc._id,
                             nickname: doc.nickname,
                             ciphertext: doc.ciphertext,
                             expire_time: doc.expire_time,
                             user_id: doc.user_id,
-                            recipient_id: doc.recipient_id
+                            recipient_id: doc.recipient_id,
+                            renewable: doc.renewable
                         }
                     } else {
                         // TODO decide if this is worth doing. Not returning an object will map "null" into the collection.
                         return {
                             _id: doc._id,
                             nickname: doc.nickname,
-                            expire_time: doc.expire_time
+                            expire_time: doc.expire_time,
+                            user_id: doc.user_id
                         }
                     }
                 })
             };
-            console.log(response);
-            res.status(200).json(response);
+            console.log("Response: " + response.documents[0].user_id);
+            
+            if (docs) {
+                
+                let i = 0;
+                for (; i < response.count; i++) {
+                    console.log("user_id: " + response.documents[i].user_id);
+                    var user_id = response.documents[i].user_id;
+
+                    if (user_id) {
+                        User.findOne({_id: user_id})
+                            .exec()
+                            .then(user => {
+                                console.log("public_key: " + user.public_key);
+                                pubKeys[i-1] = user.public_key;
+                                if (i === response.count) {
+                                    response.pubKeys = pubKeys;
+                                    console.log(response);
+                                    res.status(200).json(response);
+                                }
+                                
+                            })
+                            .catch(err => {
+                                console.log(err);
+                                res.status(500).json({
+                                    error: err
+                                });
+                            })
+                    }
+                }
+                
+            }
+            
+            
         })
         .catch(function(err) {
             console.log(err);
@@ -176,7 +193,8 @@ router.post('/fetchuserdocs', function(req, res, next) {
               ciphertext: doc.ciphertext,
               expire_time: doc.expire_time,
               user_id: doc.user_id,
-              recipient_id: doc.recipient_id
+              recipient_id: doc.recipient_id,
+              renewable: doc.renewable
             }
           })
         };
@@ -189,6 +207,36 @@ router.post('/fetchuserdocs', function(req, res, next) {
   } else {
     res.status(204).json({error: "missing user_id"});
   }
+});
+
+router.post('/retrieveText', function (req,res, next) {
+    Document.findOne({_id: req.body.docId})
+    .exec()
+    .then(doc => {
+        User.findOne({_id: doc.user_id})
+        .exec()
+        .then(user =>{
+            let Jsonobject = {
+            ciphertext: doc.ciphertext,
+            uploaderID: user._id,
+            uploaderPublicKey: user.public_key
+            };
+           res.status(200).json(Jsonobject);
+        })
+        .catch(err => {
+            res.status(500).json({error: err});
+        });
+    })
+    .catch(err => {
+        res.status(500).json({error: err});
+    })
+}); 
+
+router.post('/viewdoc', function (req,res, next) {
+    res.redirect(307, '../receive');
+    // res.render('receive', {
+    //     docId : req.body.docId
+    // });
 });
 
 module.exports = router;

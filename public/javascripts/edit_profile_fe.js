@@ -8,7 +8,6 @@ app.controller('myCtrl', function($scope, $http) {
 		// const public_key = document.getElementById("public_key").value;
 		const newpass = document.getElementById("newpass").value;
 		const repeatpass = document.getElementById("repeatpass").value;
-
 		const years = document.getElementById("years").value;
 		const months = document.getElementById("months").value;
 		const days = document.getElementById("days").value;

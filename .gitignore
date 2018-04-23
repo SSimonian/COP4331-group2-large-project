@@ -61,5 +61,5 @@ freeline_project_description.json
 node_modules
 npm-debug.log
 
-# mac
+# macs
 *.DS_Store

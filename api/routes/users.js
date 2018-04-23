@@ -37,6 +37,7 @@ router.post('/login', function(req, res, next) {
                         } else if (!verified) {
                             res.status(204).json({error: "invalid password."});
                         } else {
+                             console.log(user);
                              updateTimes(user);
                              req.userSession.user = user;
                              res.redirect(307, '../profile');
@@ -203,7 +204,6 @@ router.post('/findrecipient', function(req, res, next) {
         res.status(204).json({error: "User_name was not provided"});
     }
 });
-
 function updateTimes(user_id) {
 
   if (user_id) {
@@ -212,7 +212,7 @@ function updateTimes(user_id) {
       .exec()
       .then(function(user) {
         if (user){
-          Document.updateMany({user_id: user._id},
+          Document.updateMany({user_id: user._id, renewable: true},
             {$set: {expire_time: +user.freq + Date.now()}},
             function(err, result) {
               if (err) {
@@ -272,7 +272,6 @@ router.post('/updateprofile', function(req, res, next) {
     console.log(frequency.years + "\n" + frequency.months + "\n" + frequency.days + "\n" + frequency.hours);
   }
 
-
   if (!user_id) {
     res.status(204).json({error: "Missing user_id."});
   } else {
@@ -283,24 +282,41 @@ router.post('/updateprofile', function(req, res, next) {
 	if (!(password === password_repeat && password))
 		itemsProcessed++;
 	
-	if (!public_key)
-		itemsProcessed++;
 	
 	if (!frequency)
 		itemsProcessed++;
 	
 	if (user_name) {
-      User.update({_id: user_id},
-        {$set: {user_name: user_name }}, function(err, result) {
-          if (err) {
-            res.status(500).json({error: err});
-          } else {
-            console.log("Successfully updated user name.");
-          }
+      User.findOne({user_name: user_name}).
+      exec().
+      then(user=>{
+          if(user._id==req.userSession.user._id)
+          {
+          User.update({_id: user_id},
+            {$set: {user_name: user_name }}, function(err, result) {
+                if (err) {
+                     res.status(500).json({error: err});
+                } 
+                else {
+                    console.log("Successfully updated user name.");
+                }
 		      itemsProcessed++;
-		      if(itemsProcessed === 4)
+		      if(itemsProcessed === 3)
 			      res.redirect('/profile/edit');
         });
+        }
+        else
+        {
+         res.status(409).json({
+             message: "user name in use"
+         });
+        }
+      }).
+      catch(err =>
+      {
+          console.log(err);
+          res.status(500).json(err);
+      });
     }
 
     if (password === password_repeat && password) {
@@ -317,27 +333,13 @@ router.post('/updateprofile', function(req, res, next) {
                   console.log("Successfully updated password.");
                 }
                 itemsProcessed++;
-                if(itemsProcessed === 4)
+                if(itemsProcessed === 3)
                   res.redirect('/profile/edit');
               });
           }
       });
     }
-
-    if (public_key) {
-      User.update({_id: user_id},
-        {$set: {public_key: public_key }}, function(err, result) {
-          if (err) {
-            res.status(500).json({error: err});
-          } else {
-            console.log("Successfully updated public key.");
-          }
-          itemsProcessed++;
-          if(itemsProcessed === 4)
-            res.redirect('/profile/edit');
-        });
-    }
-
+    
     if (frequency) {
       var millisecs = (frequency.years*31556952000)+(frequency.months*2629746000)+(frequency.days*86400000)+(frequency.hours*3600000);
       User.update({_id: user_id},
@@ -349,7 +351,7 @@ router.post('/updateprofile', function(req, res, next) {
             console.log("Successfully updated frequency.");
           }
           itemsProcessed++;
-          if(itemsProcessed === 4)
+          if(itemsProcessed === 3)
             res.redirect('/profile/edit');
         });
     }
