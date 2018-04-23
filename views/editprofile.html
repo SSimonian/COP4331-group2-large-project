@@ -1,5 +1,4 @@
-<!--Last Word Edit Profile HTML
-	Author: Eugene Lucino-->
+<!--Last Word Edit Profile HTML -->
 
 <!-- This page allows users to edit information such as frequency
 	 and a new username and/or password. -->
@@ -155,18 +154,6 @@
 		</table>
 	</div>
 
-<<<<<<< HEAD
-    <label for="newpass"><b>Password</b></label> <br>
-    <input type="password" id="newpass" onkeyup="check();" placeholder="Enter Password" name="password"
-           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and
-           lowercase letter, and at least 8 or more characters" required> <br>
-
-    <label for="repeatpass"><b>Repeat Password</b></label> <br>
-    <input type="password" id="repeatpass" onkeyup="check();" placeholder="Repeat Password" name="password_repeat"
-           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and
-           lowercase letter, and at least 8 or more characters" required> <br>
-    <p id="errors"></p>
-=======
 
 	<label for="newpass"><b>New Password</b></label> <br>
 	<input type="password" id="newpass" placeholder="Enter New Password" name="password"
@@ -179,7 +166,6 @@
 		   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 characters."> <br>
 
 	<p id="errors"></p>
->>>>>>> origin
 </div>
 
 <div ng-app="myApp" ng-controller="myCtrl">
@@ -188,22 +174,6 @@
 
 	<button type="button" id="update" class="buttons" ng-click="updateUser();"> Update Account </button> <br>
 
-<<<<<<< HEAD
-    <div class="Init_profile">
-        <!--p tag for storing user's ID.-->
-        <p id="user_id" hidden></p>
-        <!--Get data sent from server and assign it where appropriate.-->
-        <script>
-          console.log("<%= _id %>" + "\n" + "<%= user_name %>"  + "\n" + "<%= last_login %>"  + "\n" + "<%= frequency %>");
-          document.getElementById("user_id").textContent = "<%= _id %>";
-          document.getElementById("user_name").value = "<%= user_name %>";
-          document.getElementById("public_key").value = "<%= public_key %>";
-          const freq = "<%= frequency %>";
-          const HOUR = 3600000;
-          const DAY = 86400000;
-          const MONTH = 2629746000;
-          let YEAR = 31556952000;
-=======
 	<div class="Init_profile">
 		<!--p tag for storing user's ID.-->
 		<p id="user_id" hidden></p>
@@ -218,7 +188,6 @@
 		  const DAY = 86400000;
 		  const MONTH = 2629746000;
 		  let YEAR = 31556952000;
->>>>>>> origin
 
 		  const user_year = freq - YEAR;
 		  if (user_year >= 0) {
