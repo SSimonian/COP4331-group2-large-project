@@ -1,13 +1,12 @@
 /*	Last Word Home Page
-	CSS Document
-	Author: Mark Poulsen & Eugene Lucino */
+	CSS Document */
 
 body { background-color: seashell; }
 
 h1 {
     color: firebrick;
     font-family: helvetica;
-    font-size: 50px;
+    font-size: 60px;
     text-align: center;
     padding: 50px;
     padding-bottom: 10px;
@@ -15,8 +14,9 @@ h1 {
 
 /* Submit button */
 input[type=submit] {
-    width: 60%;
+    width: 50%;
     background-color: red;
+    font-size: 20px;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
