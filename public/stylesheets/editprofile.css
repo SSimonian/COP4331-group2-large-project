@@ -9,7 +9,7 @@ h1 { color: firebrick; }
 
 /* Full-width input fields */
 input[type=text], input[type=password] {
-	width: 30%;
+	width: 33%;
 	padding: 10px;
 	font-size: 17px;
 	margin: 5px 0 22px 0;
@@ -30,6 +30,7 @@ table {
 	margin-left: initial;
 	/*margin-right: auto;*/
 	text-align: center;
+    width: 33%;
 }
 
 td:nth-child(odd) { padding-right: 5px; }		/* spacing for values */
@@ -60,7 +61,7 @@ button {
 
 /* Update Account button */
 #update {
-	width: 25%;
+	width: 32%;
 	border-radius: 4px;
 	font-size: 18px;
 	margin: 0px 30px;

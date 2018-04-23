@@ -141,7 +141,7 @@
 
 	<br>
 	<br>
-	<p align="center" style="font-size: 30px;">Your Documents</p>
+	<p align="center" style="font-size: 30px; color: firebrick;">Your Documents</p>
 	<div class="limiter">
 		<div class="container-table100">
 			<div class="wrap-table100">
@@ -169,11 +169,14 @@
 		</div>
 	</div>
 
-	<div style="display: none" id="recip_priv_key"></div>
-	<p style="font-size: 25px;">Upload your private key to begin decrypting and downloading received documents</p>
-	<input type='file' accept='txt/plain' onchange='readPrivKey(event)'></input>
+    <p align="center" style="font-size: 30px; color: firebrick;">Received Documents</p>
 
-	<p align="center" style="font-size: 30px;">Received Documents</p>
+	<div align="center" id="recip_priv_key" class="recip_priv_key">
+	    <p>Upload your private key to begin decrypting and downloading received documents</p>
+	    <input align="center" type='file' accept='txt/plain' onchange='readPrivKey(event)'>
+    </div>
+    <br>
+
 	<div class="limiter">
 		<div class="container-table100">
 			<div class="wrap-table100">
