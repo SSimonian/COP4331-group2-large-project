@@ -100,6 +100,7 @@ router.post('/submitdoc', function(req, res, next) {
     }
  */
 router.post('/fetchrecipientdocs', function(req, res, next) {
+    var pubKeys = [];
     Document.find({recipient_id: req.body.recipient_id})
         .select('-__v')
         .exec()
@@ -124,23 +125,33 @@ router.post('/fetchrecipientdocs', function(req, res, next) {
                         return {
                             _id: doc._id,
                             nickname: doc.nickname,
-                            expire_time: doc.expire_time
+                            expire_time: doc.expire_time,
+                            user_id: doc.user_id
                         }
                     }
                 })
             };
-            console.log("Response: " + response.documents[0]._id);
+            console.log("Response: " + response.documents[0].user_id);
+            
             if (docs) {
-
-                for (let i = 0; i < response.count; i++) {
+                
+                let i = 0;
+                for (; i < response.count; i++) {
                     console.log("user_id: " + response.documents[i].user_id);
                     var user_id = response.documents[i].user_id;
 
                     if (user_id) {
-                        User.find({_id: user_id})
+                        User.findOne({_id: user_id})
                             .exec()
                             .then(user => {
-                                console.log("public_key: " + user);
+                                console.log("public_key: " + user.public_key);
+                                pubKeys[i-1] = user.public_key;
+                                if (i === response.count) {
+                                    response.pubKeys = pubKeys;
+                                    console.log(response);
+                                    res.status(200).json(response);
+                                }
+                                
                             })
                             .catch(err => {
                                 console.log(err);
@@ -150,9 +161,10 @@ router.post('/fetchrecipientdocs', function(req, res, next) {
                             })
                     }
                 }
+                
             }
-            console.log(response);
-            res.status(200).json(response);
+            
+            
         })
         .catch(function(err) {
             console.log(err);

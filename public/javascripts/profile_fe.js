@@ -52,10 +52,12 @@ app.controller('myCtrl', function($scope, $http) {
 
         if (count > 0) {
           var i = 0;
-          var documents, row, nickname_cell, expire_time_cell, cipher_text_cell, docId_cell, upPubKey_cell;
+          var documents, row, pubKey, nickname_cell, expire_time_cell, cipher_text_cell, docId_cell, upPubKey_cell;
           var docs_table = document.getElementById("recpient_table");
           for (; i < count; i++) {
             documents = data.documents[i];
+            pubKey = data.pubKeys[i];
+
             console.log("Documents: " + documents);
             console.log("Document:\n " + documents._id + "\n " + documents.nickname + "\n " + documents.ciphertext
               + "\n " + documents.expire_time + "\n " + documents.user_id + "\n " + documents.recipient_id);
@@ -71,7 +73,7 @@ app.controller('myCtrl', function($scope, $http) {
             expire_time_cell.className = 'column2';
             cipher_text_cell.className = 'column3';
             docId_cell.className = 'column4';
-            upPubKey_cell = 'column5';
+            upPubKey_cell.className = 'column5';
 
             var date = new Date(documents.expire_time);
 
@@ -81,8 +83,8 @@ app.controller('myCtrl', function($scope, $http) {
             docId_cell.textContent = documents._id;
             docId_cell.style.display = 'none';
 
-            upPubKey_cell.textContent = "";
-            upPubKey_cell.display = 'none';
+            upPubKey_cell.textContent = pubKey;
+            // upPubKey_cell.display = 'none';
 
 
             if (documents.ciphertext) {
