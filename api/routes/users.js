@@ -212,7 +212,7 @@ function updateTimes(user_id) {
       .exec()
       .then(function(user) {
         if (user){
-          Document.updateMany({user_id: user._id, renewable: true},
+          Document.updateMany({user_id: user._id, expire_time: {$gt: Date.now()}},
             {$set: {expire_time: +user.freq + Date.now()}},
             function(err, result) {
               if (err) {

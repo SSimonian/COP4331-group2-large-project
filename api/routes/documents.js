@@ -41,8 +41,7 @@ router.post('/submitdoc', function(req, res, next) {
                             ciphertext: ciphertext,
                             expire_time: expire_time,
                             user_id: user_id,
-                            recipient_id: recipient_id,
-                            renewable: true
+                            recipient_id: recipient_id
                         });
 
                         document.save().then(function(result) {
@@ -110,15 +109,13 @@ router.post('/fetchrecipientdocs', function(req, res, next) {
                 count : docs.length,
                 documents : docs.map(doc => {
                     if (doc.expire_time.getTime() < Date.now()) {
-                        doc.renewable = false;
                         return {
                             _id: doc._id,
                             nickname: doc.nickname,
                             ciphertext: doc.ciphertext,
                             expire_time: doc.expire_time,
                             user_id: doc.user_id,
-                            recipient_id: doc.recipient_id,
-                            renewable: doc.renewable
+                            recipient_id: doc.recipient_id
                         }
                     } else {
                         // TODO decide if this is worth doing. Not returning an object will map "null" into the collection.
@@ -193,8 +190,7 @@ router.post('/fetchuserdocs', function(req, res, next) {
               ciphertext: doc.ciphertext,
               expire_time: doc.expire_time,
               user_id: doc.user_id,
-              recipient_id: doc.recipient_id,
-              renewable: doc.renewable
+              recipient_id: doc.recipient_id
             }
           })
         };
